@@ -108,7 +108,10 @@ if bool(input("Show forecast plot?[0/1] >>> ")):
     full_p[-len(predict_p):] = predict_p
     plt.plot(range(len(TS)), TS)
     plt.plot(range(len(TS)), full_p)
-    plt.show()
+    if bool(input("Show plot? [0/1] >>> ")):
+        plt.show()
+    else:
+        plt.savefig("plot.png")
 
 
 
