@@ -74,7 +74,7 @@ training_op = optimizer.minimize(loss)
 init = tf.global_variables_initializer()
 
 
-epochs = int(input("Epochs to run >>>"))
+epochs = 200
 
 start_t = time()
 
@@ -88,7 +88,7 @@ with tf.Session() as sess:
                     y: y_batches
                 }
             )
-        if ep % 1 == 0:
+        if ep % 10 == 0:
             mse = loss.eval(
                     feed_dict={
                         X: x_batches,
