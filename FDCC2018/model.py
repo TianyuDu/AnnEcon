@@ -3,9 +3,6 @@ import numpy as np
 import pandas as pd
 from typing import List
 
-data_dir = "cleaned_data.csv"
-original_data_dir = "Credit card data for participants.csv"
-
 
 def get_header(original_data_dir: str) -> List[str]:
     with open(original_data_dir) as file:
@@ -13,40 +10,12 @@ def get_header(original_data_dir: str) -> List[str]:
         header_list = header_str.split(",")
     return header_list
 
-def load_data(
-    data_dir: str=data_dir,
-    original_data_dir: str=original_data_dir):
-
-    data_pd = pd.read_csv(data_dir, sep=",", header=None)
-    data_np = data_pd.values
-
-    headers = get_header(original_data_dir)
-    num_features = len(headers)
-    print("Header of input data {}".format(headers))
-
-    feature_dict = dict()
-
-    for i in range(num_features - 1): # Last column is label
-        header = headers[i]
-        data_tensor = tf.constant(data_np[:, i])
-        dataset = tf.data.Dataset.from_tensors(data_tensor)
-        feature_dict[header] = data_tensor
-
-
-    # label = tf.constant(data_np[:, -1].astype(np.int64))
-    label = tf.constant(data_np[:, -1].astype(np.int64))
-    # label = tf.data.Dataset.from_tensors(label)
-
-    return (feature_dict, label)
-
-
-age = tf.feature_column.numeric_column("Age")
-# credit_limit = tf.feature_column.numeric_column("Credit_Limit")
-
-
 data = pd.read_csv("play.csv", sep=",")
 
 def position(index: str) -> int:
+    """
+    Helper function.
+    """
     index = index.upper()
     return int(ord(index) - 65)
 
@@ -122,13 +91,13 @@ label = label.astype(np.uint32)
 label = label.astype(np.int64)
 
 
-def load_data(input_data: str, shuffle=False):
+def load_data(input_data: str, shuffle=True):
     print("load_data: starting loading data...")
     try:
         data = pd.read_csv(input_data, sep=",")
     except FileNotFoundError:
         raise Warning("load_data(): Target input_data not found")
-    data_np = data.values
+    data_np = data.values[:]
     print("Creating input wrapper...")
     input_wrapper = tf.estimator.inputs.numpy_input_fn(
         x={
@@ -168,24 +137,38 @@ def load_data(input_data: str, shuffle=False):
     print("Finished.")
     return input_wrapper
 
-classifier = tf.estimator.DNNClassifier(
+estimator = tf.estimator.DNNClassifier(
     feature_columns=generate_feature_columns(),
-    hidden_units=[10, 25, 10],
+    hidden_units=[50, 30, 20],
+    optimizer=tf.train.AdamOptimizer(
+        learning_rate=0.0001
+        ),
     n_classes=2, # We predict binary
-    model_dir="./model/temp/"
+    model_dir="./model_cache/"
     )
 
-train_file = "play.csv"
+train_file = "dataf1.csv"
 test_file = "play_test.csv"
 
 
-classifier.train(input_fn=load_data(train_file, shuffle=True), steps=20)
+estimator.train(input_fn=load_data(train_file, shuffle=True), steps=1000)
 
-accuracy_score = classifier.evaluate(
-    input_fn=load_data(test_file)
-    )
-print(accuracy_score)
-
-
-
+def get_performance(estimator, data_file: str, metric: str, shuffle_data=True):
+    perf_dict = estimator.evaluate(
+        input_fn=load_data(data_file, shuffle=shuffle_data)
+        )
+    try:
+        target_score = perf_dict[metric]
+    except KeyError:
+        print("Performance metric not found, empty string will be returned.")
+        target_score = ""
+    return target_score
+    
+print("Accuracy on train file: {}".format(
+    get_performance(estimator, train_file, "accuracy")
+    ))    
+    
+print("Accuracy on test file: {}".format(
+    get_performance(estimator, test_file, "accuracy")
+    ))
 
