@@ -5,8 +5,8 @@ Modified: Mar 19 2018
 import tensorflow as tf
 import numpy as np
 import pandas as pd
-#import matplotlib
-#import matplotlib.pyplot as plt
+import matplotlib
+import matplotlib.pyplot as plt
 import random
 from time import time
 
@@ -23,7 +23,7 @@ ts = pd.Series(data=data_value.astype(np.float32), index=data.values[:, 0])
 # plt.show()
 
 TS = np.array(ts)
-num_periods = 60  # Training size.
+num_periods = 20  # Training size.
 
 f_horizon = 1  # Forecasting range.
 
@@ -74,7 +74,7 @@ training_op = optimizer.minimize(loss)
 init = tf.global_variables_initializer()
 
 
-epochs = int(input("Epochs to run >>>"))
+epochs = int(input("Epochs to run >>> "))
 
 start_t = time()
 
@@ -101,19 +101,19 @@ with tf.Session() as sess:
 
 print("Ran {} epochs for {} seconds.".format(epochs, time() - start_t))
 
-if bool(input("Show forecast plot?[0/1] >>> ")):
+if bool(input("Generate forecast plot?[0/1] >>> ")):
     predict_p = np.copy(y_pred).reshape(num_periods, )
     full_p = np.zeros(len(TS), )
     full_p[:] = None
     full_p[-len(predict_p):] = predict_p
     np.savetxt("full_p.csv", full_p)
     np.savetxt("ts.csv", TS)
-#    plt.plot(range(len(TS)), TS)
-#    plt.plot(range(len(TS)), full_p)
-#    if bool(input("Show plot? [0/1] >>> ")):
-#        plt.show()
-#    else:
-#        plt.savefig("plot.png")
+    plt.plot(range(len(TS)), TS)
+    plt.plot(range(len(TS)), full_p)
+    if bool(input("Show plot? [0/1] >>> ")):
+       plt.show()
+    else:
+       plt.savefig("plot.png")
 
 
 
