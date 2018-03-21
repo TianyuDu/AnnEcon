@@ -6,10 +6,9 @@ import tensorflow as tf
 import numpy as np
 import pandas as pd
 import matplotlib
-if int(input("On server? [0/1]" >>> )):
-    pass
-else:
+if int(input("On server? [0/1] >>> ")):
     matplotlib.use('agg',warn=False, force=True)
+else:
     import progressbar
     
 import matplotlib.pyplot as plt
