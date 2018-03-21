@@ -67,7 +67,7 @@ y_train = y_batches[: num_batches - 1, :, :]
 tf.reset_default_graph()
 
 inputs = 3  # Single Vector input.
-hidden = 1024
+hidden = 24
 output = 1
 
 X = tf.placeholder(tf.float32, [None, num_periods, inputs])
@@ -124,7 +124,7 @@ with tf.Session() as sess:
                     y: y_train
                 }
             )
-        if ep % 1 == 10:
+        if ep % 10 == 0:
             mse = loss.eval(
                     feed_dict={
                         X: x_train,
@@ -151,15 +151,15 @@ if bool(input("Show forecast plot?[0/1] >>> ")):
     full_p = np.zeros(len(TS), )
     full_p[:] = None
     full_p[-len(predict_p):] = predict_p
-    in_p = np.zeros(len(TS), )  # Within range prediction
-    in_p[:] = None
-    in_p[:len(y_pred_train)] = y_pred_train
+    # in_p = np.zeros(len(TS), )  # Within range prediction
+    # in_p[:] = None
+    # in_p[:len(y_pred_train)] = y_pred_train
     np.savetxt("full_p.csv", full_p)
     np.savetxt("ts.csv", TS)
-    np.savetxt("in_p.csv", in_p)
+    # np.savetxt("in_p.csv", in_p)
 
     plt.plot(range(len(TS)), TS[:, 0], label="Actual")
-    plt.plot(range(len(TS)), in_p, label="Predicted: Within Range")
+    # plt.plot(range(len(TS)), in_p, label="Predicted: Within Range")
     plt.plot(range(len(TS)), full_p, label="Predicted: Out of Range")
     plt.legend(bbox_to_anchor=(1.05, 1), loc=4, borderaxespad=0.)
     plt.title("# Hidden RNN Cell * {}, ep = {}".format(hidden, epochs))
