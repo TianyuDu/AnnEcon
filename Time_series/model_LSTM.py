@@ -6,12 +6,16 @@ import tensorflow as tf
 import numpy as np
 import pandas as pd
 import matplotlib
-# matplotlib.use('agg',warn=False, force=True)
+if int(input("On server? [0/1]" >>> )):
+    pass
+else:
+    matplotlib.use('agg',warn=False, force=True)
+    import progressbar
+    
 import matplotlib.pyplot as plt
 import random
 from time import time
 from data_proc import *
-import progressbar
 
 # random.seed(111)
 # rng = pd.date_range(start="2000", periods=209, freq="M")
@@ -146,7 +150,7 @@ print(
         time() - start_t)
     )
 
-if bool(input("Show forecast plot?[0/1] >>> ")):
+if int(input("Show forecast plot?[0/1] >>> ")):
     predict_p = np.copy(y_pred).reshape(num_periods, )
     full_p = np.zeros(len(TS), )
     full_p[:] = None
@@ -163,9 +167,9 @@ if bool(input("Show forecast plot?[0/1] >>> ")):
     plt.plot(range(len(TS)), full_p, label="Predicted: Out of Range")
     plt.legend(bbox_to_anchor=(1.05, 1), loc=4, borderaxespad=0.)
     plt.title("# Hidden RNN Cell * {}, ep = {}".format(hidden, epochs))
-    if bool(input("Show plot? [0/1] >>> ")):
+    if int(input("Show plot? [0/1] >>> ")):
        plt.show()
-    if bool(input("Save plot? [0/1] >>> ")):
+    if int(input("Save plot? [0/1] >>> ")):
        plt.savefig("plot.png")
 
 
