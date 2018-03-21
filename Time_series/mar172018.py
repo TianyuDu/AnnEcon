@@ -112,6 +112,8 @@ if bool(input("Show forecast plot?[0/1] >>> ")):
     np.savetxt("ts.csv", TS)
     plt.plot(range(len(TS)), TS, label="Actual")
     plt.plot(range(len(TS)), full_p, label="Predicted")
+    plt.legend(bbox_to_anchor=(1.05, 1), loc=4, borderaxespad=0.)
+    plt.title("# Hidden RNN Cell * {}, ep = {}".format(hidden, epochs))
     if bool(input("Show plot? [0/1] >>> ")):
        plt.show()
     if bool(input("Save plot? [0/1] >>> ")):
