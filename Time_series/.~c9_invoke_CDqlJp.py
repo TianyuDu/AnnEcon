@@ -52,9 +52,10 @@ output = 1
 X = tf.placeholder(tf.float32, [None, num_periods, inputs])
 y = tf.placeholder(tf.float32, [None, num_periods, inputs])
 
-basic_cell = tf.contrib.rnn.BasicRNNCell(
+basic_cell = tf.contrib.rnn.LSTMCell(
     num_units=hidden,
     activation=tf.nn.relu,
+    name="LSTMCell unit"
     )
 
 rnn_output, states = tf.nn.dynamic_rnn(
@@ -110,8 +111,8 @@ if bool(input("Show forecast plot?[0/1] >>> ")):
     full_p[-len(predict_p):] = predict_p
     np.savetxt("full_p.csv", full_p)
     np.savetxt("ts.csv", TS)
-    plt.plot(range(len(TS)), TS, label="Actual")
-    plt.plot(range(len(TS)), full_p, label="Predicted")
+    plt.plot(range(len(TS)), TS)
+    plt.plot(range(len(TS)), full_p)
     if bool(input("Show plot? [0/1] >>> ")):
        plt.show()
     if bool(input("Save plot? [0/1] >>> ")):
