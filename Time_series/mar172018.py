@@ -9,6 +9,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 import random
 from time import time
+from data_proc import *
 
 # random.seed(111)
 # rng = pd.date_range(start="2000", periods=209, freq="M")
@@ -16,30 +17,30 @@ from time import time
 # ts.plot(c="b")
 
 data = pd.read_csv("DEXCAUS.csv", sep=",")
-data_value = data.values[:, 1]
-data_value[data_value == "."] = "0.0"
-ts = pd.Series(data=data_value.astype(np.float32), index=data.values[:, 0])
+ts = create_series(data)
 
 # plt.show()
 
-TS = np.array(ts)
-num_periods = 20  # Training size.
+TS = np.array(ts) # Value of time series
+num_periods = 60  # Training size 70 days before.
 
 f_horizon = 1  # Forecasting range.
 
-x_data = TS[:(len(TS) - len(TS) % num_periods)]
+num_sample = len(TS)  # Total lenght of time series data we have.
+
+x_data = TS[:(num_sample - num_sample % num_periods)]
+# Drop out extra data that cannot be fit into batches
 x_batches = x_data.reshape(-1, num_periods, 1)
 
-y_data = TS[1:(len(TS) - len(TS) % num_periods) + f_horizon]
+y_data = TS[1:(num_sample - num_sample % num_periods) + f_horizon]
+# Y data contains one period ahead, for forcasting.
 y_batches = y_data.reshape(-1, num_periods, 1)
 
-def gen_test_data(series, forecast, num_periods):
-    test_x_setup = TS[-(num_periods + forecast):]
-    testX = test_x_setup[:num_periods].reshape(-1, 20, 1)
-    testY = TS[-(num_periods):].reshape(-1, 20, 1)
-    return testX, testY
+X_test, y_test = gen_test_data(TS, f_horizon, num_periods, TS)
 
-X_test, y_test = gen_test_data(TS, f_horizon, num_periods)
+num_batches = x_batches.shape[0]
+x_train = x_batches[: num_batches - 1, :, :]
+y_train = y_batches[: num_batches - 1, :, :]
 
 tf.reset_default_graph()
 
@@ -50,9 +51,10 @@ output = 1
 X = tf.placeholder(tf.float32, [None, num_periods, inputs])
 y = tf.placeholder(tf.float32, [None, num_periods, inputs])
 
-basic_cell = tf.contrib.rnn.BasicRNNCell(
+basic_cell = tf.contrib.rnn.LSTMCell(
     num_units=hidden,
-    activation=tf.nn.relu
+    activation=tf.nn.relu,
+    name="LSTMCell unit"
     )
 
 rnn_output, states = tf.nn.dynamic_rnn(
@@ -84,15 +86,15 @@ with tf.Session() as sess:
         sess.run(
             training_op,
                 feed_dict={
-                    X: x_batches,
-                    y: y_batches
+                    X: x_train,
+                    y: y_train
                 }
             )
         if ep % 1 == 0:
             mse = loss.eval(
                     feed_dict={
-                        X: x_batches,
-                        y: y_batches
+                        X: x_train,
+                        y: y_train
                     }
                 )
             print("{},\tMSE:{}".format(ep, mse))
@@ -101,7 +103,7 @@ with tf.Session() as sess:
 
 print("Ran {} epochs for {} seconds.".format(epochs, time() - start_t))
 
-if bool(input("Generate forecast plot?[0/1] >>> ")):
+if bool(input("Show forecast plot?[0/1] >>> ")):
     predict_p = np.copy(y_pred).reshape(num_periods, )
     full_p = np.zeros(len(TS), )
     full_p[:] = None
@@ -112,7 +114,7 @@ if bool(input("Generate forecast plot?[0/1] >>> ")):
     plt.plot(range(len(TS)), full_p)
     if bool(input("Show plot? [0/1] >>> ")):
        plt.show()
-    else:
+    if bool(input("Save plot? [0/1] >>> ")):
        plt.savefig("plot.png")
 
 
