@@ -67,7 +67,7 @@ y_train = y_batches[: num_batches - 1, :, :]
 tf.reset_default_graph()
 
 inputs = 3  # Single Vector input.
-hidden = 24
+hidden = int(input("Num. Hidden Layers in Cell >>> "))
 output = 1
 
 X = tf.placeholder(tf.float32, [None, num_periods, inputs])
