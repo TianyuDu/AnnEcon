@@ -36,9 +36,9 @@ def create_series(
 
     return ts
 
-
-def gen_test_data(series, forecast, num_periods, TS) -> None:
+def gen_test_data(TS, forecast, num_periods) -> None:
+    num_inputs = TS.shape[1]
     test_x_setup = TS[-(num_periods + forecast):]
-    testX = test_x_setup[:num_periods].reshape(-1, num_periods, 1)
-    testY = TS[-(num_periods):].reshape(-1, num_periods, 1)
+    testX = test_x_setup[:num_periods].reshape(-1, num_periods, num_inputs)
+    testY = TS[-(num_periods):, 0].reshape(-1, num_periods, 1)
     return testX, testY

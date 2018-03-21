@@ -17,7 +17,7 @@ from data_proc import *
 # ts = pd.Series(np.random.uniform(-10, 10, size=len(rng)), rng).cumsum()
 # ts.plot(c="b")
 
-data = pd.read_csv("DEXCAUS.csv", sep=",")
+data = pd.read_csv("CPIAUCSL.csv", sep=",")
 ts = create_series(data)
 
 # plt.show()
