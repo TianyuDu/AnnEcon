@@ -1,7 +1,7 @@
-'''
+"""
 Created: Mar 21 2018
 Join Several Economic Indicators to assist the prediction.
-'''
+"""
 import tensorflow as tf
 import numpy as np
 import pandas as pd
@@ -10,7 +10,7 @@ if int(input("On server? [0/1] >>> ")):
     matplotlib.use('agg',warn=False, force=True)
 else:
     import progressbar
-    
+
 import matplotlib.pyplot as plt
 import random
 from time import time
@@ -137,7 +137,7 @@ with tf.Session() as sess:
             print("{},\tMSE:{}".format(ep, mse))
             # bar.update(ep, mse=mse)
         # else:
-        #     bar.update(ep)    
+        #     bar.update(ep)
     y_pred_train = sess.run(outputs, feed_dict={X: x_train})
     y_pred = sess.run(outputs, feed_dict={X: X_test})
     print(y_pred)
@@ -167,9 +167,9 @@ if int(input("Show forecast plot?[0/1] >>> ")):
     plt.legend(bbox_to_anchor=(1.05, 1), loc=4, borderaxespad=0.)
     plt.title("# Hidden RNN Cell * {}, ep = {}".format(hidden, epochs))
     if int(input("Show plot? [0/1] >>> ")):
-       plt.show()
+        plt.show()
     if int(input("Save plot? [0/1] >>> ")):
-       plt.savefig("plot.png")
+        plt.savefig("plot.png")
 
 
 
