@@ -1,0 +1,750 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"categorical_column_with_voca",
+				"tf.feature_column.categorical_column_with_vocabulary_list() \tTensorflow"
+			],
+			[
+				"categor",
+				"tf.feature_column.categorical_column_with_vocabulary_list() \tTensorflow"
+			],
+			[
+				"categ",
+				"tf.feature_column.categorical_column_with_hash_bucket() \tTensorflow"
+			],
+			[
+				"feature_cllumn",
+				"tf.feature_column.numeric_column() \tTensorflow"
+			],
+			[
+				"Gradi",
+				"tf.train.AdagradOptimizer() \tTensorflow"
+			],
+			[
+				"reduce",
+				"tf.reduce_mean() \tTensorflow"
+			],
+			[
+				"s",
+				"tf.losses.absolute_difference() \tTensorflow"
+			],
+			[
+				"losses",
+				"tf.contrib.losses.log_loss() \tTensorflow"
+			],
+			[
+				"square",
+				"tf.losses.mean_squared_error() \tTensorflow"
+			],
+			[
+				"equal",
+				"tf.equal() \tTensorflow"
+			],
+			[
+				"globalvariable",
+				"tf.global_variables_initializer() \tTensorflow"
+			],
+			[
+				"softmax",
+				"tf.nn.sparse_softmax_cross_entropy_with_logits() \tTensorflow"
+			],
+			[
+				"Adam",
+				"tf.train.AdamOptimizer() \tTensorflow"
+			],
+			[
+				"init",
+				"tf.global_variables_initializer() \tTensorflow"
+			],
+			[
+				"rnn",
+				"tf.nn.static_rnn() \tTensorflow"
+			],
+			[
+				"dynamic",
+				"tf.nn.dynamic_rnn() \tTensorflow"
+			],
+			[
+				"Basic",
+				"tf.nn.rnn_cell.BasicLSTMCell() \tTensorflow"
+			],
+			[
+				"LS",
+				"tf.nn.rnn_cell.LSTMStateTuple() \tTensorflow"
+			],
+			[
+				"place",
+				"tf.placeholder() \tTensorflow"
+			],
+			[
+				"placehold",
+				"tf.placeholder() \tTensorflow"
+			],
+			[
+				"global_varia",
+				"tf.global_variables_initializer() \tTensorflow"
+			],
+			[
+				"count",
+				"count_internal"
+			],
+			[
+				"pisano",
+				"pisano_period"
+			],
+			[
+				"word_cole",
+				"word_collection_rev"
+			],
+			[
+				"i",
+				"\\item"
+			],
+			[
+				"clean_",
+				"clean_course_codes"
+			],
+			[
+				"find_meme",
+				"find_element_by_class_name"
+			],
+			[
+				"findele",
+				"find_elements_by_class_name"
+			],
+			[
+				"key",
+				"KeyError\terror"
+			],
+			[
+				"parg",
+				"\\paragraph"
+			],
+			[
+				"black",
+				"\\blacksquare"
+			],
+			[
+				"vector",
+				"vectoradd_time"
+			],
+			[
+				"subse",
+				"\\subsection{}"
+			],
+			[
+				"BIKE_AV",
+				"BIKES_AVAILABLE"
+			],
+			[
+				"para",
+				"\\paragraph"
+			],
+			[
+				"curre",
+				"current_selection"
+			],
+			[
+				"current",
+				"current_player"
+			],
+			[
+				"PLAYER",
+				"PLAYER_TWO"
+			],
+			[
+				"VOL",
+				"VOWEL_PRICE"
+			],
+			[
+				"CONSONAN",
+				"CONSONANT_POINTS"
+			],
+			[
+				"retdate",
+				"retdate"
+			],
+			[
+				"depdate",
+				"depdate"
+			],
+			[
+				"flightitem",
+				"flightItems"
+			],
+			[
+				"defa",
+				"defaultLocation"
+			],
+			[
+				"airline",
+				"airlineName"
+			],
+			[
+				"findelement",
+				"find_element_by_class_name"
+			],
+			[
+				"flights",
+				"flightItems"
+			],
+			[
+				"cChild",
+				"cChildren"
+			],
+			[
+				"HUGE",
+				"HUGE_VALF"
+			],
+			[
+				"result1",
+				"result16"
+			],
+			[
+				"test",
+				"test_event"
+			],
+			[
+				"cur",
+				"curGenN_buf"
+			],
+			[
+				"READ",
+				"READ_ONLY"
+			],
+			[
+				"curgne",
+				"curGenRef_buf"
+			],
+			[
+				"READ_",
+				"READ_WRITE"
+			],
+			[
+				"cop",
+				"COPY_HOST_PTR"
+			],
+			[
+				"RE",
+				"READ_ONLY"
+			],
+			[
+				"ne",
+				"nextGen"
+			],
+			[
+				"bu",
+				"Buffer"
+			],
+			[
+				"ken",
+				"kernelContent"
+			],
+			[
+				"for",
+				"format"
+			],
+			[
+				"kernel",
+				"kernelFile"
+			],
+			[
+				"pop",
+				"population"
+			],
+			[
+				"thread",
+				"threadName"
+			],
+			[
+				"eva",
+				"evaluate"
+			],
+			[
+				"fitness",
+				"fitnessList"
+			],
+			[
+				"Ch",
+				"chromLen"
+			],
+			[
+				"Len",
+				"chromLen"
+			],
+			[
+				"chro",
+				"chromLen"
+			],
+			[
+				"random",
+				"randomSelect"
+			],
+			[
+				"fit",
+				"fitnessHistory"
+			],
+			[
+				"par",
+				"parentsLength"
+			],
+			[
+				"retain",
+				"retain_length"
+			],
+			[
+				"po",
+				"popSize"
+			],
+			[
+				"in",
+				"individual"
+			],
+			[
+				"driver",
+				"driver_name"
+			],
+			[
+				"filed",
+				"file_dest"
+			],
+			[
+				"source",
+				"source_count"
+			],
+			[
+				"find_elem",
+				"find_element_by_class_name"
+			],
+			[
+				"flin",
+				"flight_info"
+			],
+			[
+				"clas",
+				"classname"
+			],
+			[
+				"ret",
+				"return_airport"
+			],
+			[
+				"depai",
+				"depart_airport"
+			],
+			[
+				"return",
+				"return_info"
+			],
+			[
+				"transf",
+				"transfer_no"
+			],
+			[
+				"get",
+				"get_attribute"
+			],
+			[
+				"flig",
+				"flight_info"
+			],
+			[
+				"flight",
+				"flight_item"
+			],
+			[
+				"sea",
+				"seat_types"
+			],
+			[
+				"file",
+				"file_destination"
+			],
+			[
+				"countr",
+				"country_code"
+			],
+			[
+				"price",
+				"price"
+			],
+			[
+				"user",
+				"user_agent"
+			],
+			[
+				"temp",
+				"temperature"
+			],
+			[
+				"tem",
+				"temperature"
+			],
+			[
+				"not",
+				"__not"
+			],
+			[
+				"no",
+				"no_producer"
+			],
+			[
+				"nt",
+				"__not"
+			],
+			[
+				"nopro",
+				"no_product"
+			],
+			[
+				"config",
+				"configurations"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 165.0,
+		"last_filter": "install pac",
+		"selected_items":
+		[
+			[
+				"install pac",
+				"Package Control: Install Package"
+			],
+			[
+				"package",
+				"Package Control: Upgrade Package"
+			],
+			[
+				"Package Control: remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"package install",
+				"Package Control: Install Package"
+			],
+			[
+				"theme",
+				"UI: Select Color Scheme"
+			],
+			[
+				"packagei ",
+				"Package Control: Install Package"
+			],
+			[
+				"packagein",
+				"Package Control: Install Package"
+			],
+			[
+				"package insta",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: install",
+				"Package Control: Install Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 512.0
+	},
+	"console":
+	{
+		"height": 185.0,
+		"history":
+		[
+			"print('int')",
+			"echo i",
+			"print(interesting)",
+			"m"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/tianyudu/Documents/Github/myDeepLearning"
+	],
+	"file_history":
+	[
+		"/Users/tianyudu/Documents/UToronto/Course/CSC148/csc148/lab/lab8/test_sort.py",
+		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series/data_proc.py",
+		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series/model_LSTM.py",
+		"/Users/tianyudu/Music/iTunes/iTunes Media/Music/American Authors/Oh, What a Life/08 Love.mp3",
+		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series/model.py",
+		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series/mar172018.py",
+		"/Users/tianyudu/Library/Group Containers/3L68KQB4HG.group.com.readdle.smartemail/cache/messagesData/4/5378/ATT00001.txt",
+		"/Users/tianyudu/Documents/AWS/Access keys/access_key_0.txt",
+		"/Users/tianyudu/Desktop/FDCC2018/Data/model.py",
+		"/Users/tianyudu/Desktop/FDCC2018/Data/train.py",
+		"/Users/tianyudu/.ipython/profile_default/startup/00-ipythonStartUp.py",
+		"/Users/tianyudu/Desktop/FDCC2018/Data/clean_data.py",
+		"/Users/tianyudu/Library/Containers/com.tencent.xinWeChat/Data/Library/Application Support/com.tencent.xinWeChat/2.0b4.0.9/52ac8cc98056f89b7463b89277a374af/Message/MessageTemp/b37520f2f54dbb6fde775fe3c543b481/File/bst.py",
+		"/Users/tianyudu/Desktop/FDCC2018/Data/untitled.py",
+		"/Users/tianyudu/Desktop/FDCC2018/Data/tf_train.py",
+		"/Users/tianyudu/Documents/HackDI2018/tf_train.py",
+		"/Users/tianyudu/Desktop/3-5-lstm.py",
+		"/Users/tianyudu/Desktop/main.py",
+		"/Users/tianyudu/Desktop/proc.py",
+		"/Users/tianyudu/Desktop/proc2.py",
+		"/Users/tianyudu/myenvironment.sh",
+		"/Users/tianyudu/Documents/UToronto/Course/CSC148/csc148/assignment/a2/strategy.py",
+		"/Users/tianyudu/Downloads/strategy.py",
+		"/Users/tianyudu/Documents/UToronto/Course/CSC148/csc148/assignment/a2/stonehenge.py",
+		"/Users/tianyudu/Documents/UToronto/Course/CSC148/csc148/assignment/a2/stonehenge_unittest_basic.py",
+		"/Users/tianyudu/Desktop/untitled.py",
+		"/Users/tianyudu/Desktop/alter_test.py",
+		"/Users/tianyudu/Desktop/confidence_test.py",
+		"/Users/tianyudu/Desktop/data/get_data.py",
+		"/Users/tianyudu/Downloads/stock_predict.py",
+		"/Users/tianyudu/Downloads/key0.pem.txt",
+		"/Users/tianyudu/Documents/MATLAB/Add-Ons/dynare-2016-06-01-osx/matlab/modules/dates/src/@dates/length.m",
+		"/Users/tianyudu/Documents/UToronto/Course/CSC148/csc148/assignment/a2/other_test.py",
+		"/Users/tianyudu/anaconda/lib/python3.6/site-packages/alembic/testing/assertions.py",
+		"/Users/tianyudu/Documents/UToronto/Course/CSC148/csc148/lab/lab6/ex6.py",
+		"/Users/tianyudu/Documents/UToronto/Notes/mat224.tex",
+		"/Users/tianyudu/Documents/UToronto/Course/CSC148/csc148/assignment/a2/minimax_unittest_basic.py",
+		"/Users/tianyudu/Documents/UToronto/Course/CSC148/csc148/assignment/a2/game_interface.py",
+		"/Users/tianyudu/Downloads/stata_output.txt",
+		"/Users/tianyudu/Documents/MATLAB/Add-Ons/dynare-2016-06-01-osx/matlab/modules/dseries/src/utilities/is/isglobalinbase.m",
+		"/Users/tianyudu/Documents/UToronto/Course/CSC148/csc148/lab/lab5/ex5.py",
+		"/Users/tianyudu/Desktop/PAR4_draft.tex",
+		"/Users/tianyudu/Downloads/root_key.pem.txt",
+		"/Users/tianyudu/Documents/UToronto/Course/CSC148/csc148/lab/lab4/ex.py",
+		"/Users/tianyudu/Downloads/sudoku_check.py",
+		"/Users/tianyudu/Documents/UToronto/Markdown notes/CSC148 Lecture.md",
+		"/Users/tianyudu/Documents/UToronto/Markdown notes/new.txt",
+		"/Users/tianyudu/Documents/UToronto/Markdown notes/new.md",
+		"/Users/tianyudu/Library/Application Support/Sublime Text 3/Packages/Colorsublime/Colorsublime.sublime-settings",
+		"/Users/tianyudu/Downloads/kissRoleS3.yaml",
+		"/Users/tianyudu/Downloads/fieldsworkshop.pem.txt",
+		"/Users/tianyudu/Documents/Python Codes/ABCE/hello2.py",
+		"/Users/tianyudu/Documents/Python Codes/ABCE/abce/abce/agent.py",
+		"/Users/tianyudu/Documents/UToronto/Course/CSC148/csc148/lab/lab4/pylint.txt",
+		"/Users/tianyudu/Documents/UToronto/Notes/ant100_cult.tex",
+		"/Users/tianyudu/Documents/Python Codes/ABCE/abce/examples/mesa_example/start.py",
+		"/Users/tianyudu/Desktop/abce_model.py",
+		"/Users/tianyudu/Documents/UToronto/Course/CSC148/csc148/assignment/a1/chopsticks_unittest_subset.py",
+		"/Users/tianyudu/Documents/UToronto/Course/CSC148/csc148/assignment/a1/game.py",
+		"/Users/tianyudu/Documents/UToronto/Course/CSC148/csc148/assignment/game_interface.py",
+		"/Users/tianyudu/Documents/UToronto/Course/CSC148/csc148/assignment/a1/game_interface.py",
+		"/Users/tianyudu/Documents/HackDI2018/new_less_feature.py",
+		"/Users/tianyudu/Desktop/myNeuralNetworkFunction.m",
+		"/Users/tianyudu/Desktop/Hack/main.py",
+		"/Users/tianyudu/Documents/UToronto/Course/CSC148/csc148/lab/lab3/testqueue.py",
+		"/Users/tianyudu/Downloads/scrapy_downloads/stack_api.py",
+		"/Users/tianyudu/Documents/Python Codes/Scrapy/csc_site_scrapy.py",
+		"/Users/tianyudu/Documents/Python Codes/Scrapy/csc165_scrapy.py",
+		"/Users/tianyudu/Documents/UToronto/Course/CSC148/csc148/assignment/a1/Clean_chopsticks_unittest_subset.py",
+		"/Users/tianyudu/Documents/Python Codes/Scrapy/control.sh",
+		"/Users/tianyudu/Documents/UToronto/Course/CSC165/Problem Set/PS1/truth_table.py",
+		"/Users/tianyudu/anaconda/lib/python3.6/site-packages/numba/cuda/random.py",
+		"/Users/tianyudu/Documents/UToronto/Course/CSC108/Assignments/A2/pyta/hypothesis/extra/numpy.py",
+		"/Users/tianyudu/Documents/UToronto/Course/CSC148/lab/lab2/test_lab2.py",
+		"/Users/tianyudu/Documents/UToronto/Course/CSC148/lab/lab2/grade.py",
+		"/Users/tianyudu/Documents/UToronto/Notes/csc148.tex",
+		"/Users/tianyudu/Documents/UToronto/Course/CSC148/lab/lab2/specs.txt",
+		"/Users/tianyudu/Downloads/csc148_2018_winter_scrapy/shape.py",
+		"/Users/tianyudu/Downloads/csc148_2018_winter_scrapy/rational_sol.py",
+		"/Users/tianyudu/Desktop/Scrapy/csc148_site_scrapy.py",
+		"/Users/tianyudu/Desktop/Scrapy/control.sh",
+		"/Users/tianyudu/Library/Containers/com.tencent.xinWeChat/Data/Library/Application Support/com.tencent.xinWeChat/2.0b4.0.9/52ac8cc98056f89b7463b89277a374af/Message/MessageTemp/436908797c38156517336d7d676b3e6d/OpenData/csc165_scrapy.py",
+		"/Users/tianyudu/Desktop/eco102_W_name_list.txt",
+		"/Users/tianyudu/Downloads/Logistic+Regression+with+a+Neural+Network+mindset+v4.py",
+		"/Users/tianyudu/Documents/Github/examples/examples/monetary_shocks/start.py",
+		"/Users/tianyudu/Documents/UToronto/Notes/ECO102.tex",
+		"/Users/tianyudu/Desktop/untitled.sh",
+		"/Users/tianyudu/Desktop/Algorithmic Toolbox Coursera/Programming Assignments /4_dynamic_programming_starter_files/knapsack/knapsack.py",
+		"/Users/tianyudu/Desktop/Algorithmic Toolbox Coursera/Programming Assignments /4_dynamic_programming_starter_files/primitive_calculator/primitive_calculator.py",
+		"/Users/tianyudu/Desktop/Algorithmic Toolbox Coursera/Programming Assignments /3_divide_and_conquer_starter_files/majority_element/majority_element.py",
+		"/Users/tianyudu/Documents/UToronto/Course/CSC148/lab/lab1/lab1.py",
+		"/Users/tianyudu/Documents/UToronto/Course/CSC148/Lab/lab1/specs.txt",
+		"/Users/tianyudu/Desktop/Algorithmic Toolbox Coursera/Programming Assignments /1_introduction_starter_files/fibonacci_huge/fibonacci_huge.py",
+		"/Users/tianyudu/Desktop/Algorithmic Toolbox Coursera/Programming Assignments /1_introduction_starter_files/fibonacci_sum_last_digit/fibonacci_sum_last_digit.py",
+		"/Users/tianyudu/Desktop/Algorithmic Toolbox Coursera/Programming Assignments /1_introduction_starter_files/fibonacci/fibonacci.py",
+		"/Users/tianyudu/Desktop/Algorithmic Toolbox Coursera/Programming Assignments /1_introduction_starter_files/lcm/lcm.py",
+		"/Users/tianyudu/Desktop/Algorithmic Toolbox Coursera/Programming Assignments /1_introduction_starter_files/gcd/gcd.py",
+		"/Users/tianyudu/Desktop/Algorithmic Toolbox Coursera/Programming Assignments /1_introduction_starter_files/fibonacci_last_digit/fibonacci_last_digit.py",
+		"/Users/tianyudu/Library/Application Support/Sublime Text 3/Packages/User/Default (OSX).sublime-keymap",
+		"/Users/tianyudu/Desktop/Algorithmic Toolbox Coursera/Programming Assignments /week1/1_introduction_starter_files/fibonacci/fibonacci.py",
+		"/Users/tianyudu/Dropbox/Icon\r",
+		"/Users/tianyudu/Documents/UToronto/Course/CSC108/Assignments/A2/pyta/pylint/extensions/emptystring.py",
+		"/Users/tianyudu/Desktop/Algorithmic Toolbox Coursera/Programming Assignments /week1/Modified/max_pairwise_product.py",
+		"/Users/tianyudu/Desktop/Algorithmic Toolbox Coursera/Programming Assignments /week1/max_pairwise_product.py",
+		"/Users/tianyudu/Desktop/Algorithmic Toolbox Coursera/Programming Assignments /_a7cffb40aebb7296fde0562f36e58889_APlusB.py",
+		"/Users/tianyudu/Downloads/_a7cffb40aebb7296fde0562f36e58889_APlusB.py",
+		"/Users/tianyudu/Documents/UToronto/Course/CSC108/Assignments/A3/cs_dep_info_r1.txt",
+		"/Users/tianyudu/Documents/UToronto/Course/CSC108/Assignments/A3/cs_dep_info_r0.txt",
+		"/Users/tianyudu/Documents/MATLAB/Add-Ons/dynare-2016-06-01-osx/matlab/utilities/general/isaletter.m",
+		"/Users/tianyudu/Documents/UToronto/Course/CSC108/Assignments/A3/profiles.txt",
+		"/Users/tianyudu/Documents/UToronto/Course/CSC108/Assignments/A3/cs_dep_info_r4.txt",
+		"/Users/tianyudu/Documents/UToronto/Course/CSC108/Assignments/A3/cs_dep_info_r3.txt",
+		"/Users/tianyudu/Documents/UToronto/Course/CSC108/Assignments/A3/cs_dep_info_r2.txt",
+		"/Users/tianyudu/Documents/UToronto/Course/CSC108/Assignments/A3/network_functions.py",
+		"/Users/tianyudu/Documents/UToronto/Course/CSC108/Assignments/A3/more_profile.py",
+		"/Users/tianyudu/Desktop/seminarNov302017.tex",
+		"/Users/tianyudu/Documents/UToronto/Notes/psy100-tophat-1_10.tex",
+		"/Users/tianyudu/.bash_profile",
+		"/Users/tianyudu/Desktop/Machine Learning Coursera/Assignments/machine-learning-ex4/ex4/nnCostFunction.m",
+		"/Users/tianyudu/Desktop/Machine Learning Coursera/Assignments/machine-learning-ex4/ex4/ex4_server.m",
+		"/Users/tianyudu/PycharmProjects/UToronto Couse Manager/constants.py",
+		"/Users/tianyudu/PycharmProjects/UToronto Couse Manager/google_map_web.py",
+		"/Users/tianyudu/Library/Containers/com.tencent.xinWeChat/Data/Library/Application Support/com.tencent.xinWeChat/2.0b4.0.9/52ac8cc98056f89b7463b89277a374af/Message/MessageTemp/436908797c38156517336d7d676b3e6d/File/google_map_web.py",
+		"/Users/tianyudu/Library/Containers/com.tencent.xinWeChat/Data/Library/Application Support/com.tencent.xinWeChat/2.0b4.0.9/52ac8cc98056f89b7463b89277a374af/Message/MessageTemp/436908797c38156517336d7d676b3e6d/File/get_walk_distance_3.py",
+		"/Users/tianyudu/Library/Containers/com.tencent.xinWeChat/Data/Library/Application Support/com.tencent.xinWeChat/2.0b4.0.9/52ac8cc98056f89b7463b89277a374af/Message/MessageTemp/436908797c38156517336d7d676b3e6d/File/get_walk_distance.py",
+		"/Users/tianyudu/MATLAB-Drive/Machine Learning Coursera/Assignments/machine-learning-ex3/ex3/ex3_server.m",
+		"/Users/tianyudu/MATLAB-Drive/Machine Learning Coursera/Assignments/machine-learning-ex3/ex3/ex3_nn_server.m",
+		"/Users/tianyudu/Desktop/Machine Learning Coursera/Assignments/machine-learning-ex2/ex2/mapFeature.m"
+	],
+	"find":
+	{
+		"height": 33.0
+	},
+	"find_in_files":
+	{
+		"height": 161.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+		],
+		"highlight": false,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": false,
+		"use_buffer2": false,
+		"whole_word": false,
+		"wrap": false
+	},
+	"folders":
+	[
+		{
+			"path": "/Users/tianyudu/Documents/Github/myDeepLearning"
+		}
+	],
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 33.0
+	},
+	"input":
+	{
+		"height": 38.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 150.0
+	},
+	"output.unsaved_changes":
+	{
+		"height": 150.0
+	},
+	"pinned_build_system": "",
+	"project": "",
+	"replace":
+	{
+		"height": 62.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 149.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
