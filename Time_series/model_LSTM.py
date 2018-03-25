@@ -13,6 +13,7 @@ import matplotlib.pyplot as plt
 from time import time
 from data_proc import *
 from constants import *
+from save_data import *
 
 
 # Below: Import and change of packages depends on platform.
@@ -168,27 +169,27 @@ if int(input("Show summary plot?[0/1] >>> ")):
     test_pred = np.copy(y_pred).reshape(-1, )
     full_test_pred = np.array([None] * len(y_data))
     full_test_pred[-len(test_pred):] = test_pred
+    full_test_pred = full_test_pred.astype(np.float32)
 
     # Prediction on training set.
     in_range_est = np.copy(in_range_est).reshape(-1, )
     full_train_pred = np.array([None] * len(y_data))
     full_train_pred[:len(in_range_est)] = in_range_est
+    full_train_pred = full_train_pred.astype(np.float32)
 
     # Create directory to save result.
-    now = str(datetime.now())
-    result_dir = "result{}".format(now)
-    os.system("\
-              mkdir ./{}\
-              ".format(result_dir))
+    result_dir = gen_result_dir(profile=0)
+    os.system("mkdir ./{}"\
+              .format(result_dir))
 
-    # np.savetxt(
-    #            "./" + result_dir + "full_test_pred.csv",
-    #            full_test_pred)
-    # np.savetxt(
-    #            "./" + result_dir + "full_train_pred.csv",
-    #            full_train_pred)
-    # np.savetxt("./" + result_dir + "y_data.csv",
-    #            y_data)
+    np.savetxt(
+               "./" + result_dir + "full_test_pred.csv",
+               full_test_pred)
+    np.savetxt(
+               "./" + result_dir + "full_train_pred.csv",
+               full_train_pred)
+    np.savetxt("./" + result_dir + "y_data.csv",
+               y_data)
 
     # Visualization
     x_range = range(len(y_data))
