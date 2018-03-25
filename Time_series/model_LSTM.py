@@ -24,7 +24,12 @@ if int(input("On AWS Server? [0/1] >>> ")):
  x_ts_raw,
  y_data_raw,
  y_ts_raw
- ) = gen_multi_series(data_files, "CPIAUCSL")
+ ) = gen_multi_series(
+ 					  data_files,
+ 					  "CPIAUCSL",
+ 					  global_start=parameters["global_start"],
+ 					  global_end=parameters["global_end"]
+ 					  )
 
 x_data_raw = x_data_raw.values
 y_data_raw = y_data_raw.values
@@ -93,7 +98,7 @@ lstm_cell = tf.contrib.rnn.LSTMCell(
     num_units=hidden,
     activation=tf.nn.relu,
     cell_clip=10000000.0,
-    forget_bias=0.9,
+    forget_bias=0.3,
     name="LSTM_cell"
     )
 

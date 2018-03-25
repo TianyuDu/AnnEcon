@@ -111,9 +111,8 @@ def gen_multi_series(
         if data_name == target:
             target_data[data_name] = ts.values
             target_ts = ts
-        else:
-            collect_ts.append(ts)
-            collect_data[data_name] = ts.values
+        collect_ts.append(ts)
+        collect_data[data_name] = ts.values
     # Combined time series (input X)
     df_x = pd.DataFrame(collect_data, dtype=np.float32)
     df_y = pd.DataFrame(target_data, dtype=np.float32)

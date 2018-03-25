@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"y_data",
+				"y_data_raw"
+			],
+			[
 				"categorical_column_with_voca",
 				"tf.feature_column.categorical_column_with_vocabulary_list() \tTensorflow"
 			],
@@ -484,15 +488,20 @@
 	},
 	"expanded_folders":
 	[
-		"/Users/tianyudu/Documents/Github/myDeepLearning"
+		"/Users/tianyudu/Documents/Github/myDeepLearning",
+		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series"
 	],
 	"file_history":
 	[
+		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series/model_LSTM.py",
+		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series/Tesla_stock.csv",
+		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series/plot.png",
+		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series/model.py",
+		"/Users/tianyudu/Documents/Github/myDeepLearning/FDCC2018/model.py",
+		"/Users/tianyudu/Documents/Github/myDeepLearning/FDCC2018/default_model.py",
 		"/Users/tianyudu/Documents/UToronto/Course/CSC148/csc148/lab/lab8/test_sort.py",
 		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series/data_proc.py",
-		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series/model_LSTM.py",
 		"/Users/tianyudu/Music/iTunes/iTunes Media/Music/American Authors/Oh, What a Life/08 Love.mp3",
-		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series/model.py",
 		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series/mar172018.py",
 		"/Users/tianyudu/Library/Group Containers/3L68KQB4HG.group.com.readdle.smartemail/cache/messagesData/4/5378/ATT00001.txt",
 		"/Users/tianyudu/Documents/AWS/Access keys/access_key_0.txt",
@@ -611,11 +620,7 @@
 		"/Users/tianyudu/PycharmProjects/UToronto Couse Manager/constants.py",
 		"/Users/tianyudu/PycharmProjects/UToronto Couse Manager/google_map_web.py",
 		"/Users/tianyudu/Library/Containers/com.tencent.xinWeChat/Data/Library/Application Support/com.tencent.xinWeChat/2.0b4.0.9/52ac8cc98056f89b7463b89277a374af/Message/MessageTemp/436908797c38156517336d7d676b3e6d/File/google_map_web.py",
-		"/Users/tianyudu/Library/Containers/com.tencent.xinWeChat/Data/Library/Application Support/com.tencent.xinWeChat/2.0b4.0.9/52ac8cc98056f89b7463b89277a374af/Message/MessageTemp/436908797c38156517336d7d676b3e6d/File/get_walk_distance_3.py",
-		"/Users/tianyudu/Library/Containers/com.tencent.xinWeChat/Data/Library/Application Support/com.tencent.xinWeChat/2.0b4.0.9/52ac8cc98056f89b7463b89277a374af/Message/MessageTemp/436908797c38156517336d7d676b3e6d/File/get_walk_distance.py",
-		"/Users/tianyudu/MATLAB-Drive/Machine Learning Coursera/Assignments/machine-learning-ex3/ex3/ex3_server.m",
-		"/Users/tianyudu/MATLAB-Drive/Machine Learning Coursera/Assignments/machine-learning-ex3/ex3/ex3_nn_server.m",
-		"/Users/tianyudu/Desktop/Machine Learning Coursera/Assignments/machine-learning-ex2/ex2/mapFeature.m"
+		"/Users/tianyudu/Library/Containers/com.tencent.xinWeChat/Data/Library/Application Support/com.tencent.xinWeChat/2.0b4.0.9/52ac8cc98056f89b7463b89277a374af/Message/MessageTemp/436908797c38156517336d7d676b3e6d/File/get_walk_distance_3.py"
 	],
 	"find":
 	{
@@ -742,7 +747,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 149.0,
+	"side_bar_width": 113.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
