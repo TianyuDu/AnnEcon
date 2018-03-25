@@ -20,7 +20,7 @@ parameters = {
     "length_sample": 12,  # Length(in terms of time stamp) of RNN network.
     "forecast_horizon": 1,  # Range of forecasting into future
     "num_test_batch": 1,  # Number of batches that used as test set.
-    "rnn_hidden": 64,  # Number of hidden layer in RNN network.
+    "rnn_hidden": 512,  # Number of hidden layer in RNN network.
     "rnn_learning_rate": 0.001,  # Learning rate in RNN Training.
-    "epochs": 500 # Epochs to be ran.
+    "epochs": 1000 # Epochs to be ran.
 }

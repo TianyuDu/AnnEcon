@@ -92,8 +92,8 @@ y = tf.placeholder(tf.float32, [None, num_periods, output])
 lstm_cell = tf.contrib.rnn.LSTMCell(
     num_units=hidden,
     activation=tf.nn.relu,
-    cell_clip=100000.0,
-    forget_bias=0.5,
+    cell_clip=10000000.0,
+    forget_bias=0.9,
     name="LSTM_cell"
     )
 
@@ -108,11 +108,11 @@ stacked_rnn_output = tf.reshape(rnn_output, [-1, hidden])
 stacked_outputs = tf.layers.dense(stacked_rnn_output, output)
 outputs = tf.reshape(stacked_outputs, [-1, num_periods, output])
 
-# loss = tf.reduce_sum(tf.square(outputs - y))
+loss = tf.reduce_sum(tf.square(outputs - y))
 # Applying Mean Absolute Percentage Error.
-loss = tf.reduce_mean(
-                      tf.abs(tf.divide(outputs - y, y))
-                      )
+# loss = tf.reduce_mean(
+#                       tf.abs(tf.divide(outputs - y, y))
+#                       )
 
 optimizer = tf.train.AdamOptimizer(
                                    learning_rate=parameters["rnn_learning_rate"]
@@ -144,7 +144,7 @@ with tf.Session() as sess:
                     }
                 )
             print(
-                  "{},\tTraining set MAPE(*100%):{}%".\
+                  "{},\tTraining set SE: {}".\
                   format(ep, mse * 100))
 
     in_range_est = sess.run(
