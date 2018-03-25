@@ -97,8 +97,8 @@ y = tf.placeholder(tf.float32, [None, num_periods, output])
 lstm_cell = tf.contrib.rnn.LSTMCell(
     num_units=hidden,
     activation=tf.nn.relu,
-    cell_clip=10000000.0,
-    forget_bias=0.3,
+    cell_clip=100000.0,
+    forget_bias=0.5,
     name="LSTM_cell"
     )
 
@@ -129,7 +129,6 @@ init = tf.global_variables_initializer()
 epochs = parameters["epochs"]
 
 start_t = time()
-
 
 with tf.Session() as sess:
     init.run()
