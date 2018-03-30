@@ -106,6 +106,8 @@ def gen_multi_series(
         assert len(ts) == len(periods),\
         "Series data length should be equal: Error found in {}".format(file_name)
         ts = pd.Series(ts.values, index=periods)
+        ts[ts == "."] = np.nan
+        ts = ts.astype(np.float32)
         ts = ts.interpolate()
         # Save generated objects.
         if data_name == target:
