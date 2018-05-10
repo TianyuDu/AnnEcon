@@ -26,12 +26,12 @@ if int(input("On AWS Server? [0/1] >>> ")):
  y_data_raw,
  y_ts_raw
  ) = gen_multi_series(
- 					  data_files,
- 					  "DEXCAUS",
+                      data_files,
+                      "DEXCAUS",
                       freq=parameters["data_freq"],
- 					  global_start=parameters["global_start"],
- 					  global_end=parameters["global_end"]
- 					  )
+                      global_start=parameters["global_start"],
+                      global_end=parameters["global_end"]
+                      )
 
 x_data_raw = x_data_raw.values
 y_data_raw = y_data_raw.values

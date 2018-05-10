@@ -493,6 +493,8 @@
 	],
 	"file_history":
 	[
+		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series/visualize.py",
+		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series/model_LSTM_v2.py",
 		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series/model_LSTM.py",
 		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series/Tesla_stock.csv",
 		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series/plot.png",
@@ -618,9 +620,7 @@
 		"/Users/tianyudu/Desktop/Machine Learning Coursera/Assignments/machine-learning-ex4/ex4/nnCostFunction.m",
 		"/Users/tianyudu/Desktop/Machine Learning Coursera/Assignments/machine-learning-ex4/ex4/ex4_server.m",
 		"/Users/tianyudu/PycharmProjects/UToronto Couse Manager/constants.py",
-		"/Users/tianyudu/PycharmProjects/UToronto Couse Manager/google_map_web.py",
-		"/Users/tianyudu/Library/Containers/com.tencent.xinWeChat/Data/Library/Application Support/com.tencent.xinWeChat/2.0b4.0.9/52ac8cc98056f89b7463b89277a374af/Message/MessageTemp/436908797c38156517336d7d676b3e6d/File/google_map_web.py",
-		"/Users/tianyudu/Library/Containers/com.tencent.xinWeChat/Data/Library/Application Support/com.tencent.xinWeChat/2.0b4.0.9/52ac8cc98056f89b7463b89277a374af/Message/MessageTemp/436908797c38156517336d7d676b3e6d/File/get_walk_distance_3.py"
+		"/Users/tianyudu/PycharmProjects/UToronto Couse Manager/google_map_web.py"
 	],
 	"find":
 	{
@@ -747,7 +747,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 113.0,
+	"side_bar_width": 167.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
