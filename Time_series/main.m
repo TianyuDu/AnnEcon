@@ -34,11 +34,12 @@ XTest = (XTest - mu) ./ sig;
 %% Setup LSTM;
 inputSize = 1; % Dimension of input sequence.
 numResponses = 1; % Dimension of output sequence.
-numHiddenUnits = 256;
+numHiddenUnits.L1 = 256;
+numHiddenUnits.L2 = 128;
 
 layers = [...
 	sequenceInputLayer(inputSize)
-	lstmLayer(numHiddenUnits)
+	lstmLayer(numHiddenUnits.L1)
 	fullyConnectedLayer(numResponses)
 	regressionLayer
 	];
