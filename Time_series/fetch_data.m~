@@ -1,3 +1,0 @@
-% This module is to fetch data from Fred Database.
-url = 'https://fred.stlouisfed.org/';
-src  = fred(url);

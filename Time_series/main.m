@@ -1,3 +1,10 @@
+%{
+May 10. 2018
+LSTM Recurrent Neural Network for forcasting CPI
+Consumer Price Index for All Urban Consumers: All Items.
+Monthly data, seasonally adjusted
+from 1953-04-01 to 2018-02-01
+%}
 clear all;
 clc;
 
@@ -9,7 +16,8 @@ data = data'; % Row time time series data.
 %% Initialize figure;
 figure
 plot(data)
-xlabel("Time")
+grid on
+xlabel("Date")
 ylabel("Consumer Price Index")
 % Consumer Price Index for All Urban Consumers: All Items
 title("Consumer Price Index for All Urban Consumers: All Items")
@@ -23,6 +31,7 @@ XTest = data(numTimeStepsTrain + 1: end -1);
 YTest = data(numTimeStepsTrain + 2: end);
 
 %% Standardize Data;
+% Mean normalization.
 mu = mean(XTrain);
 sig = std(XTrain);
 
@@ -34,23 +43,19 @@ XTest = (XTest - mu) ./ sig;
 %% Setup LSTM;
 inputSize = 1; % Dimension of input sequence.
 numResponses = 1; % Dimension of output sequence.
-
-numHiddenUnits.lstm1 = 16;
-numHiddenUnits.lstm2 = 8;
-numHiddenUnits.fc1 = 64;
+numHiddenUnits.L1 = 64;
+numHiddenUnits.L2 = 32;
 
 layers = [...
 	sequenceInputLayer(inputSize)
-	lstmLayer(numHiddenUnits.lstm1)
-	lstmLayer(numHiddenUnits.lstm2)
-	fullyConnectedLayer(numHiddenUnits.fc1)
+	lstmLayer(numHiddenUnits.L1)
 	fullyConnectedLayer(numResponses)
 	regressionLayer
 	];
 
 opts = trainingOptions(...
 	"adam",...
-	"MaxEpochs", 250, ...
+	"MaxEpochs", 1500, ...
 	"GradientThreshold", 1, ...
 	"InitialLearnRate", 0.005, ...
 	"LearnRateSchedule", "piecewise", ...
@@ -66,52 +71,7 @@ net = trainNetwork(...
 	layers, ...
 	opts);
 
-[net, YPred] = predictAndUpdateState(net, YTrain(end));
-
-numTimeStepsTest = numel(XTest);
-
-for i = 2:numTimeStepsTest
-	[net, YPred(1, i)] = predictAndUpdateState(net, YPred(i - 1));
-end
-
-% Unstandardize.
-YPred = sig * YPred + mu;
-
-% error, from unstandardized data.
-rmse = sqrt(mean((YPred - YTest) .^ 2));
-
-%% Visualize;
-% Main graph
-figure
-plot(data(1: numTimeStepsTrain));
-hold on
-idx = numTimeStepsTrain: (numTimeStepsTrain + numTimeStepsTest);
-plot(idx, [data(numTimeStepsTrain) YPred], ".-");
-hold off
-xlabel("Date")
-ylabel("CPI")
-title("Forecast")
-legend(["Observed" "Forecast"])
-
-% Combined paramter indicator graph.
-figure
-subplot(2, 1, 1)
-plot(YTest)
-hold on
-plot(YPred, ".-")
-hold off
-legend(["Observed", "Forecast"])
-ylabel("Cases")
-title("Forecast")
-
-subplot(2, 1, 2)
-stem(YPred - YTest)
-xlabel("Date")
-ylabel("Error")
-title("RMSE=" + rmse)
-
 %% Update netowrk state with observed values
-net = resetState(net);
 net = predictAndUpdateState(net, XTrain);
 
 YPred = [];
@@ -121,9 +81,24 @@ for i = 1:numTimeStepsTest
 	[net, YPred(1, i)] = predictAndUpdateState(net, XTest(i));
 end
 
-%% Unstandardize
+%% Unstandardize result
+YPred = sig * YPred + mu;
+rmse = sqrt(mean((YPred - YTest) .^ 2));
 
+%% Visualize
+figure
+subplot(2, 1, 1)
+plot(YTest)
+hold on
+plot(YPred, ".-")
+grid on
+hold off
+legend(["Observed" "Predicted"])
+ylabel("CPI value")
+title("Consumer Price Index for All Urban Consumers: All Items")
 
-
-
-
+subplot(2, 1, 2)
+stem(YPred - YTest)
+xlabel("Month")
+ylabel("Error")
+title("RMSE = " + rmse)
