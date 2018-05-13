@@ -59,6 +59,7 @@ layers = [...
 	sequenceInputLayer(inputSize, "Name", "Input layer")
 	lstmLayer(numHiddenUnits.lstm1, "Name", "LSTM layer 1")
 	lstmLayer(numHiddenUnits.lstm2, "Name", "LSTM layer 2")
+	fullyConnectedLayer(numHiddenUnits.fc1, "Name", "Full Connected layer 1")
 	fullyConnectedLayer(numResponses)
 	regressionLayer
 	];
