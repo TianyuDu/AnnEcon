@@ -21,6 +21,6 @@ data_tt = synchronize(collect{:});
 data_tt = rmmissing(data_tt); % Remove missing variables.
 
 data_tb = timetable2table(data_tt);
-data_ar = table2array(data_tb(:, 2:end)); % Collection of numerical data
+data_ar = table2array(data_tb(:, 2:end))'; % Collection of numerical data
 % with DATE variable removed.
 
