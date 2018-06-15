@@ -1,24 +1,26 @@
 import tensorflow as tf
 import numpy as np
 import pandas as pd
+
 import matplotlib
-matplotlib.use('agg', warn=False, force=True)
+if int(input("On AWS Server? [0/1] >>> ")):
+	matplotlib.use('agg', warn=False, force=True)
+
 import matplotlib.pyplot as plt
 from datetime import datetime
 
-# if int(input("On AWS Server? [0/1] >>> ")):
 
-
+# Fetch data from Fred.
 url = 'https://fred.stlouisfed.org/series/SP500/downloaddata/SP500.csv'
-data = pd.read_csv(url, delimiter=',')
+data = pd.read_csv(url,  delimiter=',', index_col=0)
 
-ts = pd.Series(data.values[:, 1], data.values[:, 0])
+ts = pd.Series(np.ravel(data.values), data.index)
 ts[ts == "."] = np.nan
 ts = ts.astype(np.float32)
 ts = ts.interpolate()
 
 TS = np.array(ts)
-num_periods = 16
+num_periods = 48
 f_horizon = 1
 
 x_data = TS[:(len(TS) - (len(TS) % num_periods))]
@@ -90,6 +92,6 @@ plt.plot(pd.Series(pred))
 # plt.show()
 
 now_str = datetime.strftime(datetime.now(), "%Y_%m_%d_%s")
-plt.savefig(f"result{now_str}.svg", format="svg")
+plt.savefig(f"./figure/result{now_str}.svg", format="svg")
 
 
