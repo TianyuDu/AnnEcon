@@ -2,20 +2,13 @@ import tensorflow as tf
 import numpy as np
 import pandas as pd
 import matplotlib
-matplotlib.use('agg', warn=False, force=True)
 import matplotlib.pyplot as plt
 from datetime import datetime
 
-# if int(input("On AWS Server? [0/1] >>> ")):
 
+data = pd.read_csv('./data/UNRATE.csv', delimiter=',')
 
-url = 'https://fred.stlouisfed.org/series/SP500/downloaddata/SP500.csv'
-data = pd.read_csv(url, delimiter=',')
-
-ts = pd.Series(data.values[:, 1], data.values[:, 0])
-ts[ts == "."] = np.nan
-ts = ts.astype(np.float32)
-ts = ts.interpolate()
+ts = pd.Series(data.UNRATE.values, data.DATE)
 
 TS = np.array(ts)
 num_periods = 16
@@ -69,7 +62,7 @@ training_op = optimizer.minimize(loss)
 
 init = tf.global_variables_initializer()
 
-epochs = 10000
+epochs = 100
 
 with tf.Session() as sess:
 	init.run()
@@ -89,7 +82,7 @@ plt.plot(pd.Series(np.ravel(y_data)))
 plt.plot(pd.Series(pred))
 # plt.show()
 
-now_str = datetime.strftime(datetime.now(), "%Y_%m_%d_%s")
+now 
 plt.savefig(f"result{now_str}.svg", format="svg")
 
 
