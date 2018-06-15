@@ -1,6 +1,6 @@
 '''
 Data Processing Functions
-Mar 21 2018
+Jun 15 2018 edited.
 '''
 
 import tensorflow as tf
