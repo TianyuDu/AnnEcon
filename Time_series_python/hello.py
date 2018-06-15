@@ -53,7 +53,7 @@ y = tf.placeholder(tf.float32,
 
 basic_cell = tf.contrib.rnn.LSTMCell(
 	num_units=hidden,
-	cell_clip=10000000,
+	cell_clip=100,
 	activation=tf.nn.relu)
 
 rnn_output, states = tf.nn.dynamic_rnn(basic_cell, X, dtype=tf.float32)
@@ -65,13 +65,14 @@ stacked_outputs = tf.layers.dense(stacked_rnn_output, output)
 
 outputs = tf.reshape(stacked_outputs, [-1, num_periods, output])
 
-loss = tf.reduce_sum(tf.square(outputs - y))
+# loss = tf.reduce_sum(tf.square(outputs - y))
+loss = tf.reduce_mean(tf.square(outputs - y))
 optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate)
 training_op = optimizer.minimize(loss)
 
 init = tf.global_variables_initializer()
 
-epochs = 10000
+epochs = 3500
 
 with tf.Session() as sess:
 	init.run()
@@ -93,5 +94,4 @@ plt.plot(pd.Series(pred))
 
 now_str = datetime.strftime(datetime.now(), "%Y_%m_%d_%s")
 plt.savefig(f"./figure/result{now_str}.svg", format="svg")
-
 
