@@ -20,7 +20,7 @@ ts = ts.astype(np.float32)
 ts = ts.interpolate()
 
 TS = np.array(ts)
-num_periods = 48
+num_periods = 96
 f_horizon = 1
 
 x_data = TS[:(len(TS) - (len(TS) % num_periods))]
@@ -72,7 +72,7 @@ training_op = optimizer.minimize(loss)
 
 init = tf.global_variables_initializer()
 
-epochs = 3500
+epochs = 10000
 
 with tf.Session() as sess:
 	init.run()
@@ -93,5 +93,9 @@ plt.plot(pd.Series(pred))
 # plt.show()
 
 now_str = datetime.strftime(datetime.now(), "%Y_%m_%d_%s")
-plt.savefig(f"./figure/result{now_str}.svg", format="svg")
+try:
+	plt.savefig(f"./figure/result{now_str}.svg", format="svg")
+except FileNotFoundError:
+	print('The figure folder is not found, figure will be saved in current dirctory.')
+	plt.savefig(f"./figure/result{now_str}.svg", format="svg")
 
