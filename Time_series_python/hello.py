@@ -88,7 +88,7 @@ with tf.Session() as sess:
 pred = [None] * len(np.ravel(y_data))
 pred[-len(np.ravel(y_pred)):] = np.ravel(y_pred)
 
-plt.plot(pd.Series(np.ravel(y_data)))
+plt.plot(pd.Series(np.ravel(y_data)), alpha=0.6, linewidth=1.2)
 plt.plot(pd.Series(pred))
 # plt.show()
 
