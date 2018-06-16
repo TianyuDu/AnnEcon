@@ -1,26 +1,24 @@
+# General Settings.
+on_server = int(input("On Server? [0/1] >>> "))
+
+
 import tensorflow as tf
 import numpy as np
 import pandas as pd
 
 import matplotlib
-if int(input("On AWS Server? [0/1] >>> ")):
+if on_server:
+	# If we are on a server without graphic output.
 	matplotlib.use('agg', warn=False, force=True)
 
 import matplotlib.pyplot as plt
 from datetime import datetime
-
+import data_methods
 
 # Fetch data from Fred.
-url = 'https://fred.stlouisfed.org/series/SP500/downloaddata/SP500.csv'
-data = pd.read_csv(url,  delimiter=',', index_col=0)
+ts, TS = data_methods.fetch_fred_single("SP500")
 
-ts = pd.Series(np.ravel(data.values), data.index)
-ts[ts == "."] = np.nan
-ts = ts.astype(np.float32)
-ts = ts.interpolate()
-
-TS = np.array(ts)
-num_periods = 96
+num_periods = 48
 f_horizon = 1
 
 x_data = TS[:(len(TS) - (len(TS) % num_periods))]
@@ -88,14 +86,12 @@ with tf.Session() as sess:
 pred = [None] * len(np.ravel(y_data))
 pred[-len(np.ravel(y_pred)):] = np.ravel(y_pred)
 
-plt.plot(pd.Series(np.ravel(y_data)))
+plt.plot(pd.Series(np.ravel(y_data)), alpha=0.6, linewidth=0.3)
 plt.plot(pd.Series(pred))
-# plt.show()
+
+if not on_server:
+	plt.show()
 
 now_str = datetime.strftime(datetime.now(), "%Y_%m_%d_%s")
-try:
-	plt.savefig(f"./figure/result{now_str}.svg", format="svg")
-except FileNotFoundError:
-	print('The figure folder is not found, figure will be saved in current dirctory.')
-	plt.savefig(f"./figure/result{now_str}.svg", format="svg")
+plt.savefig(f"./figure/result{now_str}_all.svg", format="svg")
 
