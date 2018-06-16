@@ -2,7 +2,7 @@
 # tensorboard-quick-start-in-5-minutes-e3ec69f673af
 
 # General Settings.
-on_server = int(input("On Server? [0/1] >>> "))
+on_server = int(input("On Server? [0/1]: "))
 
 
 import tensorflow as tf
@@ -20,7 +20,10 @@ if on_server:
 
 import matplotlib.pyplot as plt
 from datetime import datetime
+from time import time
 # import data_methods
+
+
 
 # Fetch data from Fred.
 
@@ -58,7 +61,7 @@ def fetch_local_single(dir: str):
 		data = pd.read_csv(dir, delimiter=",", index_col=0)
 	except FileNotFoundError:
 		raise SeriesNotFoundError("Local time series cannot be found.")
-		
+
 	ts = pd.Series(np.ravel(data.values), data.index, dtype=str)
 	ts[ts == "."] = np.nan
 	ts = ts.astype(np.float32)
@@ -113,8 +116,7 @@ y = tf.placeholder(tf.float32,
 multi_layers = [
 	tf.nn.rnn_cell.LSTMCell(
 	num_units=h,
-	cell_clip=100,
-	activation=tf.nn.relu)
+	cell_clip=100)
 	for h in hidden]
 
 multi_cells = tf.nn.rnn_cell.MultiRNNCell(multi_layers)
@@ -154,19 +156,32 @@ init = tf.global_variables_initializer()
 
 epochs = int(input("Training epochs: "))
 
+
 with tf.Session() as sess:
 	writer = tf.summary.FileWriter("output", sess.graph)
-	tf.summary.histogram("loss", loss)
-	tf.summary.histogram("outputs", outputs)
+	# tf.summary.histogram("loss", loss)
+	# tf.summary.histogram("outputs", outputs)
 	init.run()
+	print("Tensors initialized.")
+	print("Training...")
+	begin_time = time()
+
+	loss_record = [1]
 	for ep in range(epochs):
 		sess.run(training_op, feed_dict={X: x_batches, y: y_batches})
 		if ep % 100 == 0:
 			quantified_loss = loss.eval(feed_dict={X: x_batches, y: y_batches})
+			loss_record.append(quantified_loss)
 			print(ep, f"\t{loss_metric}:", quantified_loss)
+			print(f"\t\tLoss improvement {
+				(loss_record[-1] - loss_record[-2]) / loss_record[-2]
+				} %.")
 	y_pred = sess.run(outputs, feed_dict={X: X_test})
 	print(y_pred)
 	writer.close()
+
+	print(
+		f"Finished. \nTrained for {epochs} epochs. \ntime taken: {time() - begin_time()} seconds")
 
 
 pred = [None] * len(np.ravel(y_data))
