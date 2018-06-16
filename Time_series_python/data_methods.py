@@ -13,7 +13,7 @@ def fetch_fred_single(target: str):
 	except KeyError:
 		warn("Time series requested cannot be found in data base.")
 
-	data.read_csv(url, delimiter=",", index_col=0)
+	data = pd.read_csv(url, delimiter=",", index_col=0)
 	ts = pd.Series(np.ravel(data.values), data.index)
 	ts[ts == "."] = np.nan
 	ts = ts.astype(np.float32)
