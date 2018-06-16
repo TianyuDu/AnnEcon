@@ -488,11 +488,14 @@
 	},
 	"expanded_folders":
 	[
-		"/Users/tianyudu/Documents/Github/myDeepLearning",
-		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series"
+		"/Users/tianyudu/MATLAB-Drive/myDeepLearning/Time_series_python/alpha"
 	],
 	"file_history":
 	[
+		"/Users/tianyudu/MATLAB-Drive/myDeepLearning/Time_series_python/alpha/tensorBoard_test.py",
+		"/Users/tianyudu/MATLAB-Drive/myDeepLearning/Time_series_python/play_groud/tensorBoard_test.py",
+		"/Users/tianyudu/MATLAB-Drive/myDeepLearning/README.md",
+		"/Users/tianyudu/MATLAB-Drive/myDeepLearning/myDeepLearning.sublime-workspace",
 		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series/visualize.py",
 		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series/model_LSTM_v2.py",
 		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series/model_LSTM.py",
@@ -616,11 +619,7 @@
 		"/Users/tianyudu/Documents/UToronto/Course/CSC108/Assignments/A3/more_profile.py",
 		"/Users/tianyudu/Desktop/seminarNov302017.tex",
 		"/Users/tianyudu/Documents/UToronto/Notes/psy100-tophat-1_10.tex",
-		"/Users/tianyudu/.bash_profile",
-		"/Users/tianyudu/Desktop/Machine Learning Coursera/Assignments/machine-learning-ex4/ex4/nnCostFunction.m",
-		"/Users/tianyudu/Desktop/Machine Learning Coursera/Assignments/machine-learning-ex4/ex4/ex4_server.m",
-		"/Users/tianyudu/PycharmProjects/UToronto Couse Manager/constants.py",
-		"/Users/tianyudu/PycharmProjects/UToronto Couse Manager/google_map_web.py"
+		"/Users/tianyudu/.bash_profile"
 	],
 	"find":
 	{
@@ -656,6 +655,18 @@
 	[
 		{
 			"path": "/Users/tianyudu/Documents/Github/myDeepLearning"
+		},
+		{
+			"path": "/Users/tianyudu/MATLAB-Drive/myDeepLearning/Time_series_python"
+		},
+		{
+			"path": "/Users/tianyudu/MATLAB-Drive/myDeepLearning/Time_series_matlab"
+		},
+		{
+			"path": "/Users/tianyudu/MATLAB-Drive/myDeepLearning/FDCC2018"
+		},
+		{
+			"path": "/Users/tianyudu/MATLAB-Drive/myDeepLearning/Time_series_python/alpha"
 		}
 	],
 	"groups":
@@ -672,7 +683,7 @@
 	},
 	"input":
 	{
-		"height": 38.0
+		"height": 73.0
 	},
 	"layout":
 	{
@@ -747,7 +758,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 167.0,
+	"side_bar_width": 214.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

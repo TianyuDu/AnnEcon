@@ -173,9 +173,7 @@ with tf.Session() as sess:
 			quantified_loss = loss.eval(feed_dict={X: x_batches, y: y_batches})
 			loss_record.append(quantified_loss)
 			print(ep, f"\t{loss_metric}:", quantified_loss)
-			print(f"\t\tLoss improvement {
-				(loss_record[-1] - loss_record[-2]) / loss_record[-2]
-				} %.")
+			print(f"\t\tLoss improvement {(loss_record[-1] - loss_record[-2]) / loss_record[-2]} %.")
 	y_pred = sess.run(outputs, feed_dict={X: X_test})
 	print(y_pred)
 	writer.close()
