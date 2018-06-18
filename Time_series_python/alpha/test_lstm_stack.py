@@ -99,7 +99,7 @@ X_test, Y_test = test_data(TS, f_horizon, num_periods)
 tf.reset_default_graph()
 
 inputs = 1
-hidden = [128, 256]
+hidden = [64, 128]
 output = 1
 
 # Input feed node.
