@@ -73,7 +73,8 @@ def fetch_local_single(dir: str):
 	return ts, TS
 
 
-ts, TS = fetch_local_single("./data/CPIAUCSL.csv")
+# ts, TS = fetch_local_single("./data/CPIAUCSL.csv")
+ts, TS = fetch_fred_single("CPIAUCSL")
 
 num_periods = 48  # Number of periods lookingback.
 f_horizon = 1  # Forecasting period.
@@ -173,9 +174,7 @@ with tf.Session() as sess:
 			quantified_loss = loss.eval(feed_dict={X: x_batches, y: y_batches})
 			loss_record.append(quantified_loss)
 			print(ep, f"\t{loss_metric}:", quantified_loss)
-			print(f"\t\tLoss improvement {
-				(loss_record[-1] - loss_record[-2]) / loss_record[-2]
-				} %.")
+			print(f"\tLoss change: {(loss_record[-1] - loss_record[-2]) / loss_record[-2]} %.")
 	y_pred = sess.run(outputs, feed_dict={X: X_test})
 	print(y_pred)
 	writer.close()
