@@ -100,7 +100,7 @@ X_test, Y_test = test_data(TS, f_horizon, num_periods)
 tf.reset_default_graph()
 
 inputs = 1
-hidden = [128, 256]
+hidden = [64, 128]
 output = 1
 
 # Input feed node.
@@ -174,13 +174,14 @@ with tf.Session() as sess:
 			quantified_loss = loss.eval(feed_dict={X: x_batches, y: y_batches})
 			loss_record.append(quantified_loss)
 			print(ep, f"\t{loss_metric}:", quantified_loss)
-			print(f"\tLoss change: {(loss_record[-1] - loss_record[-2]) / loss_record[-2]} %.")
+			print(f"\tLoss change (Negative -> Improvement): {(loss_record[-1] - loss_record[-2]) / loss_record[-2] * 100} %.")
+			# print(f"\t\tLoss improvement {(loss_record[-1] - loss_record[-2]) / loss_record[-2]} %.")
 	y_pred = sess.run(outputs, feed_dict={X: X_test})
 	print(y_pred)
 	writer.close()
 
-	print(
-		f"Finished. \nTrained for {epochs} epochs. \ntime taken: {time() - begin_time()} seconds")
+	# print(
+	# 	f"Finished. \nTrained for {epochs} epochs. \ntime taken: {time() - begin_time()} seconds")
 
 
 pred = [None] * len(np.ravel(y_data))
