@@ -108,10 +108,10 @@ def fetch_local_single(dir: str):
 # 	}
 # 	return loss_pack[metric], metric
 
-# def test_data(series, forecast, num_periods):
-# 	print("Generating testing data...")
-# 	test_x_setup = TS[-(num_periods + forecast):]
-# 	testX = test_x_setup[:num_periods].reshape(-1, num_periods, 1)
-# 	testY = TS[-(num_periods):].reshape(-1,num_periods,1)
-# 	print("Done.")
-# 	return testX, testY
+def test_data(series, forecast, num_periods, TS):
+	print("Generating testing data...")
+	test_x_setup = TS[-(num_periods + forecast):]
+	testX = test_x_setup[:num_periods].reshape(-1, num_periods, 1)
+	testY = TS[-(num_periods):].reshape(-1,num_periods,1)
+	print("Done.")
+	return testX, testY

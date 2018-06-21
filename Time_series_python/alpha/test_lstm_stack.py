@@ -23,15 +23,12 @@ from sklearn import preprocessing
 
 print("Done.")
 
-# Fetch data from Fred.
-
 ts, TS = fetch_local_single("./data/CPIAUCSL.csv")
 
 scaler = preprocessing.StandardScaler().fit(TS)
+print("Scaler built.")
 
 TS = scaler.transform(TS)
-
-# ts, TS = fetch_fred_single("CPIAUCSL")
 
 num_periods = para.num_periods
 f_horizon = para.f_horizon  # Forecasting period.
@@ -42,17 +39,10 @@ x_batches = x_data.reshape(-1, num_periods, 1)
 y_data = TS[1: (len(TS) - (len(TS) % num_periods)) + 1]
 y_batches = y_data.reshape(-1, num_periods, 1)
 
-def test_data(series, forecast, num_periods):
-	print("Generating testing data...")
-	test_x_setup = TS[-(num_periods + forecast):]
-	testX = test_x_setup[:num_periods].reshape(-1, num_periods, 1)
-	testY = TS[-(num_periods):].reshape(-1,num_periods,1)
-	print("Done.")
-	return testX, testY
-
-X_test, Y_test = test_data(TS, f_horizon, num_periods)
+X_test, Y_test = test_data(TS, f_horizon, num_periods, TS)
 
 tf.reset_default_graph()
+print("Default graph reset.")
 
 inputs = 1
 hidden = [32, 64]
@@ -109,50 +99,44 @@ training_op = optimizer.minimize(loss)
 
 init = tf.global_variables_initializer()
 
-def train():
-	with tf.Session() as sess:
-		writer = tf.summary.FileWriter("output", sess.graph)
-		# tf.summary.histogram("loss", loss)
-		# tf.summary.histogram("outputs", outputs)
-		init.run()
-		print("Tensors initialized.")
-		print("Training...")
-		begin_time = datetime.now()
+with tf.Session() as sess:
+	writer = tf.summary.FileWriter("output", sess.graph)
+	# tf.summary.histogram("loss", loss)
+	# tf.summary.histogram("outputs", outputs)
+	init.run()
+	print("Tensors initialized.")
+	print("Training...")
+	begin_time = datetime.now()
 
-		loss_record = [1]
-		for ep in range(para.epochs):
-			sess.run(training_op, feed_dict={X: x_batches, y: y_batches})
-			if ep % 100 == 0:
-				quantified_loss = loss.eval(feed_dict={X: x_batches, y: y_batches})
-				loss_record.append(quantified_loss)
-				print(ep, f"\t{loss_metric}:", quantified_loss)
-				print(f"\tLoss change (Negative -> Improvement): {(loss_record[-1] - loss_record[-2]) / loss_record[-2] * 100} %.")
-				# print(f"\t\tLoss improvement {(loss_record[-1] - loss_record[-2]) / loss_record[-2]} %.")
-		y_pred = sess.run(outputs, feed_dict={X: X_test})
-		print(y_pred)
-		writer.close()
+	loss_record = [1]
+	for ep in range(para.epochs):
+		sess.run(training_op, feed_dict={X: x_batches, y: y_batches})
+		if ep % 100 == 0:
+			quantified_loss = loss.eval(feed_dict={X: x_batches, y: y_batches})
+			loss_record.append(quantified_loss)
+			print(ep, f"\t{loss_metric}:", quantified_loss)
+			print(f"\tLoss Improvement: {-1 * ((loss_record[-1] - loss_record[-2]) / loss_record[-2] * 100)} %.")
+	y_pred = sess.run(outputs, feed_dict={X: X_test})
+	print(y_pred)
+	writer.close()
 
-		print("Finished, time taken {} seconds".format(datetime.now() - begin_time))
+	print("Finished, time taken {} seconds".format(datetime.now() - begin_time))
 
-	y_pred = scaler.inverse_transform(y_pred)
-	y_data = scaler.inverse_transform(y_data)
+y_pred = scaler.inverse_transform(y_pred)
+y_data = scaler.inverse_transform(y_data)
 
-	pred = [None] * len(np.ravel(y_data))
-	pred[-len(np.ravel(y_pred)):] = np.ravel(y_pred)
+pred = [None] * len(np.ravel(y_data))
+pred[-len(np.ravel(y_pred)):] = np.ravel(y_pred)
 
-	plt.plot(pd.Series(np.ravel(y_data)), alpha=0.6, linewidth=0.5)
-	plt.plot(pd.Series(pred), alpha=0.8, linewidth=0.5)
+plt.plot(pd.Series(np.ravel(y_data)), alpha=0.6, linewidth=0.5)
+plt.plot(pd.Series(pred), alpha=0.8, linewidth=0.5)
 
-	if not on_server:
-		plt.show()
+if not para.on_server:
+	plt.show()
 
-	now_str = datetime.strftime(datetime.now(), "%Y_%m_%d_%s")
-	plt.savefig(f"./figure/result{now_str}_all.svg", format="svg")
+now_str = datetime.strftime(datetime.now(), "%Y_%m_%d_%s")
+plt.savefig(f"./figure/result{now_str}_all.svg", format="svg")
 
-
-
-if __name__ == "__main__":
-	train()
 
 
 
