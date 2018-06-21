@@ -73,8 +73,8 @@ def fetch_local_single(dir: str):
 	return ts, TS
 
 
-# ts, TS = fetch_local_single("./data/CPIAUCSL.csv")
-ts, TS = fetch_fred_single("CPIAUCSL")
+ts, TS = fetch_local_single("./data/CPIAUCSL.csv")
+# ts, TS = fetch_fred_single("CPIAUCSL")
 
 num_periods = 48  # Number of periods lookingback.
 f_horizon = 1  # Forecasting period.
@@ -100,7 +100,7 @@ X_test, Y_test = test_data(TS, f_horizon, num_periods)
 tf.reset_default_graph()
 
 inputs = 1
-hidden = [64, 128]
+hidden = [32, 64]
 output = 1
 
 # Input feed node.
