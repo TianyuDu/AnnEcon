@@ -1,3 +1,8 @@
+import tensorflow as tf
+import numpy as np
+import pandas as pd
+from datetime import datetime
+from sklearn import preprocessing
 
 
 class SeriesNotFoundError(Exception):
@@ -91,22 +96,22 @@ def fetch_local_single(dir: str):
 	print("Done.")
 	return ts, TS
 
-def gen_loss_tensor(
-	y_hat: tf.Tensor,
-	y: tf.Tensor,
-	metric: str="mse"
-	) -> (tf.Tensor, str):
-	loss_pack = {
-		"sse": tf.reduce_sum(tf.square(outputs - y), name="loss_sse"),
-		"mse": tf.reduce_mean(tf.square(outputs - y), name="loss_mse"),
-		"rmse": tf.sqrt(tf.reduce_mean(tf.square(outputs - y)), name="loss_rmse")
-	}
-	return loss_pack[metric], metric
+# def gen_loss_tensor(
+# 	y_hat: tf.Tensor,
+# 	y: tf.Tensor,
+# 	metric: str="mse"
+# 	) -> (tf.Tensor, str):
+# 	loss_pack = {
+# 		"sse": tf.reduce_sum(tf.square(outputs - y), name="loss_sse"),
+# 		"mse": tf.reduce_mean(tf.square(outputs - y), name="loss_mse"),
+# 		"rmse": tf.sqrt(tf.reduce_mean(tf.square(outputs - y)), name="loss_rmse")
+# 	}
+# 	return loss_pack[metric], metric
 
-def test_data(series, forecast, num_periods):
-	print("Generating testing data...")
-	test_x_setup = TS[-(num_periods + forecast):]
-	testX = test_x_setup[:num_periods].reshape(-1, num_periods, 1)
-	testY = TS[-(num_periods):].reshape(-1,num_periods,1)
-	print("Done.")
-	return testX, testY
+# def test_data(series, forecast, num_periods):
+# 	print("Generating testing data...")
+# 	test_x_setup = TS[-(num_periods + forecast):]
+# 	testX = test_x_setup[:num_periods].reshape(-1, num_periods, 1)
+# 	testY = TS[-(num_periods):].reshape(-1,num_periods,1)
+# 	print("Done.")
+# 	return testX, testY
