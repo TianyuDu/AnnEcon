@@ -4,6 +4,7 @@
 # General Settings.
 on_server = int(input("On Server? [0/1]: "))
 
+print("Loading Packages...")
 
 import tensorflow as tf
 import numpy as np
@@ -23,10 +24,11 @@ from datetime import datetime
 from time import time
 from sklearn import preprocessing
 
-# 
+# Load predefined classes.
 from meta import *
 # import data_methods
 
+print("Done.")
 
 # Fetch data from Fred.
 
@@ -50,7 +52,7 @@ def fetch_fred_single(target: str):
 	ts = ts.interpolate()
 
 	TS = np.array(ts)
-
+	TS = TS.reshape(-1, 1)
 	print("Done.")
 	return ts, TS
 
@@ -68,12 +70,17 @@ def fetch_local_single(dir: str):
 	ts = ts.interpolate()
 
 	TS = np.array(ts)
-
+	TS = TS.reshape(-1, 1)
 	print("Done.")
 	return ts, TS
 
 
 ts, TS = fetch_local_single("./data/CPIAUCSL.csv")
+
+scaler = preprocessing.StandardScaler().fit(TS)
+
+TS = scaler.transform(TS)
+
 # ts, TS = fetch_fred_single("CPIAUCSL")
 
 num_periods = 24  # Number of periods lookingback.
@@ -182,6 +189,8 @@ with tf.Session() as sess:
 	# print(
 	# 	f"Finished. \nTrained for {epochs} epochs. \ntime taken: {time() - begin_time()} seconds")
 
+y_pred = scaler.inverse_transform(y_pred)
+y_data = scaler.inverse_transform(y_data)
 
 pred = [None] * len(np.ravel(y_data))
 pred[-len(np.ravel(y_pred)):] = np.ravel(y_pred)
