@@ -488,10 +488,16 @@
 	},
 	"expanded_folders":
 	[
-		"/Users/tianyudu/MATLAB-Drive/myDeepLearning/Time_series_python/alpha"
+		"/Users/tianyudu/MATLAB-Drive/myDeepLearning/Time_series_python/alpha",
+		"/Users/tianyudu/MATLAB-Drive/myDeepLearning/Time_series_python/alpha/data",
+		"/Users/tianyudu/MATLAB-Drive/myDeepLearning/Time_series_python/alpha/figure",
+		"/Users/tianyudu/MATLAB-Drive/myDeepLearning/Time_series_python/alpha/output"
 	],
 	"file_history":
 	[
+		"/Users/tianyudu/MATLAB-Drive/myDeepLearning/Time_series_python/alpha/test_lstm_stack.py",
+		"/Users/tianyudu/Desktop/wechat_reply/wechat.py",
+		"/Users/tianyudu/Desktop/wechat_reply/hello.py",
 		"/Users/tianyudu/MATLAB-Drive/myDeepLearning/Time_series_python/alpha/tensorBoard_test.py",
 		"/Users/tianyudu/MATLAB-Drive/myDeepLearning/Time_series_python/play_groud/tensorBoard_test.py",
 		"/Users/tianyudu/MATLAB-Drive/myDeepLearning/README.md",
@@ -616,14 +622,11 @@
 		"/Users/tianyudu/Documents/UToronto/Course/CSC108/Assignments/A3/cs_dep_info_r3.txt",
 		"/Users/tianyudu/Documents/UToronto/Course/CSC108/Assignments/A3/cs_dep_info_r2.txt",
 		"/Users/tianyudu/Documents/UToronto/Course/CSC108/Assignments/A3/network_functions.py",
-		"/Users/tianyudu/Documents/UToronto/Course/CSC108/Assignments/A3/more_profile.py",
-		"/Users/tianyudu/Desktop/seminarNov302017.tex",
-		"/Users/tianyudu/Documents/UToronto/Notes/psy100-tophat-1_10.tex",
-		"/Users/tianyudu/.bash_profile"
+		"/Users/tianyudu/Documents/UToronto/Course/CSC108/Assignments/A3/more_profile.py"
 	],
 	"find":
 	{
-		"height": 33.0
+		"height": 35.0
 	},
 	"find_in_files":
 	{
@@ -679,7 +682,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 33.0
+		"height": 35.0
 	},
 	"input":
 	{
@@ -720,7 +723,7 @@
 	"project": "",
 	"replace":
 	{
-		"height": 62.0
+		"height": 66.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -758,7 +761,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 214.0,
+	"side_bar_width": 150.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

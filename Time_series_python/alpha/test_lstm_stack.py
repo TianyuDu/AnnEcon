@@ -4,6 +4,7 @@
 # General Settings.
 on_server = int(input("On Server? [0/1]: "))
 
+print("Loading Packages...")
 
 import tensorflow as tf
 import numpy as np
@@ -21,9 +22,13 @@ if on_server:
 import matplotlib.pyplot as plt
 from datetime import datetime
 from time import time
+from sklearn import preprocessing
+
+# Load predefined classes.
+from meta import *
 # import data_methods
 
-
+print("Done.")
 
 # Fetch data from Fred.
 
@@ -32,9 +37,6 @@ fred_url_package = {
 	"CPIAUCSL": "https://fred.stlouisfed.org/series/CPIAUCSL/downloaddata/CPIAUCSL.csv"
 }
 
-
-class SeriesNotFoundError(Exception):
-	pass
 
 def fetch_fred_single(target: str):
 	print("Fetching data from Fred database...")
@@ -50,7 +52,7 @@ def fetch_fred_single(target: str):
 	ts = ts.interpolate()
 
 	TS = np.array(ts)
-
+	TS = TS.reshape(-1, 1)
 	print("Done.")
 	return ts, TS
 
@@ -68,15 +70,20 @@ def fetch_local_single(dir: str):
 	ts = ts.interpolate()
 
 	TS = np.array(ts)
-
+	TS = TS.reshape(-1, 1)
 	print("Done.")
 	return ts, TS
 
 
 ts, TS = fetch_local_single("./data/CPIAUCSL.csv")
+
+scaler = preprocessing.StandardScaler().fit(TS)
+
+TS = scaler.transform(TS)
+
 # ts, TS = fetch_fred_single("CPIAUCSL")
 
-num_periods = 48  # Number of periods lookingback.
+num_periods = 24  # Number of periods lookingback.
 f_horizon = 1  # Forecasting period.
 
 x_data = TS[:(len(TS) - (len(TS) % num_periods))]
@@ -115,10 +122,9 @@ y = tf.placeholder(tf.float32,
 	name="output_label_feed_y")
 
 multi_layers = [
-	tf.nn.rnn_cell.LSTMCell(
-	num_units=h,
-	cell_clip=100)
-	for h in hidden]
+	tf.nn.rnn_cell.BasicRNNCell(num_units=hidden[0]),
+	tf.nn.rnn_cell.LSTMCell(num_units=hidden[1], cell_clip=100)
+	]
 
 multi_cells = tf.nn.rnn_cell.MultiRNNCell(multi_layers)
 
@@ -183,12 +189,14 @@ with tf.Session() as sess:
 	# print(
 	# 	f"Finished. \nTrained for {epochs} epochs. \ntime taken: {time() - begin_time()} seconds")
 
+y_pred = scaler.inverse_transform(y_pred)
+y_data = scaler.inverse_transform(y_data)
 
 pred = [None] * len(np.ravel(y_data))
 pred[-len(np.ravel(y_pred)):] = np.ravel(y_pred)
 
-plt.plot(pd.Series(np.ravel(y_data)), alpha=0.6, linewidth=0.3)
-plt.plot(pd.Series(pred), alpha=0.8, linewidth=0.3)
+plt.plot(pd.Series(np.ravel(y_data)), alpha=0.6, linewidth=0.7)
+plt.plot(pd.Series(pred), alpha=0.8, linewidth=0.7)
 
 if not on_server:
 	plt.show()
