@@ -92,7 +92,13 @@ def gen_loss_tensor(
 
 
 loss, loss_metric = gen_loss_tensor(outputs, y, metric="mse")
-
+l2 = float(0.005) * sum(
+    tf.nn.l2_loss(tf_var)
+        for tf_var in tf.trainable_variables()
+        if not ("noreg" in tf_var.name or "Bias" in tf_var.name)
+)
+loss += l2
+loss_metric += " + reg"
 
 optimizer = tf.train.AdamOptimizer(learning_rate=para.learning_rate)
 training_op = optimizer.minimize(loss)
@@ -121,7 +127,7 @@ with tf.Session() as sess:
 	print(y_pred)
 	writer.close()
 
-	print("Finished, time taken {} seconds".format(datetime.now() - begin_time))
+	print("Finished, time taken {}.".format(datetime.now() - begin_time))
 
 y_pred = scaler.inverse_transform(y_pred)
 y_data = scaler.inverse_transform(y_data)
