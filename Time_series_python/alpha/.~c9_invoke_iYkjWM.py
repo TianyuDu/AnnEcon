@@ -117,7 +117,7 @@ with tf.Session() as sess:
 			print(ep, f"\t{loss_metric}:", quantified_loss)
 			print(f"\tLoss Improvement: {-1 * ((loss_record[-1] - loss_record[-2]) / loss_record[-2] * 100)} %.")
 	y_pred = sess.run(outputs, feed_dict={X: X_test})
-	y_pred_train = sess.run(outputs, feed_dict={X: x_batches})
+	y_pred_all = sess
 	print(y_pred)
 	writer.close()
 
@@ -125,9 +125,6 @@ with tf.Session() as sess:
 
 y_pred = scaler.inverse_transform(y_pred)
 y_data = scaler.inverse_transform(y_data)
-y_pred_train = scaler.inverse_transform(y_pred_train)
-
-y_pred_train = y_pred_train.reshape(-1,1)
 
 pred = [None] * len(np.ravel(y_data))
 pred[-len(np.ravel(y_pred)):] = np.ravel(y_pred)
@@ -139,13 +136,9 @@ if not para.on_server:
 	plt.show()
 
 now_str = datetime.strftime(datetime.now(), "%Y_%m_%d_%s")
-plt.savefig(f"./figure/result{now_str}_test.svg", format="svg")
-
-full = [None] * len(np.ravel(y_data))
-full[0:len(y_pred_train)] = y_pred_train
-plt.plot(pd.Series(np.ravel(y_data)), alpha=0.6, linewidth=0.5)
-plt.plot(pd.Series(np.ravel(full)), alpha=0.6, linewidth=0.5)
 plt.savefig(f"./figure/result{now_str}_all.svg", format="svg")
+
+
 
 
 
