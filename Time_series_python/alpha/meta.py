@@ -49,7 +49,7 @@ class ParameterControl():
 		self.nn.inputs = 1
 		self.nn.hidden = [64, 128]
 		self.nn.output = 1
-		self.nn.reg_para 
+		self.nn.reg_para
 
 class SeriesNotFoundError(Exception):
 	"""
@@ -144,7 +144,7 @@ def visualize(
 	y_pred_test: np.ndarray,  # Predicted value on testing set.
 	on_server: bool=False  # If on AWS server.
 	) -> None:
-	
+
 	# Visualize test set.
 	pred = [None] * len(np.ravel(y_data))
 	pred[-len(np.ravel(y_pred)):] = np.ravel(y_pred)
@@ -165,4 +165,5 @@ def visualize(
 	plt.plot(pd.Series(np.ravel(full)), alpha=0.6, linewidth=0.5)
 	plt.savefig(f"./figure/result{now_str}_all.svg", format="svg")
 
-def visualize_error(loss_record: np.ndarray)
+def visualize_error(loss_record: np.ndarray):
+	pass
