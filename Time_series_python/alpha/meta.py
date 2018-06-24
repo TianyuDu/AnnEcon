@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 from datetime import datetime
 from sklearn import preprocessing
+import matplotlib.pyplot as plt
 
 
 class ParameterControl():
@@ -17,21 +18,20 @@ class ParameterControl():
 	epochs: int
 
 	def __init__(self):
+		self.on_server = int(
+			input("On Server? [0/1]: "))
 		if int(input("Use default parameters [0/1]: ")):
 			print("Setting parameters to default...")
-			self.on_server = int(
-				input("On Server? [0/1]: "))
 			self.num_periods = 24
 			self.f_horizon = 1
 			self.learning_rate = 0.001
-			self.epochs = 5000
+			self.epochs = 100
 		else:
 			self.get_parameters()
+		self.load_customized_parameters()
 
 	def get_parameters(self):
 		print("Please input training parameters")
-		self.on_server = int(
-			input("On Server? [0/1]: "))
 		self.num_periods = int(
 			input("Number of periods looking back in traning: ")
 			)
@@ -46,10 +46,10 @@ class ParameterControl():
 			)
 
 	def load_customized_parameters(self):
-		self.nn.inputs = 1
-		self.nn.hidden = [64, 128]
-		self.nn.output = 1
-		self.nn.reg_para
+		self.nn_inputs = 1
+		self.nn_hidden = [64, 128]
+		self.nn_output = 1
+		self.nn_reg_para = 0.005
 
 class SeriesNotFoundError(Exception):
 	"""
@@ -58,8 +58,8 @@ class SeriesNotFoundError(Exception):
 	pass
 
 
-def add_regularization(loss: tf.Tensor) -> (tf.Tensor):
-	l2 = float(0.005) * sum(
+def add_regularization(loss: tf.Tensor, para: "ParameterControl") -> (tf.Tensor):
+	l2 = float(para.nn_reg_para) * sum(
 	    tf.nn.l2_loss(tf_var)
 	        for tf_var in tf.trainable_variables()
 	        if not ("noreg" in tf_var.name or "Bias" in tf_var.name)
@@ -103,7 +103,7 @@ def load_data(
 	elif source == "local":
 		print("Loading data from local file...")
 		try:
-			data = pd.read_csv(dir, delimiter=",", index_col=0)
+			data = pd.read_csv(target, delimiter=",", index_col=0)
 		except FileNotFoundError:
 			raise SeriesNotFoundError(
 				"Local time series not found.")
@@ -147,12 +147,12 @@ def visualize(
 
 	# Visualize test set.
 	pred = [None] * len(np.ravel(y_data))
-	pred[-len(np.ravel(y_pred)):] = np.ravel(y_pred)
+	pred[-len(np.ravel(y_pred_test)):] = np.ravel(y_pred_test)
 
 	plt.plot(pd.Series(np.ravel(y_data)), alpha=0.6, linewidth=0.5)
 	plt.plot(pd.Series(pred), alpha=0.8, linewidth=0.5)
 
-	if not para.on_server:
+	if not on_server:
 		plt.show()
 
 	now_str = datetime.strftime(datetime.now(), "%Y_%m_%d_%s")

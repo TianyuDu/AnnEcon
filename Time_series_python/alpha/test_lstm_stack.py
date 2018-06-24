@@ -51,18 +51,18 @@ def main():
 	# Input feed node.
 	X = tf.placeholder(
 		tf.float32,
-		[None, num_periods, para.nn.inputs],
+		[None, num_periods, para.nn_inputs],
 		name="input_label_feed_X")
 
 	# Output node.
 	y = tf.placeholder(
 		tf.float32,
-		[None, num_periods, para.nn.output],
+		[None, num_periods, para.nn_output],
 		name="output_label_feed_y")
 
 	multi_layers = [
-		tf.nn.rnn_cell.BasicRNNCell(num_units=para.nn.hidden[0]),
-		tf.nn.rnn_cell.LSTMCell(num_units=para.nn.hidden[1], cell_clip=100)
+		tf.nn.rnn_cell.BasicRNNCell(num_units=para.nn_hidden[0]),
+		tf.nn.rnn_cell.LSTMCell(num_units=para.nn_hidden[1], cell_clip=100)
 		]
 
 	multi_cells = tf.nn.rnn_cell.MultiRNNCell(multi_layers)
@@ -75,25 +75,25 @@ def main():
 
 	stacked_rnn_output = tf.reshape(
 		rnn_output,
-		[-1, para.nn.hidden[-1]],
+		[-1, para.nn_hidden[-1]],
 		name="stacked_rnn_output"
 		)
 
 	stacked_outputs = tf.layers.dense(
 		stacked_rnn_output,
-		para.nn.output,
+		para.nn_output,
 		name="stacked_outputs"
 		)
 
 	outputs = tf.reshape(
 		stacked_outputs,
-		[-1, num_periods, para.nn.output]
+		[-1, num_periods, para.nn_output]
 		)
 
 
 	loss, loss_metric = gen_loss_tensor(outputs, y, metric="mse")
 
-	loss = add_regularization(loss)
+	loss = add_regularization(loss, para)
 
 	loss_metric += " + reg"
 
@@ -133,7 +133,7 @@ def main():
 	y_data = scaler.inverse_transform(y_data)
 	y_pred_train = scaler.inverse_transform(y_pred_train)
 	y_pred_train = y_pred_train.reshape(-1,1)  # Expand the stacked inputs.
-	y_pred_test = scaler.inverse_transform(y_pred_tests)
+	y_pred_test = scaler.inverse_transform(y_pred_test)
 
 	visualize(
 		y_data,

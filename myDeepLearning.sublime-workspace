@@ -415,15 +415,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "Time_series_python/alpha/meta.py",
-			"settings":
-			{
-				"buffer_size": 4507,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -503,7 +494,8 @@
 	[
 		"/Users/tianyudu/Documents/Github/myDeepLearning",
 		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series_python",
-		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series_python/alpha"
+		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series_python/alpha",
+		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series_python/alpha/data"
 	],
 	"file_history":
 	[
@@ -638,7 +630,7 @@
 	],
 	"find":
 	{
-		"height": 35.0
+		"height": 73.0
 	},
 	"find_in_files":
 	{
@@ -649,9 +641,13 @@
 	},
 	"find_state":
 	{
-		"case_sensitive": true,
+		"case_sensitive": false,
 		"find_history":
 		[
+			"para.nn.",
+			"para.nn",
+			"para.",
+			"para"
 		],
 		"highlight": false,
 		"in_selection": false,
@@ -675,38 +671,8 @@
 	"groups":
 	[
 		{
-			"selected": 0,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "Time_series_python/alpha/meta.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4507,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4268,
-								4268
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 2699.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				}
 			]
 		}
 	],
