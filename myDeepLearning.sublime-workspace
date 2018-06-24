@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"ndarry",
+				"ndarray"
+			],
+			[
 				"y_data",
 				"y_data_raw"
 			],
@@ -411,6 +415,15 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "Time_series_python/alpha/meta.py",
+			"settings":
+			{
+				"buffer_size": 4507,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -488,10 +501,9 @@
 	},
 	"expanded_folders":
 	[
-		"/Users/tianyudu/MATLAB-Drive/myDeepLearning/Time_series_python/alpha",
-		"/Users/tianyudu/MATLAB-Drive/myDeepLearning/Time_series_python/alpha/data",
-		"/Users/tianyudu/MATLAB-Drive/myDeepLearning/Time_series_python/alpha/figure",
-		"/Users/tianyudu/MATLAB-Drive/myDeepLearning/Time_series_python/alpha/output"
+		"/Users/tianyudu/Documents/Github/myDeepLearning",
+		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series_python",
+		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series_python/alpha"
 	],
 	"file_history":
 	[
@@ -658,25 +670,43 @@
 	[
 		{
 			"path": "/Users/tianyudu/Documents/Github/myDeepLearning"
-		},
-		{
-			"path": "/Users/tianyudu/MATLAB-Drive/myDeepLearning/Time_series_python"
-		},
-		{
-			"path": "/Users/tianyudu/MATLAB-Drive/myDeepLearning/Time_series_matlab"
-		},
-		{
-			"path": "/Users/tianyudu/MATLAB-Drive/myDeepLearning/FDCC2018"
-		},
-		{
-			"path": "/Users/tianyudu/MATLAB-Drive/myDeepLearning/Time_series_python/alpha"
 		}
 	],
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "Time_series_python/alpha/meta.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4507,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4268,
+								4268
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2699.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -761,7 +791,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 150.0,
+	"side_bar_width": 248.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
