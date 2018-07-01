@@ -499,6 +499,9 @@
 	],
 	"file_history":
 	[
+		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series_python/alpha/test_lstm_stack.py",
+		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series_python/playground/experiment.py",
+		"/Users/tianyudu/Library/texmf/tex/spikey.sty",
 		"/Users/tianyudu/MATLAB-Drive/myDeepLearning/Time_series_python/alpha/test_lstm_stack.py",
 		"/Users/tianyudu/Desktop/wechat_reply/wechat.py",
 		"/Users/tianyudu/Desktop/wechat_reply/hello.py",
@@ -623,10 +626,7 @@
 		"/Users/tianyudu/Documents/MATLAB/Add-Ons/dynare-2016-06-01-osx/matlab/utilities/general/isaletter.m",
 		"/Users/tianyudu/Documents/UToronto/Course/CSC108/Assignments/A3/profiles.txt",
 		"/Users/tianyudu/Documents/UToronto/Course/CSC108/Assignments/A3/cs_dep_info_r4.txt",
-		"/Users/tianyudu/Documents/UToronto/Course/CSC108/Assignments/A3/cs_dep_info_r3.txt",
-		"/Users/tianyudu/Documents/UToronto/Course/CSC108/Assignments/A3/cs_dep_info_r2.txt",
-		"/Users/tianyudu/Documents/UToronto/Course/CSC108/Assignments/A3/network_functions.py",
-		"/Users/tianyudu/Documents/UToronto/Course/CSC108/Assignments/A3/more_profile.py"
+		"/Users/tianyudu/Documents/UToronto/Course/CSC108/Assignments/A3/cs_dep_info_r3.txt"
 	],
 	"find":
 	{
@@ -757,7 +757,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 248.0,
+	"side_bar_width": 50.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
