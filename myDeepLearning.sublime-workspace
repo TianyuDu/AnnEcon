@@ -494,11 +494,14 @@
 	[
 		"/Users/tianyudu/Documents/Github/myDeepLearning",
 		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series_python",
+		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series_python/__pycache__",
 		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series_python/alpha",
-		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series_python/alpha/data"
+		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series_python/alpha/data",
+		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series_python/playground"
 	],
 	"file_history":
 	[
+		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series_python/playground/pandas_panel.py",
 		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series_python/alpha/test_lstm_stack.py",
 		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series_python/playground/experiment.py",
 		"/Users/tianyudu/Library/texmf/tex/spikey.sty",
@@ -625,8 +628,7 @@
 		"/Users/tianyudu/Documents/UToronto/Course/CSC108/Assignments/A3/cs_dep_info_r0.txt",
 		"/Users/tianyudu/Documents/MATLAB/Add-Ons/dynare-2016-06-01-osx/matlab/utilities/general/isaletter.m",
 		"/Users/tianyudu/Documents/UToronto/Course/CSC108/Assignments/A3/profiles.txt",
-		"/Users/tianyudu/Documents/UToronto/Course/CSC108/Assignments/A3/cs_dep_info_r4.txt",
-		"/Users/tianyudu/Documents/UToronto/Course/CSC108/Assignments/A3/cs_dep_info_r3.txt"
+		"/Users/tianyudu/Documents/UToronto/Course/CSC108/Assignments/A3/cs_dep_info_r4.txt"
 	],
 	"find":
 	{
@@ -757,7 +759,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 50.0,
+	"side_bar_width": 296.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

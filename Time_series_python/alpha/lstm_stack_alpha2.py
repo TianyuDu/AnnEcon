@@ -69,7 +69,7 @@ def main(parameters: "ParameterControl"):
                       f"\t{model.loss_metric}: {quantified_loss}")
                 print(
                     f"\tLoss Improvement:\
-                     {-1 * ((loss_record[-1] - loss_record[-2]) / loss_record[-2] * 100)} %.")
+                     {-1 * ((loss_record[-1] - loss_record[-2]) / loss_record[-2] * 100): .6}%")
 
         # Create training set prediction,
         y_pred_train = sess.run(
