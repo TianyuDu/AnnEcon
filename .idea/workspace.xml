@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c24a2edc-df0a-4e6e-a476-c1a2985d0d24" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Time_series_python/playground/pandas_panel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/meta.py" beforeDir="false" afterPath="$PROJECT_DIR$/Time_series_python/alpha/meta.py" afterDir="false" />
-    </list>
+    <list default="true" id="c24a2edc-df0a-4e6e-a476-c1a2985d0d24" name="Default Changelist" comment="Default Changelist" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -77,8 +73,8 @@
       <file leaf-file-name="pandas_panel.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Time_series_python/playground/pandas_panel.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="367">
-              <caret line="63" column="8" selection-start-line="63" selection-start-column="8" selection-end-line="63" selection-end-column="8" />
+            <state relative-caret-position="645">
+              <caret line="73" column="63" lean-forward="true" selection-start-line="73" selection-start-column="63" selection-end-line="73" selection-end-column="63" />
             </state>
           </provider>
         </entry>
@@ -283,6 +279,14 @@
       <option name="presentableId" value="Default" />
       <updated>1529656122115</updated>
     </task>
+    <task id="LOCAL-00001" summary="Default Changelist">
+      <created>1530517578595</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1530517578595</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TodoView">
@@ -296,15 +300,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="2560" height="1440" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="13" sideWeight="0.5022748" side_tool="true" weight="0.32911393" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5004554" side_tool="true" weight="0.32985073" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49954504" weight="0.32911393" />
-      <window_info active="true" anchor="bottom" id="Python Console" order="12" sideWeight="0.7940639" visible="true" weight="0.36865672" />
+      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49954504" weight="0.32910448" />
+      <window_info anchor="bottom" id="Python Console" order="12" sideWeight="0.7940639" weight="0.36865672" />
       <window_info anchor="bottom" id="Run" order="3" />
-      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.4931694" weight="0.3283582" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" sideWeight="0.4931694" visible="true" weight="0.3283582" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12957075" />
       <window_info anchor="bottom" id="Statistic" order="0" sideWeight="0.49954462" weight="0.32910448" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
@@ -328,6 +331,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Default Changelist" />
+    <option name="LAST_COMMIT_MESSAGE" value="Default Changelist" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -456,8 +463,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Time_series_python/playground/pandas_panel.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="367">
-          <caret line="63" column="8" selection-start-line="63" selection-start-column="8" selection-end-line="63" selection-end-column="8" />
+        <state relative-caret-position="645">
+          <caret line="73" column="63" lean-forward="true" selection-start-line="73" selection-start-column="63" selection-end-line="73" selection-end-column="63" />
         </state>
       </provider>
     </entry>
