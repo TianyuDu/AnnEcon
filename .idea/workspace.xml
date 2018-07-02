@@ -2,17 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c24a2edc-df0a-4e6e-a476-c1a2985d0d24" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Time_series_python/alpha/classes.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Time_series_python/alpha/lstm_stack_alpha2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Time_series_python/alpha/predefined.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/myDeepLearning.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/myDeepLearning.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Time_series_python/playground/pandas_panel.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/meta.py" beforeDir="false" afterPath="$PROJECT_DIR$/Time_series_python/alpha/meta.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/test_lstm_stack.py" beforeDir="false" afterPath="$PROJECT_DIR$/Time_series_python/alpha/test_lstm_stack.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myDeepLearning.sublime-workspace" beforeDir="false" afterPath="$PROJECT_DIR$/myDeepLearning.sublime-workspace" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -73,11 +65,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="meta.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="meta.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/meta.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="653">
-              <caret line="116" column="21" lean-forward="true" selection-start-line="116" selection-start-column="21" selection-end-line="116" selection-end-column="21" />
+            <state relative-caret-position="276">
+              <caret line="12" selection-start-line="12" selection-end-line="12" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pandas_panel.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Time_series_python/playground/pandas_panel.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="367">
+              <caret line="63" column="8" selection-start-line="63" selection-start-column="8" selection-end-line="63" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -85,7 +86,7 @@
       <file leaf-file-name="classes.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/classes.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="575">
+            <state relative-caret-position="966">
               <caret line="42" selection-start-line="42" selection-end-line="42" />
             </state>
           </provider>
@@ -94,7 +95,7 @@
       <file leaf-file-name="predefined.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/predefined.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="320">
               <caret line="10" selection-start-line="10" selection-end-line="10" />
             </state>
           </provider>
@@ -125,9 +126,11 @@
       <list>
         <option value="$PROJECT_DIR$/Time_series_python/alpha/nece.py" />
         <option value="$PROJECT_DIR$/Time_series_python/alpha/meta_draft_jun30_2018.py" />
-        <option value="$PROJECT_DIR$/Time_series_python/alpha/meta.py" />
         <option value="$PROJECT_DIR$/Time_series_python/alpha/classes.py" />
         <option value="$PROJECT_DIR$/Time_series_python/alpha/lstm_stack_alpha2.py" />
+        <option value="$PROJECT_DIR$/Time_series_python/alpha/meta.py" />
+        <option value="$PROJECT_DIR$/Time_series_python/alpha/pandas_panel.py" />
+        <option value="$PROJECT_DIR$/Time_series_python/playground/pandas_panel.py" />
       </list>
     </option>
   </component>
@@ -146,9 +149,8 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds" fullScreen="true">
-    <option name="y" value="23" />
     <option name="width" value="2560" />
-    <option name="height" value="1417" />
+    <option name="height" value="1440" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -180,7 +182,21 @@
               <item name="myDeepLearning" type="b2602c69:ProjectViewProjectNode" />
               <item name="myDeepLearning" type="462c0819:PsiDirectoryNode" />
               <item name="Time_series_python" type="462c0819:PsiDirectoryNode" />
+              <item name="alpha" type="462c0819:PsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="myDeepLearning" type="b2602c69:ProjectViewProjectNode" />
+              <item name="myDeepLearning" type="462c0819:PsiDirectoryNode" />
+              <item name="Time_series_python" type="462c0819:PsiDirectoryNode" />
               <item name="playground" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="myDeepLearning" type="b2602c69:ProjectViewProjectNode" />
+              <item name="myDeepLearning" type="462c0819:PsiDirectoryNode" />
+              <item name="Time_series_python" type="462c0819:PsiDirectoryNode" />
+              <item name="playground" type="462c0819:PsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -202,7 +218,7 @@
     <property name="options.lastSelected" value="configurable.group.tools" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.splitter.main.proportions" value="0.32666665" />
-    <property name="settings.editor.selected.configurable" value="preferences.fileTypes" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -216,6 +232,9 @@
     <option name="SHOW_DIALOG" value="false" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Time_series_python/playground" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/Time_series_python/alpha" />
     </key>
@@ -279,21 +298,21 @@
     <frame x="0" y="0" width="2560" height="1440" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info anchor="bottom" id="TODO" order="14" sideWeight="0.5022748" side_tool="true" weight="0.32911393" />
-      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5004554" side_tool="true" weight="0.32985073" />
+      <window_info anchor="bottom" id="TODO" order="13" sideWeight="0.5022748" side_tool="true" weight="0.32911393" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5004554" side_tool="true" weight="0.32985073" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Run" order="3" />
       <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49954504" weight="0.32911393" />
-      <window_info anchor="bottom" id="Python Console" order="13" sideWeight="0.49590164" weight="0.31716418" />
-      <window_info anchor="bottom" id="Terminal" order="12" sideWeight="0.4931694" weight="0.3283582" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.12787926" />
-      <window_info anchor="bottom" id="Statistic" order="0" sideWeight="0.49954462" visible="true" weight="0.32985073" />
+      <window_info active="true" anchor="bottom" id="Python Console" order="12" sideWeight="0.7940639" visible="true" weight="0.36865672" />
+      <window_info anchor="bottom" id="Run" order="3" />
+      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.4931694" weight="0.3283582" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12957075" />
+      <window_info anchor="bottom" id="Statistic" order="0" sideWeight="0.49954462" weight="0.32910448" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="right" id="Database" order="3" sideWeight="0.49909583" weight="0.32883242" />
-      <window_info anchor="bottom" id="SciView" order="10" sideWeight="0.5022748" side_tool="true" weight="0.32911393" />
+      <window_info anchor="right" id="Database" order="3" sideWeight="0.49909583" weight="0.32869634" />
+      <window_info anchor="right" id="SciView" order="5" sideWeight="0.20574817" visible="true" weight="0.25317964" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Debug" order="4" weight="0.4" />
       <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="4" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
@@ -310,7 +329,54 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
+  </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/meta.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="667">
+          <caret line="29" column="26" lean-forward="true" selection-start-line="29" selection-start-column="26" selection-end-line="29" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/predefined.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/classes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="966">
+          <caret line="42" selection-start-line="42" selection-end-line="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/meta.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2668">
+          <caret line="116" column="21" lean-forward="true" selection-start-line="116" selection-start-column="21" selection-end-line="116" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/classes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="966">
+          <caret line="42" selection-start-line="42" selection-end-line="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/predefined.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/meta.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="675">
@@ -336,9 +402,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1323">
           <caret line="49" column="24" selection-start-line="49" selection-start-column="24" selection-end-line="49" selection-end-column="24" />
-          <folding>
-            <marker date="1530429394212" expanded="true" signature="483:484" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -360,34 +423,41 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/predefined.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="10" selection-start-line="10" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/lstm_stack_alpha2.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="380">
           <caret line="64" column="20" selection-start-line="64" selection-start-column="20" selection-end-line="64" selection-end-column="20" />
-          <folding>
-            <marker date="1530429394212" expanded="true" signature="483:484" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/classes.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="575">
+        <state relative-caret-position="966">
           <caret line="42" selection-start-line="42" selection-end-line="42" />
         </state>
       </provider>
     </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/threadDump1.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/meta.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="653">
-          <caret line="116" column="21" lean-forward="true" selection-start-line="116" selection-start-column="21" selection-end-line="116" selection-end-column="21" />
+        <state relative-caret-position="276">
+          <caret line="12" selection-start-line="12" selection-end-line="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/predefined.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Time_series_python/playground/pandas_panel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="367">
+          <caret line="63" column="8" selection-start-line="63" selection-start-column="8" selection-end-line="63" selection-end-column="8" />
         </state>
       </provider>
     </entry>

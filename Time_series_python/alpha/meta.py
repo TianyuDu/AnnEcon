@@ -17,8 +17,8 @@ def add_regularization(loss: tf.Tensor, para: "ParameterControl") -> tf.Tensor:
     """
     l2 = float(para.nn["reg_para"]) * sum(
         tf.nn.l2_loss(tf_var)
-            for tf_var in tf.trainable_variables()
-            if not ("noreg" in tf_var.name or "Bias" in tf_var.name)
+        for tf_var in tf.trainable_variables()
+        if not ("noreg" in tf_var.name or "Bias" in tf_var.name)
     )
     return tf.add(loss, l2)
 
