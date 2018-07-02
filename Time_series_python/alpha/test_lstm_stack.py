@@ -23,6 +23,9 @@ from sklearn import preprocessing
 
 print("Done.")
 
+def main2():
+	
+
 def main():
 
 	# Prepare data.
@@ -42,7 +45,7 @@ def main():
 	y_data = TS[1: (len(TS) - (len(TS) % num_periods)) + 1]
 	y_batches = y_data.reshape(-1, num_periods, 1)
 
-	X_test, Y_test = test_data(TS, f_horizon, num_periods, TS)
+	X_test, Y_test = test_data(TS, f_horizon, num_periods)
 
 	tf.reset_default_graph()
 	print("Default graph reset.")
