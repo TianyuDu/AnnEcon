@@ -22,10 +22,25 @@ class StackedRnnModel:
     The ALPHA version of Stacked Rnn Model used for
     time series prediction.
     """
-    # Preprocessing and data:
-    scaler: sklearn.preprocessing.data.StandardScaler
-    # TODO [optional] Add attributino annotaion here
-    # Tensorflow and training:
+    init: tf.Operation  # Variable initializer.
+    loss: tf.Tensor  # Loss tensor (objective function of minimization).
+    loss_metric: str  # Type of loss function
+    multi_cells: tf.nn.rnn_cell.MultiRNNCell  # RNN cells used to create the graph.
+    optimizer: tf.train.Optimizer  # Optimizer
+    output: tf.Tensor  # Output tensor
+    rnn_output:  tf.Tensor  # RNN output tensor
+    scaler: sklearn.preprocessing.data.StandardScaler  # The standard scaler for input data.
+    stacked_outputs: tf.Tensor
+    stacked_rnn_output: tf.Tensor
+    X: tf.Tensor  # Input Feeding tensor.
+    x_batches: np.ndarray  # Input data in batches.
+    x_data: np.ndarray  # Raw input data.
+    X_test: np.ndarray  # Test sample data.
+
+    y: tf.Tensor  # Label tensor.
+    y_batches: np.ndarray  # Input label data in batches.
+    y_data: np.ndarray  # Raw input label data.
+    Y_test: np.ndarray  # Test label data.
 
     def __init__(self, series: np.ndarray, parameters: "ParameterControl"):
         """

@@ -25,7 +25,7 @@ print("Done.")
 
 def main(parameters: "ParameterControl"):
     """
-    Main operation
+    Main operation.
     """
     print("@main: version alpha 2: single time series prediction, stacked.")
     # Prepare data.
@@ -85,7 +85,7 @@ def main(parameters: "ParameterControl"):
     y_pred_train = model.scaler.inverse_transform(y_pred_train)
     y_pred_train = y_pred_train.reshape(-1, 1)  # Expand the stacked inputs.
     y_pred_test = model.scaler.inverse_transform(y_pred_test)
-
+    
     visualize(
         y_data,
         y_pred_train,
