@@ -151,10 +151,10 @@ class ParameterControl:
     on_server: bool  # If on AWS server.
 
     def __init__(self):
-        self.on_server = bool(
+        self.on_server = int(
             input("@ParameterControl: Use graphic configuration for server? [0/1]: "))
 
-        if bool(input("@ParameterControl: Use default parameters? [0/1]: ")):
+        if int(input("@ParameterControl: Use default parameters? [0/1]: ")):
             # Use default parameters.
             self.load_default_parameters()
         else:

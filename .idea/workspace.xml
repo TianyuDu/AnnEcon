@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c24a2edc-df0a-4e6e-a476-c1a2985d0d24" name="Default Changelist" comment="Default Changelist">
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/classes.py" beforeDir="false" afterPath="$PROJECT_DIR$/Time_series_python/alpha/classes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/lstm_stack_alpha2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Time_series_python/alpha/lstm_stack_alpha2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/meta.py" beforeDir="false" afterPath="$PROJECT_DIR$/Time_series_python/alpha/meta.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -67,11 +66,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="meta.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="meta.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/meta.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="276">
-              <caret line="12" selection-start-line="12" selection-end-line="12" />
+            <state relative-caret-position="1537">
+              <caret line="134" column="38" lean-forward="true" selection-start-line="134" selection-start-column="38" selection-end-line="134" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -79,17 +78,17 @@
       <file leaf-file-name="pandas_panel.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Time_series_python/playground/pandas_panel.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="652">
-              <caret line="74" column="37" lean-forward="true" selection-start-line="74" selection-start-column="37" selection-end-line="74" selection-end-column="37" />
+            <state relative-caret-position="1702">
+              <caret line="74" column="37" selection-start-line="74" selection-start-column="37" selection-end-line="74" selection-end-column="37" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="classes.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="classes.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/classes.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="556">
-              <caret line="41" column="47" lean-forward="true" selection-start-line="41" selection-start-column="47" selection-end-line="41" selection-end-column="47" />
+            <state relative-caret-position="1148">
+              <caret line="41" column="47" selection-start-line="41" selection-start-column="47" selection-end-line="41" selection-end-column="47" />
             </state>
           </provider>
         </entry>
@@ -97,8 +96,8 @@
       <file leaf-file-name="lstm_stack_alpha2.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/lstm_stack_alpha2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="177">
-              <caret line="57" column="31" lean-forward="true" selection-start-line="57" selection-start-column="31" selection-end-line="57" selection-end-column="31" />
+            <state relative-caret-position="1311">
+              <caret line="57" column="31" selection-start-line="57" selection-start-column="31" selection-end-line="57" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -138,10 +137,10 @@
         <option value="$PROJECT_DIR$/Time_series_python/alpha/nece.py" />
         <option value="$PROJECT_DIR$/Time_series_python/alpha/meta_draft_jun30_2018.py" />
         <option value="$PROJECT_DIR$/Time_series_python/alpha/lstm_stack_alpha2.py" />
-        <option value="$PROJECT_DIR$/Time_series_python/alpha/meta.py" />
         <option value="$PROJECT_DIR$/Time_series_python/alpha/pandas_panel.py" />
         <option value="$PROJECT_DIR$/Time_series_python/playground/pandas_panel.py" />
         <option value="$PROJECT_DIR$/Time_series_python/alpha/classes.py" />
+        <option value="$PROJECT_DIR$/Time_series_python/alpha/meta.py" />
       </list>
     </option>
   </component>
@@ -159,9 +158,10 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectFrameBounds" fullScreen="true">
-    <option name="width" value="2560" />
-    <option name="height" value="1440" />
+  <component name="ProjectFrameBounds">
+    <option name="y" value="23" />
+    <option name="width" value="2555" />
+    <option name="height" value="1125" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -338,7 +338,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="2560" height="1440" extended-state="0" />
+    <frame x="0" y="23" width="2555" height="1125" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="13" sideWeight="0.5005549" side_tool="true" weight="0.4" />
@@ -348,12 +348,11 @@
       <window_info anchor="bottom" id="Python Console" order="12" sideWeight="0.7940639" weight="0.36865672" />
       <window_info anchor="bottom" id="Run" order="3" />
       <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49500555" weight="0.32761195" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13036565" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.098367184" />
       <window_info anchor="bottom" id="Statistic" order="0" sideWeight="0.49954462" weight="0.32910448" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" sideWeight="0.49909583" weight="0.32869634" />
-      <window_info anchor="bottom" id="Find" order="2" />
-      <window_info anchor="right" id="SciView" order="5" sideWeight="0.20574817" visible="true" weight="0.15341812" />
+      <window_info active="true" anchor="right" id="SciView" order="5" sideWeight="0.20574817" visible="true" weight="0.11429709" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="4" sideWeight="0.49944505" weight="0.4" />
@@ -364,6 +363,7 @@
       <window_info anchor="right" x="0" y="0" width="590" height="1217" id="Documentation" order="4" side_tool="true" weight="0.32962668" />
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="2" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -403,6 +403,41 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/meta.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="12" selection-start-line="12" selection-end-line="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Time_series_python/playground/pandas_panel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1702">
+          <caret line="74" column="37" lean-forward="true" selection-start-line="74" selection-start-column="37" selection-end-line="74" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/lstm_stack_alpha2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1311">
+          <caret line="57" column="31" lean-forward="true" selection-start-line="57" selection-start-column="31" selection-end-line="57" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/predefined.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/classes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="943">
+          <caret line="41" column="47" lean-forward="true" selection-start-line="41" selection-start-column="47" selection-end-line="41" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/meta.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="276">
@@ -522,13 +557,6 @@
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/threadDump1.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/meta.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/predefined.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="230">
@@ -538,8 +566,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Time_series_python/playground/pandas_panel.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="652">
-          <caret line="74" column="37" lean-forward="true" selection-start-line="74" selection-start-column="37" selection-end-line="74" selection-end-column="37" />
+        <state relative-caret-position="1702">
+          <caret line="74" column="37" selection-start-line="74" selection-start-column="37" selection-end-line="74" selection-end-column="37" />
         </state>
       </provider>
     </entry>
@@ -559,15 +587,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/lstm_stack_alpha2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="57" column="31" lean-forward="true" selection-start-line="57" selection-start-column="31" selection-end-line="57" selection-end-column="31" />
+        <state relative-caret-position="1311">
+          <caret line="57" column="31" selection-start-line="57" selection-start-column="31" selection-end-line="57" selection-end-column="31" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/classes.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="556">
-          <caret line="41" column="47" lean-forward="true" selection-start-line="41" selection-start-column="47" selection-end-line="41" selection-end-column="47" />
+        <state relative-caret-position="1148">
+          <caret line="41" column="47" selection-start-line="41" selection-start-column="47" selection-end-line="41" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/meta.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1537">
+          <caret line="134" column="38" lean-forward="true" selection-start-line="134" selection-start-column="38" selection-end-line="134" selection-end-column="38" />
         </state>
       </provider>
     </entry>

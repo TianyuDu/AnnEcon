@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"percentage",
+				"percentage_missing"
+			],
+			[
+				"Noti",
+				"NotImplementedError\terror"
+			],
+			[
 				"ndarry",
 				"ndarray"
 			],
@@ -501,7 +509,11 @@
 	],
 	"file_history":
 	[
+		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series_python/alpha/lstm_stack_alpha2.py",
+		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series_python/alpha/classes.py",
+		"/Users/tianyudu/anaconda/pkgs/pyzmq-16.0.2-py36h087ffad_2/lib/python3.6/site-packages/zmq/sugar/tracker.py",
 		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series_python/playground/pandas_panel.py",
+		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series_python/alpha/meta.py",
 		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series_python/alpha/test_lstm_stack.py",
 		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series_python/playground/experiment.py",
 		"/Users/tianyudu/Library/texmf/tex/spikey.sty",
@@ -624,11 +636,7 @@
 		"/Users/tianyudu/Desktop/Algorithmic Toolbox Coursera/Programming Assignments /week1/max_pairwise_product.py",
 		"/Users/tianyudu/Desktop/Algorithmic Toolbox Coursera/Programming Assignments /_a7cffb40aebb7296fde0562f36e58889_APlusB.py",
 		"/Users/tianyudu/Downloads/_a7cffb40aebb7296fde0562f36e58889_APlusB.py",
-		"/Users/tianyudu/Documents/UToronto/Course/CSC108/Assignments/A3/cs_dep_info_r1.txt",
-		"/Users/tianyudu/Documents/UToronto/Course/CSC108/Assignments/A3/cs_dep_info_r0.txt",
-		"/Users/tianyudu/Documents/MATLAB/Add-Ons/dynare-2016-06-01-osx/matlab/utilities/general/isaletter.m",
-		"/Users/tianyudu/Documents/UToronto/Course/CSC108/Assignments/A3/profiles.txt",
-		"/Users/tianyudu/Documents/UToronto/Course/CSC108/Assignments/A3/cs_dep_info_r4.txt"
+		"/Users/tianyudu/Documents/UToronto/Course/CSC108/Assignments/A3/cs_dep_info_r1.txt"
 	],
 	"find":
 	{
@@ -755,11 +763,11 @@
 	"settings":
 	{
 	},
-	"show_minimap": false,
+	"show_minimap": true,
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 296.0,
+	"side_bar_width": 225.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
