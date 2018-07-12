@@ -2,8 +2,8 @@
 Alpha version 2
 """
 # Loading Packages
-from meta import *
-from classes import *
+from model_util import *
+from model import *
 para = ParameterControl()
 print("Loading Packages...")
 import tensorflow as tf
@@ -85,7 +85,7 @@ def main(parameters: "ParameterControl"):
     y_pred_train = model.scaler.inverse_transform(y_pred_train)
     y_pred_train = y_pred_train.reshape(-1, 1)  # Expand the stacked inputs.
     y_pred_test = model.scaler.inverse_transform(y_pred_test)
-    
+
     visualize(
         y_data,
         y_pred_train,

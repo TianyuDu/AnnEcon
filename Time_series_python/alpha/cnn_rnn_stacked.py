@@ -3,9 +3,9 @@ CNN-RNN Stacked model.
 """
 import tensorflow as tf
 import numpy as np
-from meta import *
-from classes import *
-from predefined import *
+from model_util import *
+from model import *
+from predfine import *
 
 
 #class StackedCnnRnnModel:
