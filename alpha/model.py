@@ -15,7 +15,7 @@ from warnings import warn
 from model_util import *
 from data_util import *
 from predfine import *
-
+import reference_code.CRNN as CRNN
 
 class StackedRnnModel:
     """
