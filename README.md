@@ -2,13 +2,23 @@
 
 ## Contents
 
-### Time series analysis and prediction with recurrent neural network
+### Time series analysis and prediction with neural networks
 
 #### Introduction
 
-In this project, we implement recurrent neural network architecture onto time series analysis. Especially, we focus on time series on <u>economic data</u>. 
+In this project, we use neural networks with `tensorflow` to predict <u>economic time series</u> data.
 
-This project is mainly written in [Matlab](mathwork.com) and data used in this model were downloaded from several open databases.
+
+
+#### Feature Extraction
+
+In simple versions of RNN models, the model predicts future movements of indicator solely based on <u>previous data</u>. 
+
+**Working** multivariate case, we use <u>CNN</u> and the <u>activation/hidden layers of RNN</u> as the extracted features. The extracted features are then passed into a RNN (LSTM or GRU, depends on configuration) for forecasting.
+
+
+
+#### Database
 
 * St. Louis Fed (FRED) Economic data by [Federal Reserve Bank of St. Louis](https://fred.stlouisfed.org)
 
@@ -16,9 +26,6 @@ This project is mainly written in [Matlab](mathwork.com) and data used in this m
 
 * [World Bank Open Data](https://data.worldbank.org)
 
-  
-
-#### Model 1: Unemployment Rate Prediction (Updating)
 
 
 
