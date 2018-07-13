@@ -53,7 +53,7 @@ def main(parameters: "ParameterControl"):
 
         loss_record = [1]  # Record loss history.
 
-        for ep in range(para.epochs):
+        for ep in range(para.epochs + 1):  # + 1 so that the training loss on t=epochs will be printed.
             sess.run(
                 model.training_operation,
                 feed_dict={
@@ -90,6 +90,7 @@ def main(parameters: "ParameterControl"):
         y_data,
         y_pred_train,
         y_pred_test,
+        parameters.epochs,
         on_server=parameters.on_server)
 
 

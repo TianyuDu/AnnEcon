@@ -143,6 +143,7 @@ def main():
 		y_data,
 		y_pred_train,
 		y_pred_test,
+		para.epochs,
 		on_server=para.on_server)
 
 if __name__ == "__main__":

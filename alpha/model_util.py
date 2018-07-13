@@ -127,6 +127,7 @@ def visualize(
         y_data: np.ndarray,  # Ground True value.
         y_pred_train: np.ndarray,  # Predicted value on training set.
         y_pred_test: np.ndarray,  # Predicted value on testing set.
+        ep: int,  # Training epochs
         on_server: bool=False  # If on AWS server.
             ) -> None:
     """
@@ -152,7 +153,7 @@ def visualize(
 
     fig, ax = plt.subplots()
 
-    ax.set_title(f"Model Training Result{now_str}")
+    ax.set_title(f"Model Training Result: {now_str} with epochs {ep}")
 
     ax.plot(pd.Series(np.ravel(y_data)), "C0", alpha=0.6, linewidth=0.5, label="Actual Data")
     ax.plot(pd.Series(np.ravel(pred_train)), "C1", alpha=0.6, linewidth=0.5, label="Prediction on Training Data")

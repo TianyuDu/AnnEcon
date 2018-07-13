@@ -2,17 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c24a2edc-df0a-4e6e-a476-c1a2985d0d24" name="Default Changelist" comment="Default Changelist">
-      <change beforePath="$PROJECT_DIR$/.idea/myDeepLearning.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/myDeepLearning.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/alpha/cnn_rnn_stacked.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/alpha/data_util.py" beforeDir="false" afterPath="$PROJECT_DIR$/alpha/data_util.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/alpha/lstm_stack_alpha2.py" beforeDir="false" afterPath="$PROJECT_DIR$/alpha/lstm_stack_alpha2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/alpha/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/alpha/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alpha/cnnrnn_alpha.py" beforeDir="false" afterPath="$PROJECT_DIR$/alpha/cnnrnn_alpha.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/alpha/model_util.py" beforeDir="false" afterPath="$PROJECT_DIR$/alpha/model_util.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/alpha/predfine.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/alpha/test_file.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/alpha/output/events.out.tfevents.1531450809.Tianyus-MacBook-Pro.local" beforeDir="false" afterPath="$PROJECT_DIR$/alpha/output/events.out.tfevents.1531450809.Tianyus-MacBook-Pro.local" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/alpha/test_lstm_stack.py" beforeDir="false" afterPath="$PROJECT_DIR$/alpha/test_lstm_stack.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myDeepLearning.sublime-workspace" beforeDir="false" afterPath="$PROJECT_DIR$/myDeepLearning.sublime-workspace" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -77,27 +70,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="cnnrnn_alpha.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="cnnrnn_alpha.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/alpha/cnnrnn_alpha.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="444">
-              <caret line="85" column="13" lean-forward="true" selection-start-line="85" selection-start-column="13" selection-end-line="85" selection-end-column="13" />
+            <state relative-caret-position="263">
+              <caret line="56" column="21" selection-start-line="56" selection-start-column="21" selection-end-line="56" selection-end-column="21" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test_lstm_stack.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/alpha/test_lstm_stack.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3410" />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="model_util.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="model_util.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/alpha/model_util.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="757">
-              <caret line="160" column="4" selection-start-line="160" selection-start-column="4" selection-end-line="160" selection-end-column="4" />
+            <state relative-caret-position="901">
+              <caret line="131" column="22" lean-forward="true" selection-start-line="131" selection-start-column="22" selection-end-line="131" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -169,9 +155,10 @@
         <option value="$PROJECT_DIR$/Time_series_python/alpha/model.py" />
         <option value="$PROJECT_DIR$/alpha/parameter_util.py" />
         <option value="$PROJECT_DIR$/alpha/test_cnnrnn.py" />
-        <option value="$PROJECT_DIR$/alpha/cnnrnn_alpha.py" />
         <option value="$PROJECT_DIR$/alpha/models.py" />
         <option value="$PROJECT_DIR$/alpha/model_util.py" />
+        <option value="$PROJECT_DIR$/alpha/test_lstm_stack.py" />
+        <option value="$PROJECT_DIR$/alpha/cnnrnn_alpha.py" />
       </list>
     </option>
   </component>
@@ -590,18 +577,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/alpha/test_lstm_stack.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3410" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/alpha/cnnrnn_alpha.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="444">
-          <caret line="85" column="13" lean-forward="true" selection-start-line="85" selection-start-column="13" selection-end-line="85" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/alpha/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="587">
@@ -609,10 +584,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/alpha/test_lstm_stack.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="598">
+          <caret line="145" column="20" selection-start-line="145" selection-start-column="20" selection-end-line="145" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/alpha/model_util.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="757">
-          <caret line="160" column="4" selection-start-line="160" selection-start-column="4" selection-end-line="160" selection-end-column="4" />
+        <state relative-caret-position="901">
+          <caret line="131" column="22" lean-forward="true" selection-start-line="131" selection-start-column="22" selection-end-line="131" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/alpha/cnnrnn_alpha.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="263">
+          <caret line="56" column="21" selection-start-line="56" selection-start-column="21" selection-end-line="56" selection-end-column="21" />
         </state>
       </provider>
     </entry>
