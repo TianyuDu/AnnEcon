@@ -12,7 +12,8 @@ from sklearn import preprocessing
 from warnings import warn
 
 from model_util import *
-from predfine import *
+from parameter_util import *
+from predefine import *
 
 
 class Panel:

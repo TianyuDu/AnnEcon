@@ -8,8 +8,7 @@ from datetime import datetime
 from sklearn import preprocessing
 import matplotlib.pyplot as plt
 
-from model import *
-from predfine import *
+from predefine import *
 from data_util import *
 
 
@@ -96,8 +95,7 @@ def load_data(
 def test_data(
         series: np.ndarray,
         forecast: int,
-        num_periods: int
-            ) -> (np.ndarray, np.ndarray):
+        num_periods: int) -> (np.ndarray, np.ndarray):
     """
     Generating test data.
     """
@@ -105,6 +103,22 @@ def test_data(
     test_x_setup = series[-(num_periods + forecast):]
     test_x = test_x_setup[:num_periods].reshape(-1, num_periods, 1)
     test_y = series[-num_periods:].reshape(-1,num_periods,1)
+    print("Done.")
+    return test_x, test_y
+
+
+def test_data_panel(
+        panel: np.ndarray,
+        target: np.ndarray,
+        forecast: int,
+        num_periods: int) -> (np.ndarray, np.ndarray):
+    """
+    Generating test data for panel data.
+    """
+    print("Generating testing data...")
+    test_x_setup = panel[-(num_periods + forecast):, :]
+    test_x = test_x_setup[:num_periods, :].reshape(-1, num_periods, panel.shape[1], 1)
+    test_y = target[-num_periods:].reshape(-1, num_periods, 1)
     print("Done.")
     return test_x, test_y
 
@@ -120,23 +134,32 @@ def visualize(
     """
 
     # Visualize test set.
-    pred = [None] * len(np.ravel(y_data))
-    pred[-len(np.ravel(y_pred_test)):] = np.ravel(y_pred_test)
+    pred_test = [None] * len(np.ravel(y_data))
+    pred_test[-len(np.ravel(y_pred_test)):] = np.ravel(y_pred_test)
 
-    plt.plot(pd.Series(np.ravel(y_data)), alpha=0.6, linewidth=0.5)
-    plt.plot(pd.Series(pred), alpha=0.8, linewidth=0.5)
+    # plt.plot(pd.Series(np.ravel(y_data)), alpha=0.6, linewidth=0.5)
+    # plt.plot(pd.Series(pred), alpha=0.8, linewidth=0.5)
 
-    if not on_server:
-        plt.show()
+    # if not on_server:
+    #     plt.show()
 
     now_str = datetime.strftime(datetime.now(), "%Y_%m_%d_%s")
-    plt.savefig(f"./figure/result{now_str}_test.svg", format="svg")
-    plt.close()
+    # plt.savefig(f"./figure/result{now_str}_test.svg", format="svg")
+    # plt.close()
 
-    full = [None] * len(np.ravel(y_data))
-    full[0:len(y_pred_train)] = y_pred_train
-    plt.plot(pd.Series(np.ravel(y_data)), alpha=0.6, linewidth=0.5)
-    plt.plot(pd.Series(np.ravel(full)), alpha=0.6, linewidth=0.5)
+    pred_train = [None] * len(np.ravel(y_data))
+    pred_train[0:len(y_pred_train)] = y_pred_train
+
+    fig, ax = plt.subplots()
+
+    ax.set_title(f"Model Training Result{now_str}")
+
+    ax.plot(pd.Series(np.ravel(y_data)), "C0", alpha=0.6, linewidth=0.5, label="Actual Data")
+    ax.plot(pd.Series(np.ravel(pred_train)), "C1", alpha=0.6, linewidth=0.5, label="Prediction on Training Data")
+    ax.plot(pd.Series(np.ravel(pred_test)), "C2", alpha=0.6, linewidth=0.5, label="Prediction on Test Data")
+
+    ax.legend()
+
     plt.savefig(f"./figure/result{now_str}_all.svg", format="svg")
 
 

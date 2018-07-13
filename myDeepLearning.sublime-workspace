@@ -501,14 +501,21 @@
 	"expanded_folders":
 	[
 		"/Users/tianyudu/Documents/Github/myDeepLearning",
-		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series_python",
-		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series_python/__pycache__",
-		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series_python/alpha",
-		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series_python/alpha/data",
-		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series_python/playground"
+		"/Users/tianyudu/Documents/Github/myDeepLearning/alpha",
+		"/Users/tianyudu/Documents/Github/myDeepLearning/alpha/reference_code"
 	],
 	"file_history":
 	[
+		"/Users/tianyudu/Documents/Github/myDeepLearning/alpha/predefine.py",
+		"/Users/tianyudu/Documents/Github/myDeepLearning/alpha/parameter_util.py",
+		"/Users/tianyudu/Documents/Github/myDeepLearning/alpha/cnnrnn_alpha.py",
+		"/Users/tianyudu/Documents/Github/myDeepLearning/alpha/model_util.py",
+		"/Users/tianyudu/Documents/Github/myDeepLearning/alpha/test_cnnrnn.py",
+		"/Users/tianyudu/Documents/Github/myDeepLearning/alpha/model.py",
+		"/Users/tianyudu/Documents/Github/myDeepLearning/alpha/lstm_stack_alpha2.py",
+		"/Users/tianyudu/Documents/Github/myDeepLearning/alpha/test_lstm_stack.py",
+		"/Users/tianyudu/Documents/Github/myDeepLearning/alpha/cnn_rnn_stacked.py",
+		"/Users/tianyudu/Documents/Github/myDeepLearning/alpha/data_util.py",
 		"/Users/tianyudu/Desktop/wechat_reply/log_message.py",
 		"/Users/tianyudu/Documents/Github/myDeepLearning/Time_series_python/alpha/test_lstm_stack.py",
 		"/Users/tianyudu/Library/texmf/tex/spikey.sty",
@@ -626,21 +633,11 @@
 		"/Users/tianyudu/Documents/UToronto/Course/CSC148/Lab/lab1/specs.txt",
 		"/Users/tianyudu/Desktop/Algorithmic Toolbox Coursera/Programming Assignments /1_introduction_starter_files/fibonacci_huge/fibonacci_huge.py",
 		"/Users/tianyudu/Desktop/Algorithmic Toolbox Coursera/Programming Assignments /1_introduction_starter_files/fibonacci_sum_last_digit/fibonacci_sum_last_digit.py",
-		"/Users/tianyudu/Desktop/Algorithmic Toolbox Coursera/Programming Assignments /1_introduction_starter_files/fibonacci/fibonacci.py",
-		"/Users/tianyudu/Desktop/Algorithmic Toolbox Coursera/Programming Assignments /1_introduction_starter_files/lcm/lcm.py",
-		"/Users/tianyudu/Desktop/Algorithmic Toolbox Coursera/Programming Assignments /1_introduction_starter_files/gcd/gcd.py",
-		"/Users/tianyudu/Desktop/Algorithmic Toolbox Coursera/Programming Assignments /1_introduction_starter_files/fibonacci_last_digit/fibonacci_last_digit.py",
-		"/Users/tianyudu/Library/Application Support/Sublime Text 3/Packages/User/Default (OSX).sublime-keymap",
-		"/Users/tianyudu/Desktop/Algorithmic Toolbox Coursera/Programming Assignments /week1/1_introduction_starter_files/fibonacci/fibonacci.py",
-		"/Users/tianyudu/Dropbox/Icon\r",
-		"/Users/tianyudu/Documents/UToronto/Course/CSC108/Assignments/A2/pyta/pylint/extensions/emptystring.py",
-		"/Users/tianyudu/Desktop/Algorithmic Toolbox Coursera/Programming Assignments /week1/Modified/max_pairwise_product.py",
-		"/Users/tianyudu/Desktop/Algorithmic Toolbox Coursera/Programming Assignments /week1/max_pairwise_product.py",
-		"/Users/tianyudu/Desktop/Algorithmic Toolbox Coursera/Programming Assignments /_a7cffb40aebb7296fde0562f36e58889_APlusB.py"
+		"/Users/tianyudu/Desktop/Algorithmic Toolbox Coursera/Programming Assignments /1_introduction_starter_files/fibonacci/fibonacci.py"
 	],
 	"find":
 	{
-		"height": 73.0
+		"height": 72.0
 	},
 	"find_in_files":
 	{
@@ -654,6 +651,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"shape",
 			"para.nn.",
 			"para.nn",
 			"para.",

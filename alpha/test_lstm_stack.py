@@ -3,6 +3,7 @@
 
 # Loading Packages
 from model_util import *
+from parameter_util import *
 para = ParameterControl()
 
 print("Loading Packages...")
@@ -54,18 +55,18 @@ def main():
 	# Input feed node.
 	X = tf.placeholder(
 		tf.float32,
-		[None, num_periods, para.nn_inputs],
+		[None, num_periods, para.nn["inputs"]],
 		name="input_label_feed_X")
 
 	# Output node.
 	y = tf.placeholder(
 		tf.float32,
-		[None, num_periods, para.nn_output],
+		[None, num_periods, para.nn["output"]],
 		name="output_label_feed_y")
 
 	multi_layers = [
-		tf.nn.rnn_cell.BasicRNNCell(num_units=para.nn_hidden[0]),
-		tf.nn.rnn_cell.LSTMCell(num_units=para.nn_hidden[1], cell_clip=100)
+		tf.nn.rnn_cell.BasicRNNCell(num_units=para.nn["hidden"][0]),
+		tf.nn.rnn_cell.LSTMCell(num_units=para.nn["hidden"][1], cell_clip=100)
 		]
 
 	multi_cells = tf.nn.rnn_cell.MultiRNNCell(multi_layers)
@@ -78,19 +79,19 @@ def main():
 
 	stacked_rnn_output = tf.reshape(
 		rnn_output,
-		[-1, para.nn_hidden[-1]],
+		[-1, para.nn["hidden"][-1]],
 		name="stacked_rnn_output"
 		)
 
 	stacked_outputs = tf.layers.dense(
 		stacked_rnn_output,
-		para.nn_output,
+		para.nn["output"],
 		name="stacked_outputs"
 		)
 
 	outputs = tf.reshape(
 		stacked_outputs,
-		[-1, num_periods, para.nn_output]
+		[-1, num_periods, para.nn["output"]]
 		)
 
 

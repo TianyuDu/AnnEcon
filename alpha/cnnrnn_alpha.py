@@ -3,7 +3,7 @@ Alpha version 2
 """
 # Loading Packages
 from model_util import *
-from model import *
+from models import *
 para = ParameterControl()
 print("Loading Packages...")
 import tensorflow as tf
@@ -20,6 +20,7 @@ if para.on_server:
         )  # If on a server, change matplotlib settings.
 import matplotlib.pyplot as plt
 print("Done.")
+from data_util import *
 
 
 def main(parameters: "ParameterControl"):
@@ -37,7 +38,7 @@ def main(parameters: "ParameterControl"):
     tf.reset_default_graph()
     # Create model.
     print("@main: building model...")
-    model = StackedRnnModel(ts_array, parameters=parameters)
+    model = BasicCnnRnnModel(p, parameters=parameters)
 
     with tf.Session() as sess:
         print("@main: Starting session...")
@@ -56,12 +57,12 @@ def main(parameters: "ParameterControl"):
             sess.run(
                 model.training_operation,
                 feed_dict={
-                    model.X: model.x_batches,
+                    model.conv_in: model.x_batches,
                     model.y: model.y_batches})
 
             if ep % 100 == 0:
                 quantified_loss = model.loss.eval(
-                    feed_dict={model.X: model.x_batches,
+                    feed_dict={model.conv_in: model.x_batches,
                                model.y: model.y_batches})
                 loss_record.append(quantified_loss)
                 print(ep,
@@ -72,18 +73,18 @@ def main(parameters: "ParameterControl"):
 
         # Create training set prediction,
         y_pred_train = sess.run(
-            model.outputs, feed_dict={model.X: model.x_batches})
+            model.outputs, feed_dict={model.conv_in: model.x_batches})
         y_pred_test = sess.run(
-            model.outputs, feed_dict={model.X: model.X_test})
+            model.outputs, feed_dict={model.conv_in: model.X_test})
         writer.close()
 
         print(f"Training finished, time taken {(datetime.now() - begin_time)}")
 
     # Transform back
-    y_data = model.scaler.inverse_transform(model.y_data)
-    y_pred_train = model.scaler.inverse_transform(y_pred_train)
+    y_data = model.output_scaler.inverse_transform(model.y_data)
+    y_pred_train = model.output_scaler.inverse_transform(y_pred_train)
     y_pred_train = y_pred_train.reshape(-1, 1)  # Expand the stacked inputs.
-    y_pred_test = model.scaler.inverse_transform(y_pred_test)
+    y_pred_test = model.output_scaler.inverse_transform(y_pred_test)
 
     visualize(
         y_data,

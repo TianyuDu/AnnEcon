@@ -2,255 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c24a2edc-df0a-4e6e-a476-c1a2985d0d24" name="Default Changelist" comment="Default Changelist">
+      <change beforePath="$PROJECT_DIR$/.idea/myDeepLearning.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/myDeepLearning.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/dataedu1.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/dataedu2.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/dataedu3.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/dataedu4.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/dataedu5.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/datamas1.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/datamas2.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/datamas3.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/datasex1.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/datasex2.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/datasex2edu1.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/default_model.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model/temp/checkpoint" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model/temp/eval/events.out.tfevents.1521237578.ip-172-31-24-149" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model/temp/eval/events.out.tfevents.1521238342.ip-172-31-24-149" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model/temp/eval/events.out.tfevents.1521239051.ip-172-31-24-149" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model/temp/eval/events.out.tfevents.1521239166.ip-172-31-24-149" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model/temp/eval/events.out.tfevents.1521239231.ip-172-31-24-149" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model/temp/eval/events.out.tfevents.1521240364.ip-172-31-24-149" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model/temp/eval/events.out.tfevents.1521240566.ip-172-31-24-149" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model/temp/eval/events.out.tfevents.1521241407.ip-172-31-24-149" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model/temp/eval/events.out.tfevents.1521241443.ip-172-31-24-149" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model/temp/eval/events.out.tfevents.1521241524.ip-172-31-24-149" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model/temp/events.out.tfevents.1521237572.ip-172-31-24-149" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model/temp/events.out.tfevents.1521238337.ip-172-31-24-149" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model/temp/events.out.tfevents.1521239045.ip-172-31-24-149" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model/temp/events.out.tfevents.1521239160.ip-172-31-24-149" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model/temp/events.out.tfevents.1521239225.ip-172-31-24-149" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model/temp/events.out.tfevents.1521239825.ip-172-31-24-149" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model/temp/events.out.tfevents.1521239922.ip-172-31-24-149" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model/temp/events.out.tfevents.1521239946.ip-172-31-24-149" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model/temp/events.out.tfevents.1521239980.ip-172-31-24-149" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model/temp/events.out.tfevents.1521240019.ip-172-31-24-149" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model/temp/events.out.tfevents.1521240095.ip-172-31-24-149" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model/temp/events.out.tfevents.1521240343.ip-172-31-24-149" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model/temp/events.out.tfevents.1521240358.ip-172-31-24-149" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model/temp/events.out.tfevents.1521240560.ip-172-31-24-149" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model/temp/events.out.tfevents.1521240963.ip-172-31-24-149" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model/temp/events.out.tfevents.1521240981.ip-172-31-24-149" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model/temp/events.out.tfevents.1521241002.ip-172-31-24-149" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model/temp/events.out.tfevents.1521241276.ip-172-31-24-149" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model/temp/events.out.tfevents.1521241401.ip-172-31-24-149" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model/temp/events.out.tfevents.1521241436.ip-172-31-24-149" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model/temp/events.out.tfevents.1521241518.ip-172-31-24-149" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model/temp/graph.pbtxt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model/temp/model.ckpt-1596.data-00000-of-00001" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model/temp/model.ckpt-1596.index" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model/temp/model.ckpt-1596.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model/temp/model.ckpt-1597.data-00000-of-00001" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model/temp/model.ckpt-1597.index" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model/temp/model.ckpt-1597.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model/temp/model.ckpt-1707.data-00000-of-00001" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model/temp/model.ckpt-1707.index" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model/temp/model.ckpt-1707.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model/temp/model.ckpt-1708.data-00000-of-00001" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model/temp/model.ckpt-1708.index" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model/temp/model.ckpt-1708.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model/temp/model.ckpt-1791.data-00000-of-00001" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model/temp/model.ckpt-1791.index" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/model/temp/model.ckpt-1791.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/output.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/output_dataedu1.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/output_dataedu1.csv.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/output_dataedu2.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/play.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/play_test.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/result.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FDCC2018/temp_file.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/Demo_result_forex/fig_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/Demo_result_forex/fig_2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/Demo_result_forex/fig_3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/SampleData.mat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/config.mat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/data/AAA.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/data/AMBNS.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/data/CPIAUCSL.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/data/DEXCAUS.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/data/DEXUSEU.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/data/GDP.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/data/GDPC1.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/data/GS1.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/data/INDPRO.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/data/M04051USM324NNBR.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/data/M2.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/data/M2NS.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/data/MPRIME.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/data/PSAVERT.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/data/SP500.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/data/T10Y2YM.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/data/TB3MS.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/data/UNRATE.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/demo_essay/.texpadtmp/mdoel_description.aux" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/demo_essay/.texpadtmp/mdoel_description.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/demo_essay/.texpadtmp/mdoel_description.synctex.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/demo_essay/.texpadtmp/mdoel_description.toc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/demo_essay/essayDemo.mat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/demo_essay/mdoel_description.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/demo_essay/mdoel_description.tex" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/demo_essay/result.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/demo_essay/rnn_demo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/demo_essay/simple_ff_network.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/demo_essay/simple_neuron.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/demo_essay/unrate_data.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/dexuseu_net.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/fetch_data.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/fetch_ts.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/jun2_0134.mat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/load_data_from_csv.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/main.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/main_matlab.mlx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/new_net.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/plot_fun.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/result0.mat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/result1.mat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/run_net.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/run_net.prj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/test.mat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/train20k.mat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/unrate_net.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_matlab/unrate_net.mlx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/.~c9_invoke_3Yw46m.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/.~c9_invoke_FmjuDi.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/.~c9_invoke_iYkjWM.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/CRNN.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/cnn_rnn_stacked.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/data/CPIAUCSL.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/data/RGDP.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/data/UNRATE.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/data/fred.xls" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/data_util.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/figure/lambda-payloads.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/figure/result2018_06_22_1529646579_all.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/figure/result2018_06_22_1529646579_test.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/figure/result2018_06_22_1529647696_all.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/figure/result2018_06_22_1529647696_test.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/figure/result2018_06_22_1529647801_all.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/figure/result2018_06_22_1529647801_test.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/figure/result2018_06_22_1529648173_all.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/figure/result2018_06_22_1529648173_test.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/figure/result2018_06_22_1529648700_all.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/figure/result2018_06_22_1529648700_test.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/figure/result2018_06_24_1529815073_all.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/figure/result2018_06_24_1529815073_test.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/figure/result2018_06_24_1529817009_all.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/figure/result2018_06_24_1529817009_test.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/figure/result2018_07_01_1530428008_all.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/figure/result2018_07_01_1530428008_test.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/figure/result2018_07_01_1530478700_all.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/figure/result2018_07_01_1530478700_test.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/figure/result2018_07_04_1530738210_all.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/figure/result2018_07_04_1530738210_test.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/fred/MyDeepLearning_Annual.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/fred/MyDeepLearning_Annual_Fiscal_Year.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/fred/MyDeepLearning_Biweekly_Ending_Wednesday.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/fred/MyDeepLearning_Daily.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/fred/MyDeepLearning_Daily_7_Day.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/fred/MyDeepLearning_Daily_Close.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/fred/MyDeepLearning_Monthly.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/fred/MyDeepLearning_Quarterly.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/fred/MyDeepLearning_Quarterly_End_of_Period.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/fred/MyDeepLearning_README.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/fred/MyDeepLearning_Semiannual.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/fred/MyDeepLearning_Weekly_As_of_Wednesday.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/fred/MyDeepLearning_Weekly_Ending_Friday.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/fred/MyDeepLearning_Weekly_Ending_Monday.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/fred/MyDeepLearning_Weekly_Ending_Saturday.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/fred/MyDeepLearning_Weekly_Ending_Thursday.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/fred/MyDeepLearning_Weekly_Ending_Wednesday.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/lstm_stack_alpha2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/model.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/model_util.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/output/events.out.tfevents.1529645969.ip-172-31-24-149" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/output/events.out.tfevents.1529647033.ip-172-31-24-149" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/output/events.out.tfevents.1529647744.ip-172-31-24-149" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/output/events.out.tfevents.1529648051.ip-172-31-24-149" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/output/events.out.tfevents.1529648319.ip-172-31-24-149" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/output/events.out.tfevents.1529813811.Tianyus-MacBook-Pro.local" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/output/events.out.tfevents.1529814835.Tianyus-MacBook-Pro.local" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/output/events.out.tfevents.1529814924.Tianyus-MacBook-Pro.local" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/output/events.out.tfevents.1529814972.Tianyus-MacBook-Pro.local" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/output/events.out.tfevents.1529815033.Tianyus-MacBook-Pro.local" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/output/events.out.tfevents.1529815059.Tianyus-MacBook-Pro.local" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/output/events.out.tfevents.1529815362.Tianyus-MacBook-Pro.local" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/output/events.out.tfevents.1529817177.ip-172-31-24-149" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/output/events.out.tfevents.1530427100.Tianyus-MacBook-Pro.local" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/output/events.out.tfevents.1530427385.Tianyus-MacBook-Pro.local" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/output/events.out.tfevents.1530427416.Tianyus-MacBook-Pro.local" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/output/events.out.tfevents.1530427704.Tianyus-MacBook-Pro.local" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/output/events.out.tfevents.1530427715.Tianyus-MacBook-Pro.local" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/output/events.out.tfevents.1530427842.Tianyus-MacBook-Pro.local" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/output/events.out.tfevents.1530427972.Tianyus-MacBook-Pro.local" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/output/events.out.tfevents.1530478664.Tianyus-MacBook-Pro.local" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/output/events.out.tfevents.1530565887.ip-172-31-24-149" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/output/events.out.tfevents.1530565924.ip-172-31-24-149" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/output/events.out.tfevents.1530678350.Tianyus-MacBook-Pro.local" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/output/events.out.tfevents.1530738021.inside-65-86-46.wireless.utoronto.ca" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/output/events.out.tfevents.1530738073.inside-65-86-46.wireless.utoronto.ca" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/predfine.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/test_file.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/alpha/test_lstm_stack.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/constants.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/data/AAA.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/data/AMBNS.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/data/CPIAUCSL.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/data/DEXCAUS.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/data/DEXUSEU.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/data/GDP.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/data/GDPC1.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/data/GS1.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/data/INDPRO.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/data/M04051USM324NNBR.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/data/M2.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/data/M2NS.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/data/MPRIME.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/data/PSAVERT.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/data/SP500.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/data/T10Y2YM.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/data/TB3MS.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/data/UNRATE.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/data_methods.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/data_proc.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/figure/result2018_06_15_1529051352.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/hello.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/model.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/model_LSTM.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/model_LSTM_v2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/output/events.out.tfevents.1529113541.Tianyus-MacBook-Pro.local" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/output/events.out.tfevents.1529113585.Tianyus-MacBook-Pro.local" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/playground/.Rapp.history" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/playground/.ipynb_checkpoints/CNN-RNN-Stack-checkpoint.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/playground/CNN-RNN-Stack.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/playground/HAR-CNN_LSTM.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/playground/MNIST-data/t10k-images-idx3-ubyte.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/playground/MNIST-data/t10k-labels-idx1-ubyte.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/playground/MNIST-data/train-images-idx3-ubyte.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/playground/MNIST-data/train-labels-idx1-ubyte.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/playground/data/CPIAUCSL.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/playground/data/RGDP.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/playground/data/UNRATE.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/playground/data/countries.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/playground/data/realwage.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/playground/draft.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/playground/experiment.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/playground/load_data.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/playground/pandas_panel.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/save_data.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time_series_python/visualize.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/alpha/cnn_rnn_stacked.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/alpha/data_util.py" beforeDir="false" afterPath="$PROJECT_DIR$/alpha/data_util.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alpha/lstm_stack_alpha2.py" beforeDir="false" afterPath="$PROJECT_DIR$/alpha/lstm_stack_alpha2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alpha/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/alpha/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alpha/model_util.py" beforeDir="false" afterPath="$PROJECT_DIR$/alpha/model_util.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/alpha/predfine.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/alpha/test_file.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/alpha/test_lstm_stack.py" beforeDir="false" afterPath="$PROJECT_DIR$/alpha/test_lstm_stack.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myDeepLearning.sublime-workspace" beforeDir="false" afterPath="$PROJECT_DIR$/myDeepLearning.sublime-workspace" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -261,6 +23,7 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/myDeepLearning$lstm_stack_alpha2.coverage" NAME="lstm_stack_alpha2 Coverage Results" MODIFIED="1530678305902" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Time_series_python/alpha" />
+    <SUITE FILE_PATH="coverage/myDeepLearning$cnnrnn_alpha.coverage" NAME="cnnrnn_alpha Coverage Results" MODIFIED="1531448288887" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/alpha" />
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -313,7 +76,64 @@
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf>
+      <file leaf-file-name="cnnrnn_alpha.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/alpha/cnnrnn_alpha.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="444">
+              <caret line="85" column="13" lean-forward="true" selection-start-line="85" selection-start-column="13" selection-end-line="85" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test_lstm_stack.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/alpha/test_lstm_stack.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-3410" />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="model_util.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/alpha/model_util.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="757">
+              <caret line="160" column="4" selection-start-line="160" selection-start-column="4" selection-end-line="160" selection-end-column="4" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="data_util.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/alpha/data_util.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-47">
+              <caret line="8" column="14" lean-forward="true" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
+              <folding>
+                <element signature="e#352#1211#0" />
+                <element signature="e#1298#4574#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test_cnnrnn.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/alpha/test_cnnrnn.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-4609">
+              <caret line="14" column="24" lean-forward="true" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="24" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/alpha/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="587">
+              <caret line="317" column="50" lean-forward="true" selection-start-line="317" selection-start-column="50" selection-end-line="317" selection-end-column="50" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -325,6 +145,7 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>TS</find>
+      <find>scaler</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -346,6 +167,11 @@
         <option value="$PROJECT_DIR$/Time_series_python/alpha/data_util.py" />
         <option value="$PROJECT_DIR$/Time_series_python/alpha/test_file.py" />
         <option value="$PROJECT_DIR$/Time_series_python/alpha/model.py" />
+        <option value="$PROJECT_DIR$/alpha/parameter_util.py" />
+        <option value="$PROJECT_DIR$/alpha/test_cnnrnn.py" />
+        <option value="$PROJECT_DIR$/alpha/cnnrnn_alpha.py" />
+        <option value="$PROJECT_DIR$/alpha/models.py" />
+        <option value="$PROJECT_DIR$/alpha/model_util.py" />
       </list>
     </option>
   </component>
@@ -381,6 +207,11 @@
             <path>
               <item name="myDeepLearning" type="b2602c69:ProjectViewProjectNode" />
               <item name="myDeepLearning" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="myDeepLearning" type="b2602c69:ProjectViewProjectNode" />
+              <item name="myDeepLearning" type="462c0819:PsiDirectoryNode" />
+              <item name="alpha" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -436,7 +267,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.data_util">
+  <component name="RunManager" selected="Python.cnnrnn_alpha">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="myDeepLearning" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -470,6 +301,25 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Time_series_python/alpha/cnn_rnn_stacked.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="cnnrnn_alpha" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="myDeepLearning" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/alpha" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/alpha/cnnrnn_alpha.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="true" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -517,9 +367,11 @@
       <item itemvalue="Python.lstm_stack_alpha2" />
       <item itemvalue="Python.cnn_rnn_stacked" />
       <item itemvalue="Python.data_util" />
+      <item itemvalue="Python.cnnrnn_alpha" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.cnnrnn_alpha" />
         <item itemvalue="Python.data_util" />
         <item itemvalue="Python.cnn_rnn_stacked" />
         <item itemvalue="Python.lstm_stack_alpha2" />
@@ -558,6 +410,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="2560" height="1440" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="13" sideWeight="0.5005549" side_tool="true" weight="0.4" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5004554" side_tool="true" weight="0.32985073" />
@@ -566,11 +419,11 @@
       <window_info anchor="bottom" id="Python Console" order="12" sideWeight="0.7940639" weight="0.36791044" />
       <window_info anchor="bottom" id="Run" order="3" weight="0.32910448" />
       <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49500555" weight="0.30149254" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.10055644" />
-      <window_info anchor="bottom" id="Statistic" order="0" sideWeight="0.49954462" weight="0.32910448" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.10651828" />
+      <window_info anchor="bottom" id="Statistic" order="0" sideWeight="0.49954462" visible="true" weight="0.32910448" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" sideWeight="0.49909583" weight="0.32869634" />
-      <window_info anchor="right" id="SciView" order="5" sideWeight="0.20574817" visible="true" weight="0.11406995" />
+      <window_info anchor="right" id="SciView" order="5" sideWeight="0.20574817" visible="true" weight="0.08465819" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="4" sideWeight="0.49944505" weight="0.4" />
@@ -596,7 +449,10 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="2" />
+      <breakpoints-dialog>
+        <breakpoints-dialog />
+      </breakpoints-dialog>
+      <option name="time" value="9" />
     </breakpoint-manager>
   </component>
   <component name="debuggerHistoryManager">
@@ -621,255 +477,34 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/model_util.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="736">
-          <caret line="32" column="50" selection-start-line="32" selection-start-column="50" selection-end-line="32" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Time_series_python/playground/pandas_panel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2323">
-          <caret line="101" column="32" selection-start-line="101" selection-start-column="32" selection-end-line="101" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/cnn_rnn_stacked.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1242">
-          <caret line="54" lean-forward="true" selection-start-line="54" selection-end-line="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/model_util.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="966">
-          <caret line="42" column="69" selection-start-line="42" selection-start-column="69" selection-end-line="42" selection-end-column="69" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Time_series_python/playground/pandas_panel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1702">
-          <caret line="74" column="37" selection-start-line="74" selection-start-column="37" selection-end-line="74" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="943">
-          <caret line="41" column="47" selection-start-line="41" selection-start-column="47" selection-end-line="41" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/lstm_stack_alpha2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1311">
-          <caret line="57" column="31" selection-start-line="57" selection-start-column="31" selection-end-line="57" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/predfine.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="10" selection-start-line="10" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/model_util.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3082">
-          <caret line="134" column="38" lean-forward="true" selection-start-line="134" selection-start-column="38" selection-end-line="134" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Time_series_python/playground/pandas_panel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1702">
-          <caret line="74" column="37" selection-start-line="74" selection-start-column="37" selection-end-line="74" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="943">
-          <caret line="41" column="47" selection-start-line="41" selection-start-column="47" selection-end-line="41" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/lstm_stack_alpha2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1311">
-          <caret line="57" column="31" selection-start-line="57" selection-start-column="31" selection-end-line="57" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/predfine.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="10" selection-start-line="10" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/model_util.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Time_series_python/playground/pandas_panel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1702">
-          <caret line="74" column="37" lean-forward="true" selection-start-line="74" selection-start-column="37" selection-end-line="74" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/lstm_stack_alpha2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1311">
-          <caret line="57" column="31" lean-forward="true" selection-start-line="57" selection-start-column="31" selection-end-line="57" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/predfine.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="10" selection-start-line="10" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="943">
-          <caret line="41" column="47" lean-forward="true" selection-start-line="41" selection-start-column="47" selection-end-line="41" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/model_util.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="966">
-          <caret line="42" selection-start-line="42" selection-end-line="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/predfine.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="10" selection-start-line="10" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Time_series_python/playground/pandas_panel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1679">
-          <caret line="73" column="29" lean-forward="true" selection-start-line="73" selection-start-column="29" selection-end-line="73" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/model_util.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="667">
-          <caret line="29" column="26" lean-forward="true" selection-start-line="29" selection-start-column="26" selection-end-line="29" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/predfine.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="10" selection-start-line="10" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="966">
-          <caret line="42" selection-start-line="42" selection-end-line="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/model_util.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2668">
-          <caret line="116" column="21" lean-forward="true" selection-start-line="116" selection-start-column="21" selection-end-line="116" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="966">
-          <caret line="42" selection-start-line="42" selection-end-line="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/predfine.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="10" selection-start-line="10" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/model_util.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
-          <caret line="25" column="19" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/predfine.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="10" selection-start-line="10" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3159">
-          <caret line="117" lean-forward="true" selection-start-line="117" selection-end-line="117" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/lstm_stack_alpha2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1323">
-          <caret line="49" column="24" selection-start-line="49" selection-start-column="24" selection-end-line="49" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/model_util.py" />
+    <entry file="file://$PROJECT_DIR$/Time_series_python/playground/pandas_panel.py" />
+    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/model.py" />
+    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/lstm_stack_alpha2.py" />
+    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/predfine.py" />
+    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/model_util.py" />
+    <entry file="file://$PROJECT_DIR$/Time_series_python/playground/pandas_panel.py" />
+    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/lstm_stack_alpha2.py" />
+    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/predfine.py" />
+    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/model.py" />
+    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/model_util.py" />
+    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/model.py" />
+    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/predfine.py" />
+    <entry file="file://$PROJECT_DIR$/Time_series_python/playground/pandas_panel.py" />
+    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/model_util.py" />
+    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/predfine.py" />
+    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/model.py" />
+    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/model_util.py" />
+    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/model.py" />
+    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/predfine.py" />
+    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/model_util.py" />
+    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/predfine.py" />
+    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/model.py" />
+    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/lstm_stack_alpha2.py" />
     <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/meta_draft_jun30_2018.py" />
-    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/test_lstm_stack.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="15" lean-forward="true" selection-start-column="15" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Time_series_python/.~c9_invoke_3Yw46m.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Time_series_python/playground/experiment.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2646">
-          <caret line="62" column="67" selection-start-line="62" selection-start-column="62" selection-end-line="62" selection-end-column="67" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/test_lstm_stack.py" />
+    <entry file="file://$PROJECT_DIR$/Time_series_python/.~c9_invoke_3Yw46m.py" />
+    <entry file="file://$PROJECT_DIR$/Time_series_python/playground/experiment.py" />
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/threadDump1.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -880,34 +515,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="654">
-          <caret line="1663" selection-start-line="1663" selection-end-line="1663" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/lstm_stack_alpha2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1311">
-          <caret line="57" column="31" selection-start-line="57" selection-start-column="31" selection-end-line="57" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Time_series_python/playground/pandas_panel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1440">
-          <caret line="90" column="58" selection-start-line="90" selection-start-column="58" selection-end-line="90" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/cnn_rnn_stacked.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="716">
-          <caret line="51" column="46" selection-start-line="51" selection-start-column="46" selection-end-line="51" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/lstm_stack_alpha2.py" />
+    <entry file="file://$PROJECT_DIR$/Time_series_python/playground/pandas_panel.py" />
+    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/cnn_rnn_stacked.py" />
     <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/IPython/core/interactiveshell.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
@@ -915,38 +525,94 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/predfine.py">
+    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/predfine.py" />
+    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/data_util.py" />
+    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/model_util.py" />
+    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/test_file.py" />
+    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/model.py" />
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="9" column="8" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
+        <state relative-caret-position="205">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/data_util.py">
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
-          <caret line="35" column="27" selection-start-line="35" selection-start-column="27" selection-end-line="35" selection-end-column="27" />
+        <state relative-caret-position="198">
+          <caret line="1657" selection-start-line="1657" selection-end-line="1657" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/model_util.py">
+    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/tensorflow/python/framework/tensor_util.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="12" column="23" selection-start-line="12" selection-start-column="23" selection-end-line="12" selection-end-column="23" />
+        <state relative-caret-position="198">
+          <caret line="524" selection-start-line="524" selection-end-line="524" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/test_file.py">
+    <entry file="file://$PROJECT_DIR$/alpha/lstm_stack_alpha2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="532">
-          <caret line="19" selection-start-line="19" selection-end-line="19" />
+        <state relative-caret-position="324">
+          <caret line="62" column="48" selection-start-line="62" selection-start-column="48" selection-end-line="62" selection-end-column="48" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/model.py">
+    <entry file="file://$PROJECT_DIR$/alpha/parameter_util.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="503">
-          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+        <state relative-caret-position="219">
+          <caret line="51" column="56" lean-forward="true" selection-start-line="51" selection-start-column="56" selection-end-line="51" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/alpha/test_file.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2404">
+          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/alpha/data_util.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-47">
+          <caret line="8" column="14" lean-forward="true" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
+          <folding>
+            <element signature="e#352#1211#0" />
+            <element signature="e#1298#4574#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/alpha/test_cnnrnn.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4609">
+          <caret line="14" column="24" lean-forward="true" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/alpha/test_lstm_stack.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3410" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/alpha/cnnrnn_alpha.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="444">
+          <caret line="85" column="13" lean-forward="true" selection-start-line="85" selection-start-column="13" selection-end-line="85" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/alpha/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="587">
+          <caret line="317" column="50" lean-forward="true" selection-start-line="317" selection-start-column="50" selection-end-line="317" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/alpha/model_util.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="757">
+          <caret line="160" column="4" selection-start-line="160" selection-start-column="4" selection-end-line="160" selection-end-column="4" />
         </state>
       </provider>
     </entry>
