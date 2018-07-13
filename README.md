@@ -1,4 +1,4 @@
-# myDeepLearning by Spikey
+# Artificial Neural Network based Economics by Spikey
 
 ## Contents
 
