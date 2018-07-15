@@ -42,6 +42,8 @@ def main(parameters: "ParameterControl"):
 
     with tf.Session() as sess:
         print("@main: Starting session...")
+        print("@main: Creating saver...")
+        saver = tf.train.Saver()
         print("@main: Starting writer...")
         writer = tf.summary.FileWriter("output", sess.graph)
         tf.summary.histogram("loss", model.loss)
@@ -71,6 +73,8 @@ def main(parameters: "ParameterControl"):
                     f"\tLoss Improvement:\
                      {-1 * ((loss_record[-1] - loss_record[-2]) / loss_record[-2] * 100): .6}%")
 
+        now_str = datetime.strftime(datetime.now(), "%Y_%m_%d_%s")
+        saver.save(sess, f"./saved/{now_str}")
         # Create training set prediction,
         y_pred_train = sess.run(
             model.outputs, feed_dict={model.conv_in: model.x_batches})
