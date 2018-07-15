@@ -59,13 +59,13 @@ def main(parameters: "ParameterControl"):
             sess.run(
                 model.training_operation,
                 feed_dict={
-                    model.conv_in: model.x_batches,
-                    model.y: model.y_batches})
+                    model.conv_in: model.X_train,
+                    model.y: model.Y_train})
 
             if ep % 100 == 0:
                 quantified_loss = model.loss.eval(
-                    feed_dict={model.conv_in: model.x_batches,
-                               model.y: model.y_batches})
+                    feed_dict={model.conv_in: model.X_train,
+                               model.y: model.Y_train})
                 loss_record.append(quantified_loss)
                 print(ep,
                       f"\t{model.loss_metric}: {quantified_loss}")
@@ -77,7 +77,7 @@ def main(parameters: "ParameterControl"):
         saver.save(sess, f"./saved/{now_str}")
         # Create training set prediction,
         y_pred_train = sess.run(
-            model.outputs, feed_dict={model.conv_in: model.x_batches})
+            model.outputs, feed_dict={model.conv_in: model.X_train})
         y_pred_test = sess.run(
             model.outputs, feed_dict={model.conv_in: model.X_test})
         writer.close()

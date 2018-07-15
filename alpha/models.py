@@ -66,6 +66,11 @@ class StackedRnnModel:
 
         self.X_test, self.Y_test = model_util.test_data(series, parameters.f_horizon, parameters.num_periods)
 
+        # assert self.X_test.shape[1] == self.Y_test.shape[1]
+        # test_steps = self.X_test.shape[1]
+        # self.X_train = self.x_batches[:, -test_steps, :]
+        # self.Y_train = self.y_batches[:, -test_steps, :]
+
         print("\t@model: Creating feeding nodes, dtype = float32...")
         # Input feed node.
         self.X = tf.placeholder(
@@ -200,6 +205,10 @@ class BasicCnnRnnModel:
 
         self.X_test, self.Y_test = test_data_panel(raw, target, parameters.f_horizon, parameters.num_periods)
 
+        assert self.X_test.shape[0] == self.Y_test.shape[0]
+        test_steps = self.X_test.shape[0]
+        self.X_train = self.x_batches[:-test_steps, :, :, :]
+        self.Y_train = self.y_batches[:-test_steps, :, :]
 
         print("\t@model: Creating feeding nodes, dtype=float32...")
         # Input feed node.
@@ -268,9 +277,9 @@ class BasicCnnRnnModel:
         print("\t@model: Constructing RNN Layers, dtype=float32...")
 
         multi_layers = [
-            tf.nn.rnn_cell.BasicRNNCell(
+            tf.nn.rnn_cell.LSTMCell(
                 num_units=parameters.nn["hidden"][0]),
-            tf.nn.rnn_cell.GRUCell(
+            tf.nn.rnn_cell.LSTMCell(
                 num_units=parameters.nn["hidden"][1])
             ]
 
