@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c24a2edc-df0a-4e6e-a476-c1a2985d0d24" name="Default Changelist" comment="Default Changelist">
-      <change beforePath="$PROJECT_DIR$/alpha/cnnrnn_alpha.py" beforeDir="false" afterPath="$PROJECT_DIR$/alpha/cnnrnn_alpha.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/alpha/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/alpha/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/alpha/parameter_util.py" beforeDir="false" afterPath="$PROJECT_DIR$/alpha/parameter_util.py" afterDir="false" />
-    </list>
+    <list default="true" id="c24a2edc-df0a-4e6e-a476-c1a2985d0d24" name="Default Changelist" comment="Default Changelist" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -74,7 +70,7 @@
         <entry file="file://$PROJECT_DIR$/alpha/cnnrnn_alpha.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="179">
-              <caret line="62" column="37" lean-forward="true" selection-start-line="62" selection-start-column="37" selection-end-line="62" selection-end-column="37" />
+              <caret line="62" column="37" selection-start-line="62" selection-start-column="37" selection-end-line="62" selection-end-column="37" />
             </state>
           </provider>
         </entry>
@@ -427,7 +423,7 @@
       <window_info anchor="right" id="SciView" order="5" sideWeight="0.20574817" visible="true" weight="0.22761194" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Debug" order="4" sideWeight="0.49944505" visible="true" weight="0.43912175" />
+      <window_info anchor="bottom" id="Debug" order="4" sideWeight="0.49944505" weight="0.43912175" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
@@ -580,7 +576,7 @@
     <entry file="file://$PROJECT_DIR$/alpha/cnnrnn_alpha.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="179">
-          <caret line="62" column="37" lean-forward="true" selection-start-line="62" selection-start-column="37" selection-end-line="62" selection-end-column="37" />
+          <caret line="62" column="37" selection-start-line="62" selection-start-column="37" selection-end-line="62" selection-end-column="37" />
         </state>
       </provider>
     </entry>
