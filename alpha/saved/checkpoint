@@ -1,7 +1,2 @@
-<<<<<<< HEAD
-model_checkpoint_path: "2018_07_15_1531621176"
-all_model_checkpoint_paths: "2018_07_15_1531621176"
-=======
-model_checkpoint_path: "2018_07_14_1531620780"
-all_model_checkpoint_paths: "2018_07_14_1531620780"
->>>>>>> a77f4feb2c8919c6e044a9a61af313a88344f3e9
+model_checkpoint_path: "2018_07_15_1531624095"
+all_model_checkpoint_paths: "2018_07_15_1531624095"
