@@ -96,7 +96,7 @@ class ParameterControl:
         """
         nn_para = dict()
         nn_para["inputs"] = 1
-        nn_para["hidden"] = [128, 128]
+        nn_para["hidden"] = [256, 128]
         nn_para["output"] = 1
         nn_para["reg_para"] = 0.005
         return nn_para
