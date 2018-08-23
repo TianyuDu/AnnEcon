@@ -1,9 +1,9 @@
 """
-Alpha version 2
+Prediction model for Wiki Stock prices
 """
 # Loading Packages
 from model_util import *
-from models.models import *
+from models.wiki_price_cnnrnn import *
 para = ParameterControl()
 print("Loading Packages...")
 import tensorflow as tf
@@ -26,18 +26,28 @@ def main(parameters: "ParameterControl"):
     """
     Main operation.
     """
-    print("@main: version alpha 2: single time series prediction, stacked.")
+    print("WIKI_PRICE Prediction model loaded.")
     # Prepare data.
     print("@main: preparing data...")
-    print("\t@main: CPIAUCSL data will be loaded, as benchmark test data.")
-    ts, ts_array = load_data("./data/CPIAUCSL.csv", "local")
+
+    data_url = "https://s3.us-east-2.amazonaws.com/spikey/data/WIKI_PRICES.csv"
+
+    print(f"@main: downloading data from \n\t{data_url}")
+
+    df = pd.read_csv(
+        data_url,
+        index_col=1,
+        header=0)
 
     # Reset tensorflow
     print("@main: resetting default model ")
     tf.reset_default_graph()
     # Create model.
     print("@main: building model...")
-    model = StackedRnnModel(ts_array, "UNRATE", parameters=parameters)
+
+    target_str = "open"
+    print(f"@main: target set to {target_str}")
+    model = BasicCnnRnnModel(df, target_str, parameters=parameters)
 
     with tf.Session() as sess:
         print("@main: Starting session...")

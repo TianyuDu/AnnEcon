@@ -66,6 +66,9 @@ class StackedRnnModel:
 
         self.X_test, self.Y_test = model_util.test_data(series, parameters.f_horizon, parameters.num_periods)
 
+        self.x_train = self.x_batches[:-1, :, :]
+        self.y_train = self.y_batches[:-1, :, :]
+
         # assert self.X_test.shape[1] == self.Y_test.shape[1]
         # test_steps = self.X_test.shape[1]
         # self.X_train = self.x_batches[:, -test_steps, :]
@@ -162,7 +165,7 @@ class BasicCnnRnnModel:
     y_data: np.ndarray  # Raw input label data.
     Y_test: np.ndarray  # Test label data.
 
-    def __init__(self, panel: "Panel", parameters: "ParameterControl"):
+    def __init__(self, panel: "Panel", target_name: str, parameters: "ParameterControl"):
         """
         Initialize Stacked RNN Model.
         """
@@ -171,7 +174,7 @@ class BasicCnnRnnModel:
         print("\t@model: Building scaler from panel...")
         try:
             raw = panel.df.values
-            target = panel.df["UNRATE"].values
+            target = panel.df[target_name].values
             target = target.reshape(-1, 1)
         except:
             raise PanelFailure

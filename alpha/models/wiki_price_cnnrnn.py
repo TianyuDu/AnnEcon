@@ -1,21 +1,12 @@
-"""
-# TODO: add model back to model module.
-"""
-from typing import List, Dict
 import tensorflow as tf
 import numpy as np
-import pandas as pd
-from datetime import datetime
 import sklearn
 from sklearn import preprocessing
-# import matplotlib.pyplot as plt
-from warnings import warn
 
-
+import model_util
 from model_util import *
 from data_util import *
 from predefine import *
-import reference_code.CRNN as CRNN
 
 
 class BasicCnnRnnModel:
@@ -43,7 +34,7 @@ class BasicCnnRnnModel:
     y_data: np.ndarray  # Raw input label data.
     Y_test: np.ndarray  # Test label data.
 
-    def __init__(self, panel: "Panel", parameters: "ParameterControl"):
+    def __init__(self, df: pd.DataFrame, target_name: str, parameters: "ParameterControl"):
         """
         Initialize Stacked RNN Model.
         """
@@ -51,8 +42,10 @@ class BasicCnnRnnModel:
 
         print("\t@model: Building scaler from panel...")
         try:
-            raw = panel.df.values
-            target = panel.df["UNRATE"].values
+            df = df.drop(
+                columns=["ticker", "ex-dividend", "split_ratio"])
+            raw = df.values
+            target = df[target_name].values
             target = target.reshape(-1, 1)
         except:
             raise PanelFailure
@@ -86,6 +79,10 @@ class BasicCnnRnnModel:
 
         self.X_test, self.Y_test = test_data_panel(raw, target, parameters.f_horizon, parameters.num_periods)
 
+        assert self.X_test.shape[0] == self.Y_test.shape[0]
+        test_steps = self.X_test.shape[0]
+        self.X_train = self.x_batches[:-test_steps, :, :, :]
+        self.Y_train = self.y_batches[:-test_steps, :, :]
 
         print("\t@model: Creating feeding nodes, dtype=float32...")
         # Input feed node.
@@ -108,12 +105,6 @@ class BasicCnnRnnModel:
             dtype=tf.float32
             )
 
-        self.filter2 = tf.Variable(
-            tf.random_normal([3, 3, 1, 1]),
-            name="CnnFilter2",
-            dtype=tf.float32
-            )
-
         self.conv1 = tf.nn.conv2d(
             input=self.conv_in,
             filter=self.filter1,
@@ -126,37 +117,27 @@ class BasicCnnRnnModel:
         self.pool1 = tf.nn.max_pool(
             value=self.conv1,
             ksize=[1, 3, 3, 1],
-            strides=[1, 1, 4, 1],
+            strides=[1, 1, 3, 1],
             padding="SAME",
             name="MaxPoolLayer1"
             )
 
-        self.conv2 = tf.nn.conv2d(
-            input=self.pool1,
-            filter=self.filter2,
-            strides=[1, 1, 2, 1],
-            padding="SAME",
-            data_format="NHWC",
-            name="ConvLayer2"
-            )
-
         self.conv_out = tf.nn.max_pool(
-            self.conv2,
+            self.conv1,
             ksize=[1, 3, 3, 1],
             strides=[1, 1, 2, 1],
             padding="SAME",
             name="ConvOutputLayer"
             )
 
-        # self.conv_out = tf.reshape(self.conv_out, shape=self.conv_out.shape[:-1])
         self.conv_out = tf.squeeze(self.conv_out, [-1])
 
         print("\t@model: Constructing RNN Layers, dtype=float32...")
 
         multi_layers = [
-            tf.nn.rnn_cell.BasicRNNCell(
+            tf.nn.rnn_cell.LSTMCell(
                 num_units=parameters.nn["hidden"][0]),
-            tf.nn.rnn_cell.GRUCell(
+            tf.nn.rnn_cell.LSTMCell(
                 num_units=parameters.nn["hidden"][1])
             ]
 
@@ -204,7 +185,3 @@ class BasicCnnRnnModel:
         print("\t@model: Creating initializer...")
         self.init = tf.global_variables_initializer()
         print("\t@model: Basic CNN-RNN model created.")
-
-
-
-
