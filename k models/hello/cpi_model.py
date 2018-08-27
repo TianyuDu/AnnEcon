@@ -57,7 +57,7 @@ def fit_lstm(train, batch_size, nb_epoch, neurons):
     model.add(keras.layers.Dense(1))
     model.compile(loss="mean_squared_error", optimizer="adam")
     for _ in range(nb_epoch):
-        model.fit(X, y, epochs=1, batch_size=batch_size, verbose=0, shuffle=False)
+        model.fit(X, y, epochs=1, batch_size=batch_size, verbose=1, shuffle=False)
         model.reset_states()
     return model
 
@@ -88,4 +88,28 @@ train, test = supervised_values[0: 700], supervised_values[700:]
 # Scaling
 scaler, train_scaled, test_scaled = scale(train, test)
 
-lstm_model = fit_lstm(train_scaled, 1, 3000, 4)
+# Fit model
+lstm_model = fit_lstm(train_scaled, 1, 100, 4)
+
+# Reshape to the shape of input tensor to network.
+# Then feed into the network and make predication.  
+train_reshaped = train_scaled[:, 0].reshape(len(train_scaled), 1, 1)
+lstm_model.predict(train_reshaped, batch_size=1)
+
+# For test data
+pred = list()
+for i in range(len(test_scaled)):
+    # Make one-step forecast
+    X, y = test_scaled[i, 0:-1], test_scaled[i, -1]
+    yhat = forecast_lstm(lstm_model, 1, X)
+    yhat = invert_scale(scaler, X, yhat)
+    yhat = inverse_difference(raw_values, yhat, len(test_scaled) + 1 - i)
+    pred.append(yhat)
+
+rmse = sqrt(
+    sklearn.metrics.mean_squared_error(
+        raw_values[: 700], pred
+    )
+)
+
+print(f"Test RMSE: {rmse}")
