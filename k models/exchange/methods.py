@@ -1,11 +1,35 @@
+"""
+Methods for CPI prediction model.
+"""
+import keras
+import matplotlib
 import numpy as np
 import pandas as pd
-import matplotlib
-import keras
-from matplotlib import pyplot as plt
 import sklearn
-from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import mean_squared_error
+from sklearn.preprocessing import MinMaxScaler
+
+
+def load_dataset(dir: str="./data/DEXCHUS.csv") -> pd.Series:
+    # Read csv file, by default load exchange rate data
+    # CNY against USD (1 USD = X CNY)
+    series = pd.read_csv(
+        "./data/DEXCHUS.csv",
+        header=0,
+        index_col=0,
+        squeeze=True
+    )
+    # In Fred CSV file, nan data is represented by "."
+    series = series.replace(".", np.nan)
+    series = series.astype(np.float32)
+    
+    print(f"Found {np.sum(series.isna())} Nan data point(s), linear interpolation is applied.")
+    series = series.interpolate(method="linear")
+    print("Summary on Data:")
+    print(series.describe())
+    return series
+
+
 
 
 def timeseries_to_supervised(data, lag=1):
@@ -18,6 +42,7 @@ def timeseries_to_supervised(data, lag=1):
     df.columns = col_names
     return df
 
+
 def difference(dataset, interval=1):
     diff = list()
     for i in range(interval, len(dataset)):
@@ -25,8 +50,10 @@ def difference(dataset, interval=1):
         diff.append(value)
     return pd.Series(diff)
 
+
 def inverse_difference(history, yhat, interval=1):
     return yhat + history[-interval]
+
 
 def scale(train, test):
     scaler = MinMaxScaler(feature_range=(-1, 1))
@@ -39,12 +66,14 @@ def scale(train, test):
     test_scaled = scaler.transform(test)
     return scaler, train_scaled, test_scaled
 
+
 def invert_scale(scaler, X, value):
     new_row = [x for x in X] + [value]
     ar = np.array(new_row)
     ar = ar.reshape(1, len(ar))
     inverted = scaler.inverse_transform(ar)
     return inverted[0, -1]
+
 
 def fit_lstm(train, batch_size, nb_epoch, neurons):
     X, y = train[:, 0:-1], train[:, -1]
@@ -58,61 +87,13 @@ def fit_lstm(train, batch_size, nb_epoch, neurons):
     model.add(keras.layers.Dense(1))
     model.compile(loss="mean_squared_error", optimizer="adam")
     for _ in range(nb_epoch):
-        model.fit(X, y, epochs=1, batch_size=batch_size, verbose=1, shuffle=False)
+        model.fit(X, y, epochs=1, batch_size=batch_size,
+                  verbose=1, shuffle=False)
         model.reset_states()
     return model
+
 
 def forecast_lstm(model, batch_size, X):
     X = X.reshape(1, 1, len(X))
     yhat = model.predict(X, batch_size=batch_size)
     return yhat[0, 0]
-
-# Load Dataset
-series = pd.read_csv(
-    "./data/CPIAUCSL.csv",
-    header=0,
-    index_col=0,
-    squeeze=True
-)
-
-# Transform to stationary data. (To Delta 1)
-raw_values = series.values
-# diff would have length = len(raw_value) - 1 as it's taking the gaps.
-diff_values = difference(raw_values, interval=1)
-
-# Transform
-# Use the current gap of differencing to predict the next gap differencing.
-supervised = timeseries_to_supervised(diff_values, 1)
-supervised_values = supervised.values
-
-# Split Data Set
-train, test = supervised_values[0: 700], supervised_values[700:]
-
-# Scaling
-scaler, train_scaled, test_scaled = scale(train, test)
-
-# Fit model
-lstm_model = fit_lstm(train_scaled, 1, 10, 4)
-
-# Reshape to the shape of input tensor to network.
-# Then feed into the network and make predication.  
-train_reshaped = train_scaled[:, 0].reshape(len(train_scaled), 1, 1)
-lstm_model.predict(train_reshaped, batch_size=1)
-
-# For test data
-pred = list()
-for i in range(len(test_scaled)):
-    # Make one-step forecast
-    X, y = test_scaled[i, 0:-1], test_scaled[i, -1]
-    yhat = forecast_lstm(lstm_model, 1, X)
-    yhat = invert_scale(scaler, X, yhat)
-    yhat = inverse_difference(raw_values, yhat, len(test_scaled) + 1 - i)
-    pred.append(yhat)
-
-rmse = np.sqrt(
-    mean_squared_error(
-        raw_values[: 700], pred
-    )
-)
-
-print(f"Test RMSE: {rmse}")
