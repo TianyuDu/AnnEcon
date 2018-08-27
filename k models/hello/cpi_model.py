@@ -5,6 +5,7 @@ import keras
 from matplotlib import pyplot as plt
 import sklearn
 from sklearn.preprocessing import MinMaxScaler
+from sklearn.metrics import mean_squared_error
 
 
 def timeseries_to_supervised(data, lag=1):
@@ -74,11 +75,13 @@ series = pd.read_csv(
     squeeze=True
 )
 
-# Transform to stationary data.
+# Transform to stationary data. (To Delta 1)
 raw_values = series.values
+# diff would have length = len(raw_value) - 1 as it's taking the gaps.
 diff_values = difference(raw_values, interval=1)
 
 # Transform
+# Use the current gap of differencing to predict the next gap differencing.
 supervised = timeseries_to_supervised(diff_values, 1)
 supervised_values = supervised.values
 
@@ -89,7 +92,7 @@ train, test = supervised_values[0: 700], supervised_values[700:]
 scaler, train_scaled, test_scaled = scale(train, test)
 
 # Fit model
-lstm_model = fit_lstm(train_scaled, 1, 100, 4)
+lstm_model = fit_lstm(train_scaled, 1, 10, 4)
 
 # Reshape to the shape of input tensor to network.
 # Then feed into the network and make predication.  
@@ -106,8 +109,8 @@ for i in range(len(test_scaled)):
     yhat = inverse_difference(raw_values, yhat, len(test_scaled) + 1 - i)
     pred.append(yhat)
 
-rmse = sqrt(
-    sklearn.metrics.mean_squared_error(
+rmse = np.sqrt(
+    mean_squared_error(
         raw_values[: 700], pred
     )
 )
