@@ -6,15 +6,19 @@ import matplotlib
 import numpy as np
 import pandas as pd
 import sklearn
+import sklearn.preprocessing
 from sklearn.metrics import mean_squared_error
 from sklearn.preprocessing import MinMaxScaler
 
 
-def load_dataset(dir: str="./data/DEXCHUS.csv") -> pd.Series:
-    # Read csv file, by default load exchange rate data
-    # CNY against USD (1 USD = X CNY)
+def load_dataset(dir: str) \
+    -> pd.Series:
+    """
+        Read csv file, by default load exchange rate data
+        CNY against USD (1 USD = X CNY)
+    """
     series = pd.read_csv(
-        "./data/DEXCHUS.csv",
+        dir,
         header=0,
         index_col=0,
         squeeze=True
@@ -29,30 +33,36 @@ def load_dataset(dir: str="./data/DEXCHUS.csv") -> pd.Series:
     print(series.describe())
     return series
 
-
-
-
-def timeseries_to_supervised(data, lag=1):
+def gen_sup_learning(data: np.ndarray, lag: int=1, nafill: object=0) \
+    -> pd.DataFrame:
+    """
+        Generate superized learning problem.
+        Transform the time series problem into a supervised learning
+        with lag values as the training input and current value
+        as target.
+    """
     df = pd.DataFrame(data)
+    # Each shifting creates a lag var: shift(n) to get lag n var.
     columns = [df.shift(i) for i in range(1, lag+1)]
-    columns.append(df)
+    columns = [df] + columns
     df = pd.concat(columns, axis=1)
-    df.fillna(0, inplace=True)
-    col_names = ["Current"] + [f"L{i}" for i in range(1, lag+1)]
+    df.fillna(nafill, inplace=True)
+    col_names = ["L0/current/target"] + [f"L{i}" for i in range(1, lag+1)]
     df.columns = col_names
     return df
 
 
-def difference(dataset, interval=1):
+def difference(dataset: np.ndarray, lag: int=1) \
+    -> pd.Series:
     diff = list()
-    for i in range(interval, len(dataset)):
-        value = dataset[i] - dataset[i - interval]
+    for i in range(lag, len(dataset)):
+        value = dataset[i] - dataset[i - lag]
         diff.append(value)
     return pd.Series(diff)
 
 
-def inverse_difference(history, yhat, interval=1):
-    return yhat + history[-interval]
+def inverse_difference(history, yhat, lag=1):
+    return yhat + history[-lag]
 
 
 def scale(train, test):
@@ -75,8 +85,11 @@ def invert_scale(scaler, X, value):
     return inverted[0, -1]
 
 
-def fit_lstm(train, batch_size, nb_epoch, neurons):
-    X, y = train[:, 0:-1], train[:, -1]
+def fit_lstm(train, batch_size, epoch, neurons):
+    """
+    """
+    # The first column is 
+    X, y = train[:, 1:], train[:, 1]
     X = X.reshape(X.shape[0], 1, X.shape[1])
     model = keras.Sequential()
     model.add(keras.layers.LSTM(
@@ -84,12 +97,26 @@ def fit_lstm(train, batch_size, nb_epoch, neurons):
         batch_input_shape=(batch_size, X.shape[1], X.shape[2]),
         stateful=True
     ))
-    model.add(keras.layers.Dense(1))
+    model.add(keras.layers.Dense(1), name="layer")
     model.compile(loss="mean_squared_error", optimizer="adam")
-    for _ in range(nb_epoch):
-        model.fit(X, y, epochs=1, batch_size=batch_size,
-                  verbose=1, shuffle=False)
-        model.reset_states()
+    # for i in range(epoch):
+    #     model.fit(
+    #         X, 
+    #         y, 
+    #         batch_size=batch_size,
+    #         validation_split=0.3,
+    #         verbose=1, 
+    #         shuffle=False
+    #     )
+    #     model.reset_states()
+    model.fit(
+        X, y,
+        epochs=epoch,
+        batch_size=batch_size,
+        validation_split=0.3,
+        verbose=1,
+        shuffle=False
+    )
     return model
 
 
@@ -97,3 +124,22 @@ def forecast_lstm(model, batch_size, X):
     X = X.reshape(1, 1, len(X))
     yhat = model.predict(X, batch_size=batch_size)
     return yhat[0, 0]
+
+def reshape_and_split(data: np.ndarray, tar_idx: int=0) \
+    -> (np.ndarray, np.ndarray):
+    """
+    Reshaped dataset into shape (*, 1, *) to fit in the input
+    layer of model.
+    tar_idx is the index of column (one output sequence in this model)
+    contains
+    """
+    obs, fea = data.shape
+
+    reshaped = data.reshape(obs, 1, fea)
+    idx = list(range(fea))
+    idx.remove(tar_idx)
+
+    res_X = reshaped[:, :, idx]
+    res_y = reshaped[:, :, [tar_idx]]
+    
+    return res_X, res_y
