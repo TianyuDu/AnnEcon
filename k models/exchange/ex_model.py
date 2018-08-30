@@ -16,8 +16,10 @@ from methods import *
 
 config = {
     "batch_size": 1,
-    "epoch": 30,
-    "test_ratio": 0.3
+    "epoch": 50,
+    "neuron": 128,
+    "test_ratio": 0.2,
+    "lag_for_sup": 48
 }
 
 # Load dataset.
@@ -30,7 +32,7 @@ diff_values = difference(raw_values, lag=1)
 
 # Transform
 # Use the current gap of differencing to predict the next gap differencing.
-sup = gen_sup_learning(diff_values, 4)
+sup = gen_sup_learning(diff_values, config["lag_for_sup"])
 sup = sup.values
 
 # Split Data Set
@@ -42,49 +44,68 @@ print(
 )
 train, test = sup[0: -test_size], sup[-test_size:]
 
-# Scaling
-scaler, train_scaled, test_scaled = scale(train, test)
+# Generate scaler and scaling datasets.
+# scaler on input matrix(X) and output(y)
+scaler_in, scaler_out, train_scaled, test_scaled = gen_scaler(train, test, tar_idx=0)
 
 # Fit model
 model = fit_lstm(
     train_scaled, 
     batch_size=config["batch_size"], 
-    epoch=config["epoch"], 
-    neurons=128
+    epoch=config["epoch"],
+    neurons=config["neuron"]
 )
+
+keras.utils.print_summary(model)
 
 # Reshape to the shape of input tensor to network.
+# Also applying scaler on it.
 # Then feed into the network and make predication.  
-train_reshaped = train_scaled.reshape(
-    train_scaled.shape[0], 1, train_scaled.shape[1]
+train_reshaped_X, train_reshaped_y = reshape_and_split(
+    train_scaled, tar_idx=0
 )
 
-test_reshaped = test_scaled
+test_reshaped_X, test_reshaped_y = reshape_and_split(
+    test_scaled, tar_idx=0
+)
 
-train_pred = model.predict(train_reshaped[:, :, 1:], batch_size=1)
+# DIRECT output from model.
+# Raw model output on training set.
+model_out_train = model.predict(train_reshaped_X, batch_size=1)
+# Raw model output on testing set.
+model_out_test = model.predict(test_reshaped_X, batch_size=1)
 
-# For test data
+# Reconstruct Direct Generated Data from model.
+model_out_train = scaler_out.inverse_transform(model_out_train)
+model_out_train = model_out_train.reshape(-1,)
+model_out_test = scaler_out.inverse_transform(model_out_test)
+model_out_test = model_out_test.reshape(-1,)
+
+
+# Reconstruct test data
 pred = list()
 for i in range(len(test_scaled)):
     # Make one-step forecast
     X, y = test_scaled[i, 1:], test_scaled[i, 0]
-    yhat = forecast_lstm(model, 1, X)
-    yhat = invert_scale(scaler, X, yhat)
+    X, y = test_reshaped_X[i].reshape(-1), test_reshaped_y[i]
+    yhat = forecast_lstm(
+        model,
+        batch_size=1,
+        X=X)
+    yhat = invert_scale(scaler_out, X, yhat)
     yhat = inverse_difference(raw_values, yhat, len(test_scaled) + 1 - i)
     pred.append(yhat)
 
-rmse = np.sqrt(
-    mean_squared_error(
-        raw_values[-test_size:], pred
-    )
-)
-
-print(f"Test RMSE: {rmse}")
+# Visualize
+plt.plot(raw_values[-test_size:], alpha=0.6, linewidth=0.6)
+plt.plot(pred, alpha=0.6, linewidth=0.6)
+plt.legend(["Raw", "TestPred"])
+plt.show()
 
 train_pred_recons = list()
-for i in range(len(train_pred)):
+for i in range(len(model_out_train_y)):
     X, y = train_scaled[i, 1:], train_scaled[i, 0]
-    yhat = train_pred[i]
+    yhat = model_out_train_y[i]
     yhat = invert_scale(scaler, X, yhat)
     yhat += raw_values[i-1]
     train_pred_recons.append(yhat)

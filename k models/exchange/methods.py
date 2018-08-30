@@ -9,7 +9,8 @@ import sklearn
 import sklearn.preprocessing
 from sklearn.metrics import mean_squared_error
 from sklearn.preprocessing import MinMaxScaler
-
+from matplotlib import pyplot as plt
+import datetime
 
 def load_dataset(dir: str) \
     -> pd.Series:
@@ -65,16 +66,40 @@ def inverse_difference(history, yhat, lag=1):
     return yhat + history[-lag]
 
 
-def scale(train, test):
-    scaler = MinMaxScaler(feature_range=(-1, 1))
-    scaler = scaler.fit(train)
+def gen_scaler(train, test, tar_idx: int=0):
+    # scaler = MinMaxScaler(feature_range=(-1, 1))
+    scaler_in = sklearn.preprocessing.StandardScaler()
+    scaler_out = sklearn.preprocessing.StandardScaler()
 
-    train = train.reshape(train.shape[0], train.shape[1])
-    train_scaled = scaler.transform(train)
+    idx = list(range(train.shape[1]))
+    idx.remove(tar_idx)
 
-    test = test.reshape(test.shape[0], test.shape[1])
-    test_scaled = scaler.transform(test)
-    return scaler, train_scaled, test_scaled
+    train_X = train[:, idx]
+    train_y = train[:, tar_idx].reshape(-1, 1)
+
+    scaler_in = scaler_in.fit(train_X)
+    scaler_out = scaler_out.fit(train_y)
+
+    train_scaled_X = scaler_in.transform(train_X)
+    train_scaled_y = scaler_out.transform(train_y)
+
+    train_scaled = np.concatenate(
+        [train_scaled_y, train_scaled_X],
+        axis=1
+    )
+    
+    test_X = test[:, idx]
+    test_y = test[:, tar_idx].reshape(-1, 1)
+
+    test_scaled_X = scaler_in.transform(test_X)
+    test_scaled_y = scaler_out.transform(test_y)
+
+    test_scaled = np.concatenate(
+        [test_scaled_y, test_scaled_X],
+        axis=1
+    )
+
+    return scaler_in, scaler_out, train_scaled, test_scaled
 
 
 def invert_scale(scaler, X, value):
@@ -85,7 +110,8 @@ def invert_scale(scaler, X, value):
     return inverted[0, -1]
 
 
-def fit_lstm(train, batch_size, epoch, neurons):
+def fit_lstm(train, batch_size, epoch, neurons) \
+    -> keras.Sequential:
     """
     """
     # The first column is 
@@ -93,37 +119,42 @@ def fit_lstm(train, batch_size, epoch, neurons):
     X = X.reshape(X.shape[0], 1, X.shape[1])
     model = keras.Sequential()
     model.add(keras.layers.LSTM(
-        neurons,
+        units=neurons,
         batch_input_shape=(batch_size, X.shape[1], X.shape[2]),
-        stateful=True
+        stateful=True,
+        name="lstm_input"
     ))
-    model.add(keras.layers.Dense(1), name="layer")
-    model.compile(loss="mean_squared_error", optimizer="adam")
-    # for i in range(epoch):
-    #     model.fit(
-    #         X, 
-    #         y, 
-    #         batch_size=batch_size,
-    #         validation_split=0.3,
-    #         verbose=1, 
-    #         shuffle=False
-    #     )
-    #     model.reset_states()
+
+    model.add(keras.layers.Dense(
+        units=1,
+        name="dense_output"
+    ))
+
+    model.compile(
+        loss="mean_squared_error",
+        optimizer="adam"
+    )
+
     model.fit(
         X, y,
         epochs=epoch,
         batch_size=batch_size,
-        validation_split=0.3,
+        validation_split=0.2,
         verbose=1,
         shuffle=False
     )
     return model
 
 
-def forecast_lstm(model, batch_size, X):
-    X = X.reshape(1, 1, len(X))
-    yhat = model.predict(X, batch_size=batch_size)
-    return yhat[0, 0]
+def forecast_lstm(
+        model: keras.Sequential, batch_size: int, X: np.ndarray) -> float:
+    # Single step prediction method.
+    # Transform to array with shape (1 obs) * (1 batch) * (n features)
+    X = X.reshape(1, 1, -1)
+    yhat = model.predict(X, batch_size=batch_size, verbose=1)
+    # return yhat[0, 0] <- original method, replace the current one if it does not work.
+    return float(yhat)
+
 
 def reshape_and_split(data: np.ndarray, tar_idx: int=0) \
     -> (np.ndarray, np.ndarray):
@@ -131,15 +162,52 @@ def reshape_and_split(data: np.ndarray, tar_idx: int=0) \
     Reshaped dataset into shape (*, 1, *) to fit in the input
     layer of model.
     tar_idx is the index of column (one output sequence in this model)
-    contains
+    of target sequence.
     """
     obs, fea = data.shape
-
     reshaped = data.reshape(obs, 1, fea)
     idx = list(range(fea))
     idx.remove(tar_idx)
 
     res_X = reshaped[:, :, idx]
     res_y = reshaped[:, :, [tar_idx]]
-    
     return res_X, res_y
+
+
+def visualize(
+    raw_values: np.ndarray,
+    train_pred: np.ndarray,
+    test_pred: np.ndarray,
+    dir: str=None) -> None:
+    """
+    If dir is set to None, graphic output will be shown in pyplot GUI. Otherwise graphic output will
+    be saved to directory provided.
+    """
+    # By default, training set comes before the test set and there's no shuffle.
+    total_step, train_step, test_step = len(raw_values), len(train_pred), len(test_pred)
+
+    print(f"Visualization info: \
+    \n\ttotal step {total_step}, \
+    \n\ttraining step: {train_step}, \
+    \n\ttesting step: {test_step} \
+    \n\toutput directory: {dir}")
+
+    test_pred = [None] * train_step + list(np.squeeze(test_pred))
+    test_pred = np.array(test_pred)
+
+    plt.plot(np.squeeze(test_pred), alpha=0.6, linewidth=0.6)
+    plt.plot(np.squeeze(train_pred), alpha=0.6, linewidth=0.6)
+    plt.plot(np.squeeze(raw_values), alpha=0.6, linewidth=0.6)
+
+    plt.legend([
+        "Prediction on Testing Set",
+        "Prediction on Training Set",
+        "Actual Values"
+    ])
+
+    now = str(datetime.datetime.now())
+    if dir is not None:
+        file_name = "Output" + now + ".svg"
+        plt.savefig(file_name)
+        print(f"Visualization result is saved to {file_name}")
+    
