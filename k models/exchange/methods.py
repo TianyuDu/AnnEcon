@@ -1,19 +1,22 @@
 """
 Methods for CPI prediction model.
 """
+import datetime
+import warnings
+
 import keras
 import matplotlib
 import numpy as np
 import pandas as pd
 import sklearn
 import sklearn.preprocessing
+from matplotlib import pyplot as plt
 from sklearn.metrics import mean_squared_error
 from sklearn.preprocessing import MinMaxScaler
-from matplotlib import pyplot as plt
-import datetime
+
 
 def load_dataset(dir: str) \
-    -> pd.Series:
+        -> pd.Series:
     """
         Read csv file, by default load exchange rate data
         CNY against USD (1 USD = X CNY)
@@ -27,15 +30,17 @@ def load_dataset(dir: str) \
     # In Fred CSV file, nan data is represented by "."
     series = series.replace(".", np.nan)
     series = series.astype(np.float32)
-    
-    print(f"Found {np.sum(series.isna())} Nan data point(s), linear interpolation is applied.")
+
+    print(
+        f"Found {np.sum(series.isna())} Nan data point(s), linear interpolation is applied.")
     series = series.interpolate(method="linear")
     print("Summary on Data:")
     print(series.describe())
     return series
 
+
 def gen_sup_learning(data: np.ndarray, lag: int=1, nafill: object=0) \
-    -> pd.DataFrame:
+        -> pd.DataFrame:
     """
         Generate superized learning problem.
         Transform the time series problem into a supervised learning
@@ -54,7 +59,7 @@ def gen_sup_learning(data: np.ndarray, lag: int=1, nafill: object=0) \
 
 
 def difference(dataset: np.ndarray, lag: int=1) \
-    -> pd.Series:
+        -> pd.Series:
     diff = list()
     for i in range(lag, len(dataset)):
         value = dataset[i] - dataset[i - lag]
@@ -87,7 +92,7 @@ def gen_scaler(train, test, tar_idx: int=0):
         [train_scaled_y, train_scaled_X],
         axis=1
     )
-    
+
     test_X = test[:, idx]
     test_y = test[:, tar_idx].reshape(-1, 1)
 
@@ -111,10 +116,10 @@ def invert_scale(scaler, X, value):
 
 
 def fit_lstm(train, batch_size, epoch, neurons) \
-    -> keras.Sequential:
+        -> keras.Sequential:
     """
     """
-    # The first column is 
+    # The first column is
     X, y = train[:, 1:], train[:, 1]
     X = X.reshape(X.shape[0], 1, X.shape[1])
     model = keras.Sequential()
@@ -157,7 +162,7 @@ def forecast_lstm(
 
 
 def reshape_and_split(data: np.ndarray, tar_idx: int=0) \
-    -> (np.ndarray, np.ndarray):
+        -> (np.ndarray, np.ndarray):
     """
     Reshaped dataset into shape (*, 1, *) to fit in the input
     layer of model.
@@ -175,16 +180,20 @@ def reshape_and_split(data: np.ndarray, tar_idx: int=0) \
 
 
 def visualize(
-    raw_values: np.ndarray,
-    train_pred: np.ndarray,
-    test_pred: np.ndarray,
-    dir: str=None) -> None:
+        raw_values: np.ndarray,
+        train_pred: np.ndarray,
+        test_pred: np.ndarray,
+        dir: str=None) -> None:
     """
     If dir is set to None, graphic output will be shown in pyplot GUI. Otherwise graphic output will
     be saved to directory provided.
     """
+    # Make sure dir string is a directory/folder.
+    if dir is not None:
+        assert dir.endswith("/"), "Target directory provided should be ended with /"
     # By default, training set comes before the test set and there's no shuffle.
-    total_step, train_step, test_step = len(raw_values), len(train_pred), len(test_pred)
+    total_step, train_step, test_step = len(
+        raw_values), len(train_pred), len(test_pred)
 
     print(f"Visualization info: \
     \n\ttotal step {total_step}, \
@@ -199,15 +208,18 @@ def visualize(
     plt.plot(np.squeeze(train_pred), alpha=0.6, linewidth=0.6)
     plt.plot(np.squeeze(raw_values), alpha=0.6, linewidth=0.6)
 
-    plt.legend([
-        "Prediction on Testing Set",
-        "Prediction on Training Set",
-        "Actual Values"
-    ])
+    plt.legend(["Prediction on Testing Set", "Prediction on Training Set", "Actual Values"])
 
     now = str(datetime.datetime.now())
     if dir is not None:
         file_name = "Output" + now + ".svg"
-        plt.savefig(file_name)
-        print(f"Visualization result is saved to {file_name}")
-    
+        try:
+            plt.savefig(dir + file_name)
+            print(f"Visualization result is saved to {dir + file_name}")
+        except FileNotFoundError:
+            warnings.warn(
+                f"Cannot save graphic output to {dir}, no action taken.",
+                RuntimeWarning
+            )
+    else:
+        plt.show()

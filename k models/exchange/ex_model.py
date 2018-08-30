@@ -13,10 +13,9 @@ from sklearn.preprocessing import MinMaxScaler
 
 from methods import *
 
-
 config = {
     "batch_size": 1,
-    "epoch": 50,
+    "epoch": 10,
     "neuron": 128,
     "test_ratio": 0.2,
     "lag_for_sup": 48
@@ -46,12 +45,13 @@ train, test = sup[0: -test_size], sup[-test_size:]
 
 # Generate scaler and scaling datasets.
 # scaler on input matrix(X) and output(y)
-scaler_in, scaler_out, train_scaled, test_scaled = gen_scaler(train, test, tar_idx=0)
+scaler_in, scaler_out, train_scaled, test_scaled = gen_scaler(
+    train, test, tar_idx=0)
 
 # Fit model
 model = fit_lstm(
-    train_scaled, 
-    batch_size=config["batch_size"], 
+    train_scaled,
+    batch_size=config["batch_size"],
     epoch=config["epoch"],
     neurons=config["neuron"]
 )
@@ -60,7 +60,7 @@ keras.utils.print_summary(model)
 
 # Reshape to the shape of input tensor to network.
 # Also applying scaler on it.
-# Then feed into the network and make predication.  
+# Then feed into the network and make predication.
 train_reshaped_X, train_reshaped_y = reshape_and_split(
     train_scaled, tar_idx=0
 )
@@ -82,8 +82,23 @@ model_out_test = scaler_out.inverse_transform(model_out_test)
 model_out_test = model_out_test.reshape(-1,)
 
 
-# Reconstruct test data
-pred = list()
+# Constructing prediction on Training data (Single Step)
+train_pred = list()
+for i in range(len(train_scaled)):
+    X, y = train_scaled[i, 1:], train_scaled[i, 0]
+    yhat = forecast_lstm(
+        model,
+        batch_size=1,
+        X=X
+    )
+    yhat = invert_scale(scaler_out, X, yhat)
+    yhat += raw_values[i-1]
+    train_pred.append(yhat)
+
+train_pred = np.squeeze(np.array(train_pred))
+
+# Constructing prediction on Test data (Single Ste)
+test_pred = list()
 for i in range(len(test_scaled)):
     # Make one-step forecast
     X, y = test_scaled[i, 1:], test_scaled[i, 0]
@@ -94,32 +109,13 @@ for i in range(len(test_scaled)):
         X=X)
     yhat = invert_scale(scaler_out, X, yhat)
     yhat = inverse_difference(raw_values, yhat, len(test_scaled) + 1 - i)
-    pred.append(yhat)
+    test_pred.append(yhat)
+
+test_pred = np.squeeze(np.array(test_pred))
 
 # Visualize
-plt.plot(raw_values[-test_size:], alpha=0.6, linewidth=0.6)
-plt.plot(pred, alpha=0.6, linewidth=0.6)
-plt.legend(["Raw", "TestPred"])
-plt.show()
-
-train_pred_recons = list()
-for i in range(len(model_out_train_y)):
-    X, y = train_scaled[i, 1:], train_scaled[i, 0]
-    yhat = model_out_train_y[i]
-    yhat = invert_scale(scaler, X, yhat)
-    yhat += raw_values[i-1]
-    train_pred_recons.append(yhat)
-
-test_pred = [None] * len(train_pred) + pred
-
-plt.plot(raw_values, alpha=0.6, linewidth=0.6, label="Actual Data")
-plt.plot(train_pred_recons, alpha=0.6, linewidth=0.6, label="Train Pred")
-plt.plot(test_pred, alpha=0.6, linewidth=0.6, label="Test Pred")
-
-plt.legend([
-    "Actual Data",
-    "Pred. on training set",
-    "Pred on testing set"
-])
-
-plt.show()
+visualize(raw_values, train_pred, test_pred, dir="./figure/")
+# plt.plot(train_pred, alpha=0.6, linewidth=0.6)
+# plt.plot(test_pred, alpha=0.6, linewidth=0.6)
+# plt.legend(["Raw", "TrainPred", "TestPred"])
+# plt.show()
