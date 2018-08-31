@@ -44,7 +44,7 @@ Board of Governors of the Federal Reserve System (US), China / U.S. Foreign Exch
 
 #### Univariate Single Step Prediction Result
 
-![sample_output](https://github.com/TianyuDu/AnnEcon/blob/master/sample_output.svg)
+![sample_output | 200 x 800](https://github.com/TianyuDu/AnnEcon/blob/master/sample_output.svg)
 
 ## Archived Topics
 
