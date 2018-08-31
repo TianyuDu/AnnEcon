@@ -39,7 +39,7 @@ def load_dataset(dir: str) \
     return series
 
 
-def gen_sup_learning(data: np.ndarray, lag: int=1, nafill: object=0) \
+def gen_sup_learning(data: np.ndarray, lag: int=1, nafill: object=0.0) \
         -> pd.DataFrame:
     """
         Generate superized learning problem.

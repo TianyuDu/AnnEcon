@@ -1,5 +1,5 @@
 """
-Univariate Version of 
+Univariate Version
 """
 import keras
 import matplotlib
@@ -37,11 +37,12 @@ sup = sup.values
 # Split Data Set
 total_sample_size = len(sup)
 test_size = int(total_sample_size * config["test_ratio"])
+train_size = int(total_sample_size - test_size)
 
 print(
     f"Total sample found {total_sample_size}, {test_size} will be used as test set."
 )
-train, test = sup[0: -test_size], sup[-test_size:]
+train, test = sup[:-test_size], sup[-test_size:]
 
 # Generate scaler and scaling datasets.
 # scaler on input matrix(X) and output(y)
