@@ -69,17 +69,23 @@ for i in range(container.test_size):
 
 test_pred = np.squeeze(np.array(test_pred))
 
-rec = [None] * container.num_obs
+pred = [None] * container.num_obs
+pred = np.array(pred).astype(np.float32)
+
 for (i, yhat) in zip(range(container.train_size), train_pred):
     # i is the index of differenced value in training set.
     yhat = container._invert_difference(yhat, idx=i)
-    rec[i + 1] = yhat
+    pred[i + 1] = yhat
 
 for (i, yhat) in zip(range(container.test_size), test_pred):
     global_i = container.train_size + i
     yhat = container._invert_difference(yhat, idx=global_i)
-    rec[global_i + 1] = yhat
+    pred[global_i + 1] = yhat
 
-rec = np.squeeze(np.array(rec))
+methods.uni_visualize(
+    actual_val=container.raw,
+    pred_val=pred,
+    break_point=container.train_size
+)
 
 # methods.visualize3(container.raw, train_pred, test_pred, dir=None)
