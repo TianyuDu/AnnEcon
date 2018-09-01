@@ -10,8 +10,12 @@ import sklearn.preprocessing
 from matplotlib import pyplot as plt
 from sklearn.metrics import mean_squared_error
 from sklearn.preprocessing import MinMaxScaler
+from pprint import pprint
 
+import methods
 from methods import *
+import containers
+from containers import *
 
 config = {
     "batch_size": 1,
@@ -22,10 +26,17 @@ config = {
 }
 
 # Load dataset.
-series = load_dataset(dir="../data/DEXCHUS.csv")
+series = load_dataset(
+    dir="/Users/tianyudu/Documents/Github/AnnEcon/k models/exchange/DEXCHUS.csv")
 
 # Transform to stationary data to Delta 1
 raw_values = series.values
+
+sample_data = np.array([x ** 2 for x in range(10)]).reshape(-1,1)
+
+c = UnivariateContainer(sample_data)
+# cont = UnivariateContainer(raw_values.reshape(-1,1))
+
 # diff would have length = len(raw_value) - 1 as it's taking the gaps.
 diff_values = difference(raw_values, lag=1)
 
@@ -43,6 +54,7 @@ print(
     f"Total sample found {total_sample_size}, {test_size} will be used as test set."
 )
 train, test = sup[:-test_size], sup[-test_size:]
+train2, test2 = sup[:train_size], sup[train_size:]
 
 # Generate scaler and scaling datasets.
 # scaler on input matrix(X) and output(y)
