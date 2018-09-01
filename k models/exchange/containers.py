@@ -163,6 +163,8 @@ class UnivariateContainer(BaseContainer):
             For initial stationarity removal order=1 only.
             #TODO: add higher order of differencing support. Using recursion
         """
+        # idx: index in supervised learning problem (differenced set)
+        # Note: Use result[i] and raw[i + 1 - lag] to predict raw[i + 1]
         assert self.config["diff.order"] == 1, \
             "Initial stationarity removal differencing with order higher than 1 are not yet supported."
 

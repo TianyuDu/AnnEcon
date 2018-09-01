@@ -179,7 +179,7 @@ def reshape_and_split(data: np.ndarray, tar_idx: int=0) \
     res_y = reshaped[:, :, [tar_idx]]
     return res_X, res_y
 
-def visualize(
+def visualize3(
         raw_values: np.ndarray,
         train_pred: np.ndarray,
         test_pred: np.ndarray,
@@ -224,6 +224,9 @@ def visualize(
     else:
         plt.show()
 
+
+def uni_visualize():
+    pass
 
 def reshape_data(c) -> Tuple[np.ndarray]:
     train_X_reshaped = c.train_X_scaled.reshape(
