@@ -1,3 +1,6 @@
+"""
+Configuration file
+"""
 neural_network_config = {
     "batch_size": 1,
     "epoch": 10,
