@@ -33,8 +33,9 @@ series = load_dataset(
 raw_values = series.values
 
 sample_data = np.array([x ** 2 for x in range(10)]).reshape(-1,1)
+sample_series = pd.Series(sample_data.reshape(-1,))
 
-c = UnivariateContainer(sample_data)
+c = UnivariateContainer(sample_series)
 # cont = UnivariateContainer(raw_values.reshape(-1,1))
 
 # diff would have length = len(raw_value) - 1 as it's taking the gaps.

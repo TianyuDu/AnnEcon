@@ -39,7 +39,7 @@ class UnivariateContainer(BaseContainer):
                 "test_ratio": 0.2,
                 "lag_for_sup": 3,
                 "target_idx": 0
-            }):
+                }) -> None:
         assert self.check_config(config)
         self.config = config
         # Input format: num_obs * num_fea
@@ -88,7 +88,7 @@ class UnivariateContainer(BaseContainer):
         self.scaler_out, self.train_y_scaled = self._scale(self.train_y)
 
         self.test_X_scaled = self.scaler_in.transform(self.test_X)
-        self.test_y_sacled = self.scaler_out.transform(self.test_y)
+        self.test_y_scaled = self.scaler_out.transform(self.test_y)
 
     def __str__(self) -> str:
         # TODO: Add shapes of train/test Xy sets to report string.
@@ -188,3 +188,16 @@ class UnivariateContainer(BaseContainer):
 
     def reconstruct(self, data: np.ndarray):
         pass
+    
+    def get_combined_scaled(self) -> Tuple[np.ndarray]:
+        train_scaled = np.concatenate(
+            [self.train_y_scaled, self.train_X_scaled],
+            axis=1
+        )
+
+        test_scaled = np.concatenate(
+            [self.test_y_scaled, self.test_X_scaled],
+            axis=1
+        )
+
+        return (train_scaled, test_scaled)
