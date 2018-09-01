@@ -157,7 +157,7 @@ def forecast_lstm(
     # Single step prediction method.
     # Transform to array with shape (1 obs) * (1 batch) * (n features)
     X = X.reshape(1, 1, -1)
-    yhat = model.predict(X, batch_size=batch_size, verbose=1)
+    yhat = model.predict(X, batch_size=batch_size, verbose=0)
     # return yhat[0, 0] <- original method, replace the current one if it does not work.
     return float(yhat)
 
