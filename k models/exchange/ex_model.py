@@ -83,6 +83,11 @@ test_reshaped_X, test_reshaped_y = reshape_and_split(
     test_scaled, tar_idx=0
 )
 
+np.all(train_reshaped_X == train_X_res)
+np.all(train_reshaped_y == train_y_res)
+np.all(test_reshaped_X == test_X_res)
+np.all(test_reshaped_y == test_y_res)
+
 # DIRECT output from model.
 # Raw model output on training set.
 model_out_train = model.predict(train_reshaped_X, batch_size=1)

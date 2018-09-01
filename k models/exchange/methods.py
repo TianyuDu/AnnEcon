@@ -13,6 +13,7 @@ import sklearn.preprocessing
 from matplotlib import pyplot as plt
 from sklearn.metrics import mean_squared_error
 from sklearn.preprocessing import MinMaxScaler
+from typing import Tuple
 
 
 def load_dataset(dir: str) \
@@ -178,7 +179,6 @@ def reshape_and_split(data: np.ndarray, tar_idx: int=0) \
     res_y = reshaped[:, :, [tar_idx]]
     return res_X, res_y
 
-
 def visualize(
         raw_values: np.ndarray,
         train_pred: np.ndarray,
@@ -223,3 +223,33 @@ def visualize(
             )
     else:
         plt.show()
+
+
+def reshape_data(c) -> Tuple[np.ndarray]:
+    train_X_reshaped = c.train_X_scaled.reshape(
+        c.train_size,
+        1,
+        c.sup_fea
+    )
+    train_y_reshaped = c.train_y_scaled.reshape(
+        c.train_size,
+        1,
+        c.sup_num_target
+    )
+
+    test_X_reshaped = c.test_X_scaled.reshape(
+        c.test_size,
+        1,
+        c.sup_fea
+    )
+    test_y_reshaped = c.test_y_scaled.reshape(
+        c.test_size,
+        1,
+        c.sup_num_target
+    )
+    return (
+        train_X_reshaped,
+        train_y_reshaped,
+        test_X_reshaped,
+        test_y_reshaped
+    )

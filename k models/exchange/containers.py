@@ -60,7 +60,8 @@ class UnivariateContainer(BaseContainer):
         print(
             f"Supervised Learning Problem Generated with target index {self.tar_idx}")
         self.sup_set = self.sup_set.values
-        self.sup_fea = self.sup_set.shape[1]
+        self.sup_fea = self.sup_set.shape[1] - 1
+        self.sup_num_target = 1
 
         self.sample_size = len(self.sup_set)
         self.test_size = int(self.sample_size * config["test_ratio"])
@@ -110,8 +111,8 @@ class UnivariateContainer(BaseContainer):
         # Returing order: (train_X, train_y, test_X, test_y), univariate.
         train, test = data[:self.train_size], data[self.train_size:]
 
-        assert train.shape[1] == self.sup_fea, \
-            f"Got train shape: {train.shape}, expected feature: {self.sup_fea}"
+        assert train.shape[1] == self.sup_fea + 1, \
+            f"Got train shape: {train.shape}, expected num col: {self.sup_fea} + 1"
         fea_idx = list(range(train.shape[1]))
         fea_idx.remove(tar_idx)
 
