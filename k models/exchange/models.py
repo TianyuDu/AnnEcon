@@ -38,6 +38,7 @@ class UnivariateLSTM():
                 name="lstm_layer_0_input"
         ))
 
+        # TODO: deal with multiple LSTM layer issue
         for i in range(1, num_lstm_lys):
             core.add(
                 keras.layers.LSTM(

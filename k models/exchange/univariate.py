@@ -1,6 +1,8 @@
 """
 The univariate baseline version of exchange rate forecasting.
 """
+from typing import Tuple
+
 import keras
 import matplotlib
 import numpy as np
@@ -10,11 +12,10 @@ import sklearn.preprocessing
 from matplotlib import pyplot as plt
 from sklearn.metrics import mean_squared_error
 from sklearn.preprocessing import MinMaxScaler
-from typing import Tuple
 
+import config
 import containers
 import methods
-import config
 from containers import *
 from methods import *
 
