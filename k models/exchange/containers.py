@@ -29,7 +29,7 @@ class BaseContainer():
         """
             Check if the configuration dictionary fed is legal.
         """
-        assert cf["method"] in self.proc_method, f"Data Processing method {cf["method"]} not avaiable."
+        assert cf["method"] in self.proc_method, "Data Processing method fed not avaiable."
 
         if cf["method"] == "diff":
             assert type(
@@ -82,7 +82,7 @@ class UnivariateContainer(BaseContainer):
         self.series = series
         self.num_obs = len(self.series)
 
-        self.raw = self.series.values.reshape(self.num_fea, 1)
+        self.raw = self.series.values.reshape(self.num_obs, 1)
         print(
             f"Univariate series with {self.num_obs} obs received.")
 
@@ -132,6 +132,7 @@ class UnivariateContainer(BaseContainer):
     def __str__(self) -> str:
         # TODO: Add shapes of train/test Xy sets to report string.
         repr_str = f"""\t{str(type(self))} object at {hex(id(self))}
+            =========================================
             Raw Data:
                 Dataset size: {self.num_obs} obs.
             =========================================
