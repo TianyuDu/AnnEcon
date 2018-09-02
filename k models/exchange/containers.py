@@ -17,8 +17,27 @@ from typing import Tuple, Union
 
 
 class BaseContainer():
+    """
+    Basic class for various data container object.
+    """
+    def __init__(self):
+        self.proc_method = ["diff"]
+        print("Base Container Initialized.")
+
     def check_config(self, cf: dict) -> bool:
-        # TODO: Add config check
+        """
+            Check if the configuration dictionary fed is legal.
+        """
+        assert cf["method"] in self.proc_method, f"Data Processing method {cf["method"]} not avaiable."
+        
+        if cf["method"] == "diff":
+            assert type(cf["diff.lag"]) is int and cf["diff.lag"] > 0, "diff.lag should be a positive integer."
+            assert type(cf["diff.order"]) is int and cf["diff.order"] >=0, "diff.order should be a non-negative integer."
+        
+        assert type(cf["test_ratio"]) is float and 0 <= cf["test_ratio"] < 1, "test ratio should be a float between 0 and 1."
+
+        assert type(cf["lag_for_sup"]) is int and cf["lag_for_sup"] >= 1, "lag_for_sup should be an integer greater or equal to 1."
+        
         print("Configuration check passed.")
         return True
 
@@ -37,12 +56,13 @@ class UnivariateContainer(BaseContainer):
                 "diff.lag": 1,
                 "diff.order": 1,
                 "test_ratio": 0.2,
-                "lag_for_sup": 3,
-                "target_idx": 0
+                "lag_for_sup": 3
                 }) -> None:
-        assert self.check_config(config)
+        
+        super(UnivariateContainer, self).__init__()
+        assert self.check_config(config), "Config fed in did not pass the configuration check."
         self.config = config
-        # Input format: num_obs * num_fea
+        # Input format: num_obs * num_fea(1)
         assert len(series.shape) == 1, \
             f"UnivariateDataContainer: Series feed is expected to have shape=(n,) as univariate series, \
             but shape={len(series.shape)} received instead."

@@ -9,6 +9,7 @@ neural_network_config = {
 }
 
 # Configuration for data processing
+# Configuration dictionary to create DataContainer Object
 data_proc_config = {
     # Method to remove non-stationarity of time series
         # By default, create stationary time series using first 
@@ -16,7 +17,7 @@ data_proc_config = {
     "method": "diff",  # {str}
         # Avaiable method: 
         # "diff": remove non-stationarity by differncing.
-    "diff.lag": 1,  # {int >= 0}
+    "diff.lag": 1,  # {int > 0}
         # Lag of differencing,
         # Notice: If set to zero, the 0 series will be returned (x[i] - x[i - 0] == 0)
     "diff.order": 1,  # {int >= 0}
@@ -30,6 +31,4 @@ data_proc_config = {
         # supervised learning problem (SLP).
         # Using m then the i-1 to i-m total m lagged variables 
         # will be used to predict the i-index variable in the SLP.
-    "target_idx": 0  # {int}
-        # The index column where target object to be placed.
 }
