@@ -20,6 +20,7 @@ class BaseContainer():
     """
     Basic class for various data container object.
     """
+
     def __init__(self):
         self.proc_method = ["diff"]
         print("Base Container Initialized.")
@@ -29,48 +30,62 @@ class BaseContainer():
             Check if the configuration dictionary fed is legal.
         """
         assert cf["method"] in self.proc_method, f"Data Processing method {cf["method"]} not avaiable."
-        
-        if cf["method"] == "diff":
-            assert type(cf["diff.lag"]) is int and cf["diff.lag"] > 0, "diff.lag should be a positive integer."
-            assert type(cf["diff.order"]) is int and cf["diff.order"] >=0, "diff.order should be a non-negative integer."
-        
-        assert type(cf["test_ratio"]) is float and 0 <= cf["test_ratio"] < 1, "test ratio should be a float between 0 and 1."
 
-        assert type(cf["lag_for_sup"]) is int and cf["lag_for_sup"] >= 1, "lag_for_sup should be an integer greater or equal to 1."
-        
+        if cf["method"] == "diff":
+            assert type(
+                cf["diff.lag"]) is int and cf["diff.lag"] > 0, "diff.lag should be a positive integer."
+            assert type(
+                cf["diff.order"]) is int and cf["diff.order"] >= 0, "diff.order should be a non-negative integer."
+
+        assert type(
+            cf["test_ratio"]) is float and 0 <= cf["test_ratio"] < 1, "test ratio should be a float between 0 and 1."
+
+        assert type(
+            cf["lag_for_sup"]) is int and cf["lag_for_sup"] >= 1, "lag_for_sup should be an integer greater or equal to 1."
+
         print("Configuration check passed.")
         return True
 
 
 class UnivariateContainer(BaseContainer):
     """
-    # TODO: add doc and change class name.
-    Data container
+    The Univariate Data Container: for time series prediction.
+    Used in problem where only one time series are fed in.
+
+    Series form: y[*] with shape (N,)
+    SLP form:
+        Data in: previous observations. y[t-1], y[t-2], y[t-3], etc.
+        Data out: predicted yhat[t]
     """
 
     def __init__(
             self,
             series: pd.Series,
-            config: dict={
+            config: dict={  # This is the default config for rapid testing.
                 "method": "diff",
                 "diff.lag": 1,
                 "diff.order": 1,
                 "test_ratio": 0.2,
                 "lag_for_sup": 3
-                }) -> None:
-        
+            }) -> None:
+
         super(UnivariateContainer, self).__init__()
-        assert self.check_config(config), "Config fed in did not pass the configuration check."
+        assert self.check_config(
+            config), "Config fed in did not pass the configuration check."
         self.config = config
-        # Input format: num_obs * num_fea(1)
+        print("Configuration loaded.")
+
+        # Input format: shape=(num_obs,)
         assert len(series.shape) == 1, \
             f"UnivariateDataContainer: Series feed is expected to have shape=(n,) as univariate series, \
             but shape={len(series.shape)} received instead."
         self.series = series
-        self.raw = self.series.values.reshape(-1, 1)
+        self.num_obs = len(self.series)
+
+        self.raw = self.series.values.reshape(self.num_fea, 1)
         print(
-            f"UnivariateDataContainer: Univariate series with {len(self.series)} obs received.")
-        self.num_obs, self.num_fea = self.raw.shape
+            f"Univariate series with {self.num_obs} obs received.")
+
         self.differenced = self._difference(
             self.raw, lag=self.config["diff.lag"], order=self.config["diff.order"]
         )
@@ -79,13 +94,16 @@ class UnivariateContainer(BaseContainer):
             self.differenced, total_lag=self.config["lag_for_sup"])
         print(
             f"Supervised Learning Problem Generated with target index {self.tar_idx}")
+        
         self.sup_set = self.sup_set.values
-        self.sup_fea = self.sup_set.shape[1] - 1
+        self.num_fea = self.sup_set.shape[1] - 1
         self.sup_num_target = 1
 
         self.sample_size = len(self.sup_set)
         self.test_size = int(self.sample_size * config["test_ratio"])
         self.train_size = int(self.sample_size - self.test_size)
+        assert self.sample_size == self.test_size + self.train_size
+
 
         # Split data
         # Note: idx0 = obs idx, idx1 = feature idx
@@ -116,11 +134,16 @@ class UnivariateContainer(BaseContainer):
         repr_str = f"""\t{str(type(self))} object at {hex(id(self))}
             Raw Data:
                 Dataset size: {self.num_obs} obs.
-                Number of features: {self.num_fea} features.
+            =========================================
             Supervised Learning problem generated:
                 Total sample size: {self.sample_size} obs.
                 Training set size: {self.train_size} obs.
                 Testing set size: {self.test_size} obs.
+                ======================================
+                training set X(in) shape: {self.train_X.shape}
+                training set y(out) shape: {self.train_y.shape}
+                testing set X(in) shape: {self.test_X.shape}
+                testing set y(out) shape: {self.test_y.shape}
         """
         return repr_str
 
@@ -131,8 +154,8 @@ class UnivariateContainer(BaseContainer):
         # Returing order: (train_X, train_y, test_X, test_y), univariate.
         train, test = data[:self.train_size], data[self.train_size:]
 
-        assert train.shape[1] == self.sup_fea + 1, \
-            f"Got train shape: {train.shape}, expected num col: {self.sup_fea} + 1"
+        assert train.shape[1] == self.num_fea + 1, \
+            f"Got train shape: {train.shape}, expected num col: {self.num_fea} + 1"
         fea_idx = list(range(train.shape[1]))
         fea_idx.remove(tar_idx)
 
@@ -174,7 +197,7 @@ class UnivariateContainer(BaseContainer):
                 val = data[i] - data[i - lag]
                 diff.append(val)
             diff = np.array(diff)
-            diff = diff.reshape(-1, self.num_fea)
+            diff = diff.reshape(-1, 1)
             return self._difference(diff, lag, order-1)
         return data
 
@@ -211,7 +234,7 @@ class UnivariateContainer(BaseContainer):
 
     def reconstruct(self, data: np.ndarray):
         pass
-    
+
     def get_combined_scaled(self) -> Tuple[np.ndarray]:
         train_scaled = np.concatenate(
             [self.train_y_scaled, self.train_X_scaled],
