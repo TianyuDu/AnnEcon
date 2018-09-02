@@ -125,7 +125,7 @@ def fit_lstm(train, batch_size, epoch, neurons) \
     X = X.reshape(X.shape[0], 1, X.shape[1])
     model = keras.Sequential()
     model.add(keras.layers.LSTM(
-        units=neurons,
+        units=neurons[0],
         batch_input_shape=(batch_size, X.shape[1], X.shape[2]),
         stateful=True,
         name="lstm_input"

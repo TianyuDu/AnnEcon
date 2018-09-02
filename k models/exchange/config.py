@@ -5,7 +5,7 @@ Configuration file for univariate time series model.
 neural_network_config = {
     "batch_size": 1,  # Batch size for training
     "epoch": 10,  # Training epochs
-    "neuron": 128,  # Unit of neurons in SINGLE-LAYER LSTM model.
+    "neuron": [128],  # Unit of neurons in layers in LSTM model.
 }
 
 # Configuration for data processing
