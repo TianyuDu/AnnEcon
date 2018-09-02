@@ -29,6 +29,8 @@ container = containers.UnivariateContainer(
     config=config.data_proc_config
 )
 
+# TODO: get_combined_scaled should be removed 
+# and will be called directly with UnivariateLSTM object.
 train_scaled, test_scaled = container.get_combined_scaled()
 
 model = fit_lstm(
