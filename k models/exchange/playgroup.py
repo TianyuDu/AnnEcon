@@ -30,4 +30,21 @@ c = containers.UnivariateContainer(series, config=config.data_proc_config)
 
 m = UnivariateLSTM(c, config=neural_network_config)
 
+# Stacked LSTM
+data_dim = c.sup_num_target
+timesteps = c.num_fea
+# num_classes = 10  # Change to regression problem.
 
+m2 = keras.Sequential()
+m2.add(keras.layers.LSTM(
+    32, return_sequences=True,
+    input_shape=(timesteps, data_dim)
+))
+m2.add(keras.layers.LSTM(32, return_sequences=True))
+m2.add(keras.layers.LSTM(32))
+m2.add(keras.layers.Dense(1, activation="tanh"))
+
+m2.compile(
+    loss=keras.losses.MSE,
+    optimizer="adam",
+    metrics=[keras.metrics.mae])
