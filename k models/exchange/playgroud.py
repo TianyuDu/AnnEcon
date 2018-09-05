@@ -37,11 +37,11 @@ timesteps = c.num_fea
 
 m2 = keras.Sequential()
 m2.add(keras.layers.LSTM(
-    32, return_sequences=True,
+    units=128, return_sequences=True,
     input_shape=(timesteps, data_dim)
 ))
-m2.add(keras.layers.LSTM(32, return_sequences=True))
-m2.add(keras.layers.LSTM(32))
+m2.add(keras.layers.LSTM(units=128, return_sequences=True))
+m2.add(keras.layers.LSTM(units=128))
 m2.add(keras.layers.Dense(1, activation="tanh"))
 
 m2.compile(
