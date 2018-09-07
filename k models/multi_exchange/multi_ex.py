@@ -10,7 +10,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 import sklearn
 
-from typing import Union
+from typing import Union, List
 
 sys.path.append("/Users/tianyudu/Documents/Github/AnnEcon/k models/exchange")
 import config
@@ -71,6 +71,38 @@ values = dataset.values
 scaler = sklearn.preprocessing.StandardScaler()
 scaled = scaler.fit_transform(values)
 
+def gen_sup(
+    data: np.ndarray, max_lag=1, 
+    var_names: List[str]=None, dropnan=True):
+
+    n_vars = data.shape[1]
+    y = data[:, -1]
+    y = pd.DataFrame(y)
+    df = pd.DataFrame(data)
+    all_frams = list()
+
+    for i in range(1, max_lag+1): 
+        shifted = df.shift(i)
+        cols = var_names[:]  # Retrive var names.
+        for j in range(len(cols)):  # Rename columns in form var(t-i)
+            cols[j] = f"{cols[j]}(t-{i})"
+        shifted.columns = cols
+        all_frams.append(shifted)
+
+    all_frams.append(y)
+    result = pd.concat(all_frams, axis=1)
+    res_cols = list(result.columns)
+    res_cols[-1] = f"(*Target){target}(t)"
+    result.columns = res_cols
+
+    assert len(s.columns) == max_lag * (n_vars - 1) + 1
+    
+    return result
+
+# cols, names = list(), list()
+# pd.shift(i) gives Lag-i variable on given time step.
+
+reframed = gen_sup(scaled, 1, 1)
 
 # split test and training
 train_ratio = 0.7
@@ -90,6 +122,3 @@ time_steps = 1
 train_X = train_X.reshape(train_X.shape[0], 1, train_X.shape[1])
 test_X = test_X.reshape(test_X.shape[0], 1, test_X.shape[1])
 print(train_X.shape, train_y.shape, test_X.shape, test_y.shape)
-
-def gen_sup():
-    pass
