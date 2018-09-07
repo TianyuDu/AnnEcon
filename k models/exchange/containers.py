@@ -272,12 +272,65 @@ class PanelContainer(BaseContainer):
     """
         Panel data container for RNN prediction.
     """
-    def __init__(self, file_dir: str, load_data: callable):
+    def __init__(
+        self, 
+        file_dir: str, 
+        target_col: str,
+        load_data: callable
+        ):
         self.dataset = load_data(file_dir)
+
+        assert target_col in self.dataset.columns
+        self.target_col = target_col
+
+        # move target to last column
+        y = self.dataset[self.target_col]
+        self.dataset.drop(columns=[self.target_col], inplace=True)
+        self.dataset = pd.concat([self.dataset, y], axis=1)
+        self.values = self.dataset.values
+
         self.values = self.dataset.values
         self.num_obs, self.num_series = self.values.shape
 
+        self.scaler = sklearn.preprocessing.StandardScaler()
+        self.scaled = self.scaler.fit_transform(self.values)
+
         print(
             f"Panel data loaded, with {self.num_series} series and {self.num_obs} observations")
-
         
+        self.reframed = self.gen_sup(data=self.values, max_lag=3)
+
+    def gen_sup(
+        self, 
+        data: np.ndarray, 
+        max_lag: int=1, 
+        dropnan=True
+        ):
+        n_vars = data.shape[1]
+        y = data[:, -1]
+        y = pd.DataFrame(y)
+        df = pd.DataFrame(data)
+        all_frames = list()
+        var_names = list(self.dataset.columns)
+
+        for i in range(1, max_lag + 1):
+            shifted = df.shift(i)
+            cols = var_names[:]
+            for j in range(len(cols)):
+                cols[j] = f"{cols[j]}(t-{i})"
+            shifted.columns = cols
+            all_frames.append(shifted)
+        
+        all_frames.append(y)
+        result = pd.concat(all_frames, axis=1)
+        res_cols = list(result.columns)
+        res_cols[-1] = f"(*Target*){self.target_col}(t)"
+        result.columns = res_cols
+
+        assert len(result.columns) == max_lag * n_vars + 1
+
+        if dropnan:
+            result.dropna(inplace=True)
+
+        return result
+

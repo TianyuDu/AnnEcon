@@ -16,6 +16,8 @@ sys.path.append("/Users/tianyudu/Documents/Github/AnnEcon/k models/exchange")
 import config
 import containers
 import methods
+from containers import *
+from methods import *
 
 
 file_dir = "/Users/tianyudu/Documents/Github/AnnEcon/k models/multi_exchange/data/exchange_rates/exchange_rates_Daily.csv"
@@ -30,6 +32,8 @@ def load_multi_ex(file_dir: str) -> pd.DataFrame:
     # DEXVZUS behaved abnomally
     dataset.drop(columns=["DEXVZUS"], inplace=True)
     return dataset
+
+c = PanelContainer(file_dir, "DEXCAUS", load_multi_ex)
 
 dataset = load_multi_ex(file_dir)
 dataset.describe()
@@ -80,7 +84,7 @@ def gen_sup(
     y = data[:, -1]
     y = pd.DataFrame(y)
     df = pd.DataFrame(data)
-    all_frams = list()
+    all_frames = list()
 
     # pd.shift(i) gives Lag-i variable on given time step.
     for i in range(1, max_lag+1): 
@@ -89,10 +93,10 @@ def gen_sup(
         for j in range(len(cols)):  # Rename columns in form var(t-i)
             cols[j] = f"{cols[j]}(t-{i})"
         shifted.columns = cols
-        all_frams.append(shifted)
+        all_frames.append(shifted)
 
-    all_frams.append(y)
-    result = pd.concat(all_frams, axis=1)
+    all_frames.append(y)
+    result = pd.concat(all_frames, axis=1)
     res_cols = list(result.columns)
     res_cols[-1] = f"(*Target){target}(t)"
     result.columns = res_cols
