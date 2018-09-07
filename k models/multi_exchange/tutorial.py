@@ -6,6 +6,7 @@ from datetime import datetime
 
 import keras
 import pandas as pd
+import numpy as np
 from matplotlib import pyplot as plt
 import sklearn
 
@@ -93,4 +94,80 @@ values = values.astype(np.float32)
 scaler = sklearn.preprocessing.MinMaxScaler(feature_range=(0, 1))
 scaled = scaler.fit_transform(values)
 
-reframed =series_to_supervised(scaled, 1, 1) 
+reframed = series_to_supervised(scaled, 1, 1) 
+
+reframed.drop(reframed.columns[[9, 10, 11, 12, 13, 14, 15]], axis=1, inplace=True)
+
+# TODO: one-hot encoding for wind direction.
+# TODO: Making all series stationary with differencing and seasonal adjustment
+
+
+values = reframed.values
+n_train_hours = 365*24
+
+train = values[:n_train_hours, :]
+test = values[n_train_hours:, :]
+
+# Pollution (target y) is the last column
+train_X, train_y = train[:, :-1], train[:, -1]
+test_X, test_y = test[:, :-1], test[:, -1]
+
+# reshape input to be 3D [samples, timesteps, features]
+train_X = train_X.reshape((train_X.shape[0], 1, train_X.shape[1]))
+test_X = test_X.reshape((test_X.shape[0], 1, test_X.shape[1]))
+print(train_X.shape, train_y.shape, test_X.shape, test_y.shape)
+
+model = keras.Sequential()
+model.add(
+    keras.layers.LSTM(
+        units=50,
+        input_shape=(train_X.shape[1], train_X.shape[2])
+    )
+)
+
+model.add(keras.layers.Dense(1))
+model.compile(loss="mae", optimizer="adam")
+
+hist = model.fit(train_X, train_y, epochs=50, batch_size=72, validation_data=(test_X, test_y), verbose=1, shuffle=False)
+
+plt.plot(hist.history['loss'], label='train')
+plt.plot(hist.history['val_loss'], label='test')
+plt.legend()
+plt.show()
+
+# Evaluate model.
+yhat = model.predict(test_X)
+test_X = test_X.reshape((test_X.shape[0], test_X.shape[2]))
+
+inv_yhat = np.concatenate((yhat, test_X[:, 1:]), axis=1)
+inv_yhat = scaler.inverse_transform(inv_yhat)
+inv_yhat = inv_yhat[:, 0]
+
+test_y = test_y.reshape(len(test_y), 1)
+
+inv_y = np.concatenate((test_y, test_X[:, 1:]), axis=1)
+inv_y = scaler.inverse_transform(inv_y)
+inv_y = inv_y[:, 0]
+
+rmse = np.sqrt(sklearn.metrics.mean_squared_error(inv_y, inv_yhat))
+print(f"RMSE={rmse}")
+
+plt.plot(inv_yhat, alpha=0.6, linewidth=0.6, label="yhat")
+plt.plot(inv_y, alpha=0.6, linewidth=0.6, label="y")
+plt.Legend()
+plt.show()
+
+# multiple lagged time steps.
+n_hrs = 3
+n_fea = 8
+reframed = series_to_supervised(scaled, n_hrs, 1)
+
+# Inputs (X) would be in shape [samples, timesteps, features]
+n_obs = n_hrs * n_fea
+train_X, train_y = train[:, :n_obs], train[:, -n_fea]
+test_X, test_y = test[:, :n_obs], test[:, -n_fea]
+print(train_X.shape, len(train_X), train_y.shape)
+
+# Reshape
+train_X = train_X.reshape((train_X.shape[0], n_hrs, n_fea))
+test_X = test_X.reshape((test_X.shape[0], n_hrs, n_fea))
