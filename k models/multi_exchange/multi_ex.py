@@ -27,10 +27,11 @@ def load_multi_ex(file_dir: str) -> pd.DataFrame:
     dataset.replace(to_replace=".", value=np.NaN, inplace=True)
     dataset.fillna(method="ffill", inplace=True)
     dataset = dataset.astype(np.float32)
+    # DEXVZUS behaved abnomally
+    dataset.drop(columns=["DEXVZUS"], inplace=True)
     return dataset
 
 dataset = load_multi_ex(file_dir)
-dataset.drop(columns=["DEXVZUS"], inplace=True)  # DEXVZUS behaved abnomally
 dataset.describe()
 print(dataset.head())
 
@@ -81,6 +82,7 @@ def gen_sup(
     df = pd.DataFrame(data)
     all_frams = list()
 
+    # pd.shift(i) gives Lag-i variable on given time step.
     for i in range(1, max_lag+1): 
         shifted = df.shift(i)
         cols = var_names[:]  # Retrive var names.
@@ -95,17 +97,18 @@ def gen_sup(
     res_cols[-1] = f"(*Target){target}(t)"
     result.columns = res_cols
 
-    assert len(s.columns) == max_lag * (n_vars - 1) + 1
-    
+    assert len(result.columns) == max_lag * n_vars + 1, \
+        f"{len(result.columns)}, {max_lag * n_vars + 1}"
+
+    if dropnan == True:
+        result.dropna(inplace=True)
     return result
 
-# cols, names = list(), list()
-# pd.shift(i) gives Lag-i variable on given time step.
-
-reframed = gen_sup(scaled, 1, 1)
+reframed = gen_sup(
+    data=values, max_lag=2, var_names=list(dataset.columns))
 
 # split test and training
-train_ratio = 0.7
+train_ratio = 0.9
 train_size = int(num_obs * train_ratio)
 
 train, test = values[:train_size, :], values[train_size:, :]
@@ -122,3 +125,27 @@ time_steps = 1
 train_X = train_X.reshape(train_X.shape[0], 1, train_X.shape[1])
 test_X = test_X.reshape(test_X.shape[0], 1, test_X.shape[1])
 print(train_X.shape, train_y.shape, test_X.shape, test_y.shape)
+
+model = keras.Sequential()
+model.add(keras.layers.LSTM(
+    units=256,
+    input_shape=(train_X.shape[1], train_X.shape[2]),
+    return_sequences=True
+))
+model.add(keras.layers.LSTM(128))
+model.add(keras.layers.Dense(1))
+
+# TODO: change loss metric func.
+model.compile(loss=keras.losses.MSE, optimizer="adam")
+
+hist = model.fit(
+    train_X, 
+    train_y, 
+    epochs=50, 
+    batch_size=32, 
+    validation_split=0.2)
+
+yhat = model.predict(test_X)
+plt.plot(y.values[-len(yhat):])
+plt.plot(yhat)
+plt.show()

@@ -266,3 +266,18 @@ class UnivariateContainer(BaseContainer):
         )
 
         return (train_scaled, test_scaled)
+
+
+class PanelContainer(BaseContainer):
+    """
+        Panel data container for RNN prediction.
+    """
+    def __init__(self, file_dir: str, load_data: callable):
+        self.dataset = load_data(file_dir)
+        self.values = self.dataset.values
+        self.num_obs, self.num_series = self.values.shape
+
+        print(
+            f"Panel data loaded, with {self.num_series} series and {self.num_obs} observations")
+
+        
