@@ -5,6 +5,7 @@ in model training.
 """
 import datetime
 import warnings
+from typing import Tuple, Union
 
 import keras
 import matplotlib
@@ -15,7 +16,6 @@ import sklearn.preprocessing
 from matplotlib import pyplot as plt
 from sklearn.metrics import mean_squared_error
 from sklearn.preprocessing import MinMaxScaler
-from typing import Tuple, Union
 
 
 class BaseContainer():
@@ -63,7 +63,7 @@ class UnivariateContainer(BaseContainer):
     def __init__(
             self,
             series: pd.Series,
-            config: dict={  # This is the default config for rapid testing.
+            config: dict = {  # This is the default config for rapid testing.
                 "method": "diff",
                 "diff.lag": 1,
                 "diff.order": 1,
@@ -96,7 +96,7 @@ class UnivariateContainer(BaseContainer):
             self.differenced, total_lag=self.config["lag_for_sup"])
         print(
             f"Supervised Learning Problem Generated with target index {self.tar_idx}")
-        
+
         self.sup_set = self.sup_set.values
         self.num_fea = self.sup_set.shape[1] - 1
         self.sup_num_target = 1
@@ -105,7 +105,6 @@ class UnivariateContainer(BaseContainer):
         self.test_size = int(self.sample_size * config["test_ratio"])
         self.train_size = int(self.sample_size - self.test_size)
         assert self.sample_size == self.test_size + self.train_size
-
 
         # Split data
         # Note: idx0 = obs idx, idx1 = feature idx
@@ -153,7 +152,7 @@ class UnivariateContainer(BaseContainer):
     def __repr__(self):
         return self.__str__()
 
-    def _split_data(self, data: np.ndarray, tar_idx: Union[int, list]=0) -> Tuple[np.ndarray]:
+    def _split_data(self, data: np.ndarray, tar_idx: Union[int, list] = 0) -> Tuple[np.ndarray]:
         """
         Split data into X,y,train,test sets.
         Return: (train_X, train_y, test_X, test_y), univariate.
@@ -173,7 +172,7 @@ class UnivariateContainer(BaseContainer):
 
         return (train_X, train_y, test_X, test_y)
 
-    def _gen_sup_learning(self, data: np.ndarray, total_lag: int=1, nafill: object=0.0) \
+    def _gen_sup_learning(self, data: np.ndarray, total_lag: int = 1, nafill: object = 0.0) \
             -> (pd.DataFrame, int):
         """
             Generate superized learning problem.
@@ -193,7 +192,7 @@ class UnivariateContainer(BaseContainer):
         tar_idx = 0
         return (df, tar_idx)
 
-    def _difference(self, data: np.ndarray, lag: int=1, order: int=1) -> np.ndarray:
+    def _difference(self, data: np.ndarray, lag: int = 1, order: int = 1) -> np.ndarray:
         """
             Note: set lag=1 & order=0 to use the original data.
         """
@@ -272,12 +271,21 @@ class PanelContainer(BaseContainer):
     """
         Panel data container for RNN prediction.
     """
+
     def __init__(
-        self, 
-        file_dir: str, 
+        self,
+        file_dir: str,
         target_col: str,
-        load_data: callable
-        ):
+        load_data: callable,
+        config: dict = {
+            "max_lag": 3,
+            "train_ratio": 0.9,
+            "time_steps": 1
+        }
+    ):
+
+        self.config = config
+
         self.dataset = load_data(file_dir)
 
         assert target_col in self.dataset.columns
@@ -297,32 +305,41 @@ class PanelContainer(BaseContainer):
 
         print(
             f"Panel data loaded, with {self.num_series} series and {self.num_obs} observations")
-        
-        self.reframed = self.gen_sup(data=self.values, max_lag=3)
 
-    def gen_sup(
-        self, 
-        data: np.ndarray, 
-        max_lag: int=1, 
-        dropnan=True
-        ):
+        self.reframed = self.gen_sup(
+            data=self.values,
+            max_lag=self.config["max_lag"])
+
+        self.train_size = int(
+            self.config["train_ratio"] * self.num_obs)
+
+        self.split_data(train_size=self.train_size)
+
+        self.reshape_data(time_steps=self.config["time_steps"])
+
+    def gen_sup(self, data: np.ndarray, max_lag: int = 1, dropnan=False) -> pd.DataFrame:
+        """
+        Convert data to a supervised learning problem.
+        """
         n_vars = data.shape[1]
-        y = data[:, -1]
-        y = pd.DataFrame(y)
-        df = pd.DataFrame(data)
-        all_frames = list()
-        var_names = list(self.dataset.columns)
+        print(f"Creating supervise learning problem with {n_vars} variables and total {max_lag} lagged variables.")
 
-        for i in range(1, max_lag + 1):
+        y = pd.DataFrame(data[:, -1])  # Ground truth of y value fed in.
+        df = pd.DataFrame(data)
+
+        lagged_frames = list()  # List to store lagged variables.
+        var_names = list(self.dataset.columns)  # Get original names for each column.
+
+        for i in range(1, max_lag + 1):  # Note: *.shift(i) gives L(i) variable. (previous)
             shifted = df.shift(i)
             cols = var_names[:]
             for j in range(len(cols)):
                 cols[j] = f"{cols[j]}(t-{i})"
             shifted.columns = cols
-            all_frames.append(shifted)
-        
-        all_frames.append(y)
-        result = pd.concat(all_frames, axis=1)
+            lagged_frames.append(shifted)
+
+        lagged_frames.append(y)
+        result = pd.concat(lagged_frames, axis=1)
         res_cols = list(result.columns)
         res_cols[-1] = f"(*Target*){self.target_col}(t)"
         result.columns = res_cols
@@ -331,6 +348,41 @@ class PanelContainer(BaseContainer):
 
         if dropnan:
             result.dropna(inplace=True)
+        else:
+            result.fillna(0, inplace=True)
 
         return result
 
+    def split_data(self, train_size: int):
+        """
+        Generate training and testing data, both input X and target y.
+        """
+        # Spliting traning / testing.
+        values = self.reframed.values
+        self.train, self.test = values[:train_size, :], values[train_size:, :]
+
+        # By default, LAST column is the target.
+        self.train_X, self.train_y = self.train[:, :-1], self.train[:, -1]
+        self.test_X, self.test_y = self.test[:, :-1], self.test[:, -1]
+
+        assert np.all(
+            self.reframed.values[self.config["max_lag"]:, -1]
+            == np.concatenate(
+                [self.train_y.reshape(-1), self.test_y.reshape(-1)],
+                axis=0
+            )
+        )
+
+    def reshape_data(self, time_steps: int) -> None:
+        """
+            Reshape X data into the same shape of input tensor of model.
+        """
+        self.train_X = self.train_X.reshape(
+            self.train_X.shape[0], time_steps, self.train_X.shape[1]
+        )
+        print(f"PanelContainer: Train X shape = {self.train_X.shape}")
+
+        self.test_X = self.test_X.reshape(
+            self.test_X.shape[0], time_steps, self.test_X.shape[1]
+        )
+        print(f"PanelContainer: Test X shape = {self.test_X.shape}")

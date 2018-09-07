@@ -33,7 +33,15 @@ def load_multi_ex(file_dir: str) -> pd.DataFrame:
     dataset.drop(columns=["DEXVZUS"], inplace=True)
     return dataset
 
-c = PanelContainer(file_dir, "DEXCAUS", load_multi_ex)
+c = PanelContainer(
+    file_dir, 
+    "DEXCAUS", 
+    load_multi_ex, 
+    {
+        "max_lag": 3, 
+        "train_ratio": 0.9,
+        "time_steps": 1
+    })
 
 dataset = load_multi_ex(file_dir)
 dataset.describe()
@@ -109,8 +117,10 @@ def gen_sup(
     return result
 
 reframed = gen_sup(
-    data=values, max_lag=2, var_names=list(dataset.columns))
+    data=scaled, max_lag=3, var_names=list(dataset.columns))
 
+
+values = reframed.values
 # split test and training
 train_ratio = 0.9
 train_size = int(num_obs * train_ratio)
@@ -120,8 +130,8 @@ train, test = values[:train_size, :], values[train_size:, :]
 train_X, train_y = train[:, :-1], train[:, -1]
 test_X, test_y = test[:, :-1], test[:, -1]
 
-assert np.all(y == np.concatenate(
-    [train_y.reshape(-1), test_y.reshape(-1)], axis=0))
+# assert np.all(y[3:] == np.concatenate(
+#     [train_y.reshape(-1), test_y.reshape(-1)], axis=0))
 
 # Formating: time_steps = 1
 # @ [samples, timesteps, features]
@@ -129,6 +139,7 @@ time_steps = 1
 train_X = train_X.reshape(train_X.shape[0], 1, train_X.shape[1])
 test_X = test_X.reshape(test_X.shape[0], 1, test_X.shape[1])
 print(train_X.shape, train_y.shape, test_X.shape, test_y.shape)
+print(c.train_X.shape, c.train_y.shape, c.test_X.shape, c.test_y.shape)
 
 model = keras.Sequential()
 model.add(keras.layers.LSTM(
@@ -149,7 +160,15 @@ hist = model.fit(
     batch_size=32, 
     validation_split=0.2)
 
-yhat = model.predict(test_X)
-plt.plot(y.values[-len(yhat):])
+yhat1 = model.predict(test_X)
+yhat2 = model.predict(train_X)
+yhat = np.concatenate([yhat1, yhat2], axis=0)
+
+agg = dataset.values
+agg[:, -1] = yhat.reshape(-1)
+y_pred = scaler.inverse_transform(agg)
+
+y_pred = y_pred[: -1]
+plt.plot(y.values)
 plt.plot(yhat)
 plt.show()
