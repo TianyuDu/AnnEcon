@@ -317,7 +317,7 @@ class MultivariateContainer(BaseContainer):
         self.train_size = int(
             self.config["train_ratio"] * self.num_obs)  # Get training set size
 
-        self.split_data(train_size=self.train_size)
+        (self.train_X, self.train_y, self.test_X, self.test_y) = self.split_data(train_size=self.train_size)
 
         self.reshape_data(time_steps=self.config["time_steps"])  # TODO: remove.
 
@@ -372,7 +372,7 @@ class MultivariateContainer(BaseContainer):
 
         return agg_df
 
-    def split_data(self, train_size: int, target_idx: int=-1) -> None:
+    def split_data(self, train_size: int, target_idx: int=-1) -> Tuple[np.array]:
         """
         Generate training and testing data, both input X and target y.
         """
@@ -384,7 +384,14 @@ class MultivariateContainer(BaseContainer):
         # By default, LAST column is the target.
         train_X, train_y = train[:, :-1], train[:, -1]
         test_X, test_y = test[:, :-1], test[:, -1]
-        return 
+
+        print(f"Split data into training and testing sets \
+        \n\t train_X = {train_X.shape} \
+        \n\t train_y = {train_y.shape} \
+        \n\t test_X = {test_X.shape} \
+        \n\t test_y = {test_y.shape}")
+
+        return (train_X, train_y, test_X, test_y)
 
 
     def reshape_data(self, time_steps: int) -> None:
