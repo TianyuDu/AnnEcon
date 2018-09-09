@@ -267,9 +267,9 @@ class UnivariateContainer(BaseContainer):
         return (train_scaled, test_scaled)
 
 
-class PanelContainer(BaseContainer):
+class MultivariateContainer(BaseContainer):
     """
-        Panel data container for RNN prediction.
+        Multivariate data container for RNN prediction.
     """
 
     def __init__(
@@ -333,10 +333,10 @@ class PanelContainer(BaseContainer):
         for i in range(1, max_lag + 1):  # Note: *.shift(i) gives L(i) variable. (previous)
             shifted = df.shift(i)
             cols = var_names[:]
-            for j in range(len(cols)):
+            for j in range(len(cols)):  # Create lagged variable names.
                 cols[j] = f"{cols[j]}(t-{i})"
-            shifted.columns = cols
-            lagged_frames.append(shifted)
+            shifted.columns = cols  # Rename columns.
+            lagged_frames.append(shifted)  # Add to collection.
 
         lagged_frames.append(y)
         result = pd.concat(lagged_frames, axis=1)
@@ -375,7 +375,7 @@ class PanelContainer(BaseContainer):
 
     def reshape_data(self, time_steps: int) -> None:
         """
-            Reshape X data into the same shape of input tensor of model.
+        Reshape X data into the same shape of input tensor of model.
         """
         self.train_X = self.train_X.reshape(
             self.train_X.shape[0], time_steps, self.train_X.shape[1]

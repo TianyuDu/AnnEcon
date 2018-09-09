@@ -33,7 +33,7 @@ def load_multi_ex(file_dir: str) -> pd.DataFrame:
     dataset.drop(columns=["DEXVZUS"], inplace=True)
     return dataset
 
-c = PanelContainer(
+c = MultivariateContainer(
     file_dir, 
     "DEXCAUS", 
     load_multi_ex, 
