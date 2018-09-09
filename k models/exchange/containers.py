@@ -273,105 +273,119 @@ class MultivariateContainer(BaseContainer):
     """
 
     def __init__(
-        self,
-        file_dir: str,
-        target_col: str,
-        load_data: callable,
-        config: dict = {
-            "max_lag": 3,
-            "train_ratio": 0.9,
-            "time_steps": 1
-        }
-    ):
-
+            self,
+            file_dir: str,
+            target_col: str,
+            load_data: callable,
+            config: dict = {
+                "max_lag": 3,
+                "train_ratio": 0.9,
+                "time_steps": 1
+            }):
+        # Load configuration.  # TODO: Add check config method.
         self.config = config
 
         self.dataset = load_data(file_dir)
+        assert type(
+            self.dataset) is pd.DataFrame, f"Illegal object returned by data retrieving method, expected: pd.DataFrame, got: {type(self.dataset)}"
 
-        assert target_col in self.dataset.columns
+        assert target_col in self.dataset.columns, f"Target column {target_col} cannot be found in DataFrame loaded."
         self.target_col = target_col
 
+        print("Dataset loaded in multi-variate container.")
+
         # move target to last column
-        y = self.dataset[self.target_col]
-        self.dataset.drop(columns=[self.target_col], inplace=True)
-        self.dataset = pd.concat([self.dataset, y], axis=1)
+        # y = self.dataset[self.target_col]  # FIXME: fix here. remove.
+        # self.dataset.drop(columns=[self.target_col], inplace=True)
+        # self.dataset = pd.concat([self.dataset, y], axis=1)
         self.values = self.dataset.values
 
-        self.values = self.dataset.values
-        self.num_obs, self.num_series = self.values.shape
-
-        self.scaler = sklearn.preprocessing.StandardScaler()
-        self.scaled = self.scaler.fit_transform(self.values)
-
+        self.num_obs, self.num_fea = self.values.shape
         print(
-            f"Panel data loaded, with {self.num_series} series and {self.num_obs} observations")
+            f"\tDataset with {self.num_obs} observations and {self.num_fea} variables. Shape={self.dataset.shape}")
+        print(f"\tTarget variable: {self.target_col}")
 
-        self.reframed = self.gen_sup(
-            data=self.values,
-            max_lag=self.config["max_lag"])
+        # self.scaler = sklearn.preprocessing.StandardScaler()  # TODO: change scaler, so that it's only scale over training data.
+        # self.scaled = self.scaler.fit_transform(self.values)
+
+        print(f"Generating supervised learning problem...")
+        self.reframed = self.generate_supervised_learning(
+            data=self.dataset,
+            max_lag=self.config["max_lag"]
+        )
 
         self.train_size = int(
-            self.config["train_ratio"] * self.num_obs)
+            self.config["train_ratio"] * self.num_obs)  # Get training set size
 
         self.split_data(train_size=self.train_size)
 
-        self.reshape_data(time_steps=self.config["time_steps"])
+        self.reshape_data(time_steps=self.config["time_steps"])  # TODO: remove.
 
-    def gen_sup(self, data: np.ndarray, max_lag: int = 1, dropnan=False) -> pd.DataFrame:
+    def generate_supervised_learning(
+            self,
+            data: pd.DataFrame,
+            max_lag: int = 1,
+            dropnan=False) -> pd.DataFrame:
         """
-        Convert data to a supervised learning problem.
+        Convert data to a supervised learning problem, reframed the data points into 
+        [sample, time_step, feature] format.
+        Return data frame for RNN training with target value on the last column.
         """
         n_vars = data.shape[1]
-        print(f"Creating supervise learning problem with {n_vars} variables and total {max_lag} lagged variables.")
+        print(
+            f"Creating supervise learning problem with {n_vars} variables and total {max_lag} lagged variables.")
 
-        y = pd.DataFrame(data[:, -1])  # Ground truth of y value fed in.
-        df = pd.DataFrame(data)
+        # Split Data into Input and Output
+        # Input: max_lag lagged values of exchange rate series other than target.
+        # Output: target column
+        y = pd.DataFrame(data[self.target_col])  # target values (y)
+        X = pd.DataFrame(data.drop(columns=[self.target_col]))  # input X
 
-        lagged_frames = list()  # List to store lagged variables.
-        var_names = list(self.dataset.columns)  # Get original names for each column.
+        lag_df = list()  # List to store lagged variables.
 
-        for i in range(1, max_lag + 1):  # Note: *.shift(i) gives L(i) variable. (previous)
-            shifted = df.shift(i)
-            cols = var_names[:]
-            for j in range(len(cols)):  # Create lagged variable names.
-                cols[j] = f"{cols[j]}(t-{i})"
-            shifted.columns = cols  # Rename columns.
-            lagged_frames.append(shifted)  # Add to collection.
+        var_names = list(data.columns)  # Get original names for each column.
+        # FIXME: should I use y(t-1) as well; currently using.
 
-        lagged_frames.append(y)
-        result = pd.concat(lagged_frames, axis=1)
-        res_cols = list(result.columns)
-        res_cols[-1] = f"(*Target*){self.target_col}(t)"
-        result.columns = res_cols
+        for i in range(1, max_lag + 1):
+            # Note: *.shift(i) gives: new[t] = original[t-i]
+            lag = data.shift(i)  # Apply lagging.
+            cols = var_names[:]  # Copy column names.
+            # Create column names for lagged vars.
+            cols = [f"{col}(t-{i})" for col in cols]
+            lag.columns = cols  # Rename columns.
+            lag_df.append(lag)  # Add to collection.
 
-        assert len(result.columns) == max_lag * n_vars + 1
+        lag_df.append(y)  # Add target y column.
+        agg_df = pd.concat(lag_df, axis=1)
+
+        # Rename the last column.
+        agg_cols = list(agg_df.columns)
+        agg_cols[-1] = f"(*Target*){self.target_col}(t)"
+        agg_df.columns = agg_cols
+
+        assert len(agg_df.columns) == max_lag * n_vars + 1
 
         if dropnan:
-            result.dropna(inplace=True)
+            agg_df.dropna(inplace=True)
         else:
-            result.fillna(0, inplace=True)
+            agg_df.fillna(0, inplace=True)
 
-        return result
+        return agg_df
 
-    def split_data(self, train_size: int):
+    def split_data(self, train_size: int, target_idx: int=-1) -> None:
         """
         Generate training and testing data, both input X and target y.
         """
         # Spliting traning / testing.
         values = self.reframed.values
-        self.train, self.test = values[:train_size, :], values[train_size:, :]
+
+        train, test = values[:train_size, :], values[train_size:, :]
 
         # By default, LAST column is the target.
-        self.train_X, self.train_y = self.train[:, :-1], self.train[:, -1]
-        self.test_X, self.test_y = self.test[:, :-1], self.test[:, -1]
+        train_X, train_y = train[:, :-1], train[:, -1]
+        test_X, test_y = test[:, :-1], test[:, -1]
+        return 
 
-        assert np.all(
-            self.reframed.values[self.config["max_lag"]:, -1]
-            == np.concatenate(
-                [self.train_y.reshape(-1), self.test_y.reshape(-1)],
-                axis=0
-            )
-        )
 
     def reshape_data(self, time_steps: int) -> None:
         """
