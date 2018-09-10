@@ -143,11 +143,10 @@ class MultivariateLSTM(BaseModel):
     def load_model(self, file_dir: str) -> None:
         print(f"Load model from {file_dir}")
         # construct model from json
-        json_file = open("{file_dir}.json", "r")
+        json_file = open(f"{file_dir}.json", "r")
         model_file = json_file.read()
         json_file.close()
         self.core = keras.models.model_from_json(model_file)
         # load weights from h5
         self.core.load_weights(f"{file_dir}.h5", by_name=True)
         self.core.compile(loss="mse", optimizer="adam")
-        

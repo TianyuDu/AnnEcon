@@ -22,6 +22,7 @@ from models import *
 
 file_dir = "./data/exchange_rates/exchange_rates_Daily.csv"
 
+
 def load_multi_ex(file_dir: str) -> pd.DataFrame:
     dataset = pd.read_csv(file_dir, delimiter="\t", index_col=0)
     # Cleaning Data
@@ -32,6 +33,7 @@ def load_multi_ex(file_dir: str) -> pd.DataFrame:
     # DEXVZUS behaved abnomally
     dataset.drop(columns=["DEXVZUS"], inplace=True)
     return dataset
+
 
 # Setting up parameters.
 CON_config = {
@@ -49,32 +51,35 @@ NN_config = {
 }
 
 container = MultivariateContainer(
-    file_dir, 
-    "DEXCAUS", 
+    file_dir,
+    "DEXCAUS",
     load_multi_ex,
     CON_config)
 
 model = MultivariateLSTM(container, NN_config)
 model.fit_model(epochs=10)
-
+model.save_model()
 # time_stamp = str(datetime.datetime.now())
 
-## Testing Data
+# Testing Data
 
 yhat = model.predict(model.container.test_X)
-yhat = model.container.invert_difference(yhat, range(4617, 5130), fillnone=True)
+yhat = model.container.invert_difference(
+    yhat, range(4617, 5130), fillnone=True)
 
 # FIXME: fix the prediction problem: output are nearly zeros
+# Solution: try larger epochs.
 
 plt.close()
 plt.plot(yhat, linewidth=0.6, alpha=0.6, label="yhat")
-plt.plot(model.container.ground_truth_y, linewidth=0.6, alpha=0.6, label="actual")
+plt.plot(model.container.ground_truth_y,
+         linewidth=0.6, alpha=0.6, label="actual")
 plt.legend()
 plt.show()
+
 # plt.savefig(f"./figure/{pin}_test.svg")
 
-
-## Training Data
+# Training Data
 
 yhat = model.predict(model.container.train_X)
 acty = model.container.scaler_y.inverse_transform(model.container.train_y)
@@ -83,10 +88,12 @@ yhat = model.container.invert_difference(yhat, range(4617), fillnone=False)
 plt.close()
 plt.plot(yhat, linewidth=0.6, alpha=0.6, label="yhat")
 # plt.plot(acty, linewidth=0.6, alpha=0.6, label="actual")
-plt.plot(model.container.ground_truth_y, linewidth=0.6, alpha=0.6, label="actual")
+plt.plot(model.container.ground_truth_y,
+         linewidth=0.6, alpha=0.6, label="actual")
 plt.legend()
 plt.show()
 # plt.savefig(f"./figure/{pin}_train.svg")
+
 
 def visualize_raw(data: pd.DataFrame, action: Union["save", "show"]) -> None:
     plt.close()
