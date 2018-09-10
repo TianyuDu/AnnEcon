@@ -308,7 +308,7 @@ class MultivariateContainer(BaseContainer):
         print(f"Generating supervised learning problem...")
         self.X, self.y = self.generate_supervised_learning(
             data=self.dataset,
-            timestep=self.config["time_steps"]
+            time_steps=self.config["time_steps"]
         )
 
         self.train_size = int(
