@@ -1,5 +1,5 @@
 """
-Models
+Models.
 """
 
 import numpy as np
@@ -7,6 +7,14 @@ import pandas as pd
 import keras
 import containers
 
+class BaseModel():
+    def __init__(self):
+        self.core = None
+
+    def __str__(self):
+        keras.utils.print_summary(self.core)
+        return f"""UnivariateLSTM model at {hex(id(self))}
+        """
 
 class UnivariateLSTM():
     """
@@ -59,20 +67,35 @@ class UnivariateLSTM():
 
         return core
 
-    def __str__(self):
-        keras.utils.print_summary(self.core)
-        return f"""UnivariateLSTM model at {hex(id(self))}
-        """
-
-    def __repr__(self):
-        # TODO: write repr method.
-        print("")
-        print(keras.utils.print_summary(self.core))
-        return f"id={hex(id(self))}"
-
     def fit_model(self):
         pass
 
 
-class Multivariatemodel():
-    pass
+class MultivariateLSTM():
+    def __init__(self, container, config=None):
+        
+        _, self.time_steps, self.num_fea = container.train_X.shape
+        print(f"MultivariateLSTM Initialized: \
+        \n\t Time Step: {self.time_steps}\
+        \n\t Feature: {self.num_fea}")
+
+        self.container = container
+
+        self.core = self._construct_lstm()
+        
+    def _construct_lstm(self):
+        model = keras.Sequential()
+        model.add(keras.layers.LSTM(
+            units=128,
+            input_shape=(self.time_steps, self.num_fea),
+            return_sequences=False
+        ))
+        # model.add(keras.layers.LSTM(units=16))
+        model.add(keras.layers.Dense(32))
+        model.add(keras.layers.Dense(1))
+        model.compile(loss="mse", optimizer="adam")
+
+        return model
+    
+    def predict(self, X_feed: np.ndarray=self.container.test_X):
+        y_hat = self.core.predict()

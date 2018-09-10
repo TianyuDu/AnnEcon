@@ -77,7 +77,8 @@ epochs = int(input("Training epochs >>> "))
 
 pin = str(datetime.datetime.now())
 
-hist = model.fit(
+m = MultivariateLSTM(c, None)
+hist = m.core.fit(
     c.train_X, 
     c.train_y, 
     epochs=epochs, 
@@ -86,7 +87,7 @@ hist = model.fit(
 
 ## Testing Data
 
-yhat = model.predict(c.test_X, verbose=1)
+yhat = m.core.predict(c.test_X, verbose=1)
 yhat = c.scaler_y.inverse_transform(yhat)
 acty = c.scaler_y.inverse_transform(c.test_y)
 
@@ -94,7 +95,8 @@ plt.close()
 plt.plot(yhat, linewidth=0.6, alpha=0.6, label="yhat")
 plt.plot(acty, linewidth=0.6, alpha=0.6, label="actual")
 plt.legend()
-plt.savefig(f"./figure/{pin}_test.svg")
+plt.show()
+# plt.savefig(f"./figure/{pin}_test.svg")
 
 ## Training Data
 
@@ -106,7 +108,7 @@ plt.close()
 plt.plot(yhat, linewidth=0.6, alpha=0.6, label="yhat")
 plt.plot(acty, linewidth=0.6, alpha=0.6, label="actual")
 plt.legend()
-plt.savefig(f"./figure/{pin}_train.svg")
+# plt.savefig(f"./figure/{pin}_train.svg")
 
 # yhat = model.predict(c.train_X)
 # plt.close()
