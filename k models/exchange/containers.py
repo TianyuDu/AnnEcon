@@ -306,7 +306,7 @@ class MultivariateContainer(BaseContainer):
         # self.scaled = self.scaler.fit_transform(self.values)
 
         print(f"Generating supervised learning problem...")
-        self.X, self.y = self.generate_supervised_learning(
+        self.X, self.y, self.scaler_X, self.scaler_y = self.generate_supervised_learning(
             data=self.dataset,
             time_steps=self.config["time_steps"]
         )
@@ -337,6 +337,13 @@ class MultivariateContainer(BaseContainer):
             f"Creating supervise learning problem with {num_fea} variables and total {time_steps} lagged variables.")
 
         y = data[self.target_col]
+
+        scaler_X = sklearn.preprocessing.StandardScaler()
+        scaler_y = sklearn.preprocessing.StandardScaler()
+
+        data = pd.DataFrame(scaler_X.fit_transform(data.values))
+        y = pd.DataFrame(scaler_y.fit_transform(y.values.reshape(-1, 1)))
+
         value = data.values
 
         X = [None] * num_obs  # Create placeholder for input feed.
@@ -359,12 +366,15 @@ class MultivariateContainer(BaseContainer):
 
         print(
             f"Supervised Learning Set Generated: X = {X.shape} in format [sample, time_steps, features], y = {y.shape}")
-        return X, y
+        return X, y, scaler_X, scaler_y
 
     def split_data(self, X, y, train_size: int) -> Tuple[np.array]:
         """
         Generate training and testing data, both input X and target y.
         """
+
+        # scaler = sklearn.preprocessing.StandardScaler()
+        # X = scaler.fit_transform(X)
 
         train_X = X[:train_size, :, :]
         train_y = y[:train_size, :]
@@ -379,18 +389,3 @@ class MultivariateContainer(BaseContainer):
         \n\t test_y = {test_y.shape}")
 
         return (train_X, train_y, test_X, test_y)
-
-
-    def reshape_data(self, time_steps: int) -> None:
-        """
-        Reshape X data into the same shape of input tensor of model.
-        """
-        self.train_X = self.train_X.reshape(
-            self.train_X.shape[0], time_steps, self.train_X.shape[1]
-        )
-        print(f"PanelContainer: Train X shape = {self.train_X.shape}")
-
-        self.test_X = self.test_X.reshape(
-            self.test_X.shape[0], time_steps, self.test_X.shape[1]
-        )
-        print(f"PanelContainer: Test X shape = {self.test_X.shape}")
