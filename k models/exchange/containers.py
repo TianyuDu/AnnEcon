@@ -282,6 +282,7 @@ class MultivariateContainer(BaseContainer):
                 "train_ratio": 0.9,
                 "time_steps": 14
             }):
+        ## ======== Pre-requiste ========
         # Load configuration.  # TODO: Add check config method.
         self.config = config
 
@@ -294,15 +295,11 @@ class MultivariateContainer(BaseContainer):
 
         print("Dataset loaded in multi-variate container.")
 
-        # move target to last column
-        # y = self.dataset[self.target_col]  # FIXME: fix here. remove.
-        # self.dataset.drop(columns=[self.target_col], inplace=True)
-        # self.dataset = pd.concat([self.dataset, y], axis=1)
         self.values = self.dataset.values
 
         self.num_obs, self.num_fea = self.values.shape
         print(
-            f"\tDataset with {self.num_obs} observations and {self.num_fea} variables. Shape={self.dataset.shape}")
+            f"\tDataset with {self.num_obs} observations and {self.num_fea} variables. Dataset shape={self.dataset.shape}")
         print(f"\tTarget variable: {self.target_col}")
 
         # self.scaler = sklearn.preprocessing.StandardScaler()  # TODO: change scaler, so that it's only scale over training data.
@@ -317,7 +314,11 @@ class MultivariateContainer(BaseContainer):
         self.train_size = int(
             self.config["train_ratio"] * self.num_obs)  # Get training set size
 
-        # (self.train_X, self.train_y, self.test_X, self.test_y) = self.split_data(train_size=self.train_size)
+        (self.train_X, self.train_y, self.test_X, self.test_y) = self.split_data(
+            self.X,
+            self.y,
+            train_size=self.train_size
+            )
 
         # self.reshape_data(time_steps=self.config["time_steps"])  # TODO: remove.
 
@@ -327,7 +328,7 @@ class MultivariateContainer(BaseContainer):
             time_steps: int) -> (np.array, np.array):
         """
         Convert data to a supervised learning problem, reframed the data points into 
-        [sample, time_step, feature] format.
+        [sample, time_step, feature] format.  # TODO: write doc.
         Return X @[sample, time_steps=max_lag, num_fea] and y.
         """
 
@@ -350,26 +351,26 @@ class MultivariateContainer(BaseContainer):
         X = [sub for sub in X if sub is not None]  # Drop training data without enough look back values.
         X = np.array(X)
 
-        print(f"Supervised Learning Set Generated: X = {X.shape} in format [sample, time_steps, features]")
         assert X.shape == (num_obs - time_steps, time_steps, num_fea)
         
         y = y[-(X.shape[0]):]  # Drop first few target data. 
         y = np.array(y)
+        y = y.reshape(-1, 1)
 
+        print(
+            f"Supervised Learning Set Generated: X = {X.shape} in format [sample, time_steps, features], y = {y.shape}")
         return X, y
 
-    def split_data(self, train_size: int, target_idx: int=-1) -> Tuple[np.array]:
+    def split_data(self, X, y, train_size: int) -> Tuple[np.array]:
         """
         Generate training and testing data, both input X and target y.
         """
-        # Spliting traning / testing.
-        values = self.reframed.values
 
-        train, test = values[:train_size, :], values[train_size:, :]
+        train_X = X[:train_size, :, :]
+        train_y = y[:train_size, :]
 
-        # By default, LAST column is the target.
-        train_X, train_y = train[:, :-1], train[:, -1]
-        test_X, test_y = test[:, :-1], test[:, -1]
+        test_X = X[train_size:, :, :]
+        test_y = y[train_size:, :]
 
         print(f"Split data into training and testing sets \
         \n\t train_X = {train_X.shape} \
