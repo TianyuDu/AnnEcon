@@ -72,8 +72,8 @@ class UnivariateLSTM():
 
 
 class MultivariateLSTM():
-    def __init__(self, container, config=None):
-        
+    def __init__(self, container, config=None) -> None:
+
         _, self.time_steps, self.num_fea = container.train_X.shape
         print(f"MultivariateLSTM Initialized: \
         \n\t Time Step: {self.time_steps}\
@@ -83,10 +83,10 @@ class MultivariateLSTM():
 
         self.core = self._construct_lstm()
         
-    def _construct_lstm(self):
+    def _construct_lstm(self) -> keras.Sequential:
         model = keras.Sequential()
         model.add(keras.layers.LSTM(
-            units=128,
+            units=32,
             input_shape=(self.time_steps, self.num_fea),
             return_sequences=False
         ))
@@ -97,5 +97,8 @@ class MultivariateLSTM():
 
         return model
     
-    def predict(self, X_feed: np.ndarray=self.container.test_X):
-        y_hat = self.core.predict()
+    def predict(
+        self, X_feed: np.ndarray) -> np.ndarray:
+        y_hat = self.core.predict(X_feed, verbose=1)
+        y_hat = self.container.scaler_y.inverse_transform(y_hat)
+        return y_hat  # y_hat returned used to compare with self.container.*_X directly.

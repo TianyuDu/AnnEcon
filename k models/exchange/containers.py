@@ -292,11 +292,12 @@ class MultivariateContainer(BaseContainer):
 
         assert target_col in self.dataset.columns, f"Target column {target_col} cannot be found in DataFrame loaded."
         self.target_col = target_col
-
+        self.ground_truth_y = self.dataset[target_col].values
         print("Dataset loaded in multi-variate container.")
 
-        self.values = self.dataset.values
-
+        self.diff_dataset = self.dataset.diff()
+        self.diff_dataset.fillna(0.0, inplace=True)
+        self.values = self.diff_dataset.values # TODO: Add inverting methods.
         self.num_obs, self.num_fea = self.values.shape
         print(
             f"\tDataset with {self.num_obs} observations and {self.num_fea} variables. Dataset shape={self.dataset.shape}")
@@ -307,7 +308,7 @@ class MultivariateContainer(BaseContainer):
 
         print(f"Generating supervised learning problem...")
         self.X, self.y, self.scaler_X, self.scaler_y = self.generate_supervised_learning(
-            data=self.dataset,
+            data=self.diff_dataset,
             time_steps=self.config["time_steps"]
         )
 
