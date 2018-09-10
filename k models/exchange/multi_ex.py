@@ -75,11 +75,15 @@ model.compile(loss="mse", optimizer="adam")
 
 epochs = int(input("Training epochs >>> "))
 
+pin = str(datetime.datetime.now())
+
 hist = model.fit(
     c.train_X, 
     c.train_y, 
     epochs=epochs, 
     batch_size=32)
+
+## Testing Data
 
 yhat = model.predict(c.test_X)
 yhat = c.scaler_y.inverse_transform(yhat)
@@ -89,7 +93,19 @@ plt.close()
 plt.plot(yhat, linewidth=0.6, alpha=0.6, label="yhat")
 plt.plot(acty, linewidth=0.6, alpha=0.6, label="actual")
 plt.legend()
-plt.savefig(f"./figure/{str(datetime.datetime.now())}.svg")
+plt.savefig(f"./figure/{pin}_test.svg")
+
+## Training Data
+
+yhat = model.predict(c.train_X)
+yhat = c.scaler_y.inverse_transform(yhat)
+acty = c.scaler_y.inverse_transform(c.train_y)
+
+plt.close()
+plt.plot(yhat, linewidth=0.6, alpha=0.6, label="yhat")
+plt.plot(acty, linewidth=0.6, alpha=0.6, label="actual")
+plt.legend()
+plt.savefig(f"./figure/{pin}_train.svg")
 
 # yhat = model.predict(c.train_X)
 # plt.close()
