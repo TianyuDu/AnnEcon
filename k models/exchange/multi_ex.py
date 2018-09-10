@@ -8,6 +8,14 @@ from datetime import datetime
 import keras
 import pandas as pd
 import numpy as np
+import matplotlib
+on_server = bool(int(input("Training on server wihtout graphic output? [0/1]")))
+if on_server:
+    matplotlib.use(
+        "agg",
+        warn=False,
+        force=True
+        )
 from matplotlib import pyplot as plt
 import sklearn
 
@@ -57,9 +65,8 @@ container = MultivariateContainer(
     CON_config)
 
 model = MultivariateLSTM(container, NN_config)
-model.fit_model(epochs=10)
+model.fit_model(epochs=int(input("Training epochs >>> ")))
 model.save_model()
-# time_stamp = str(datetime.datetime.now())
 
 # Testing Data
 
@@ -77,8 +84,6 @@ plt.plot(model.container.ground_truth_y,
 plt.legend()
 plt.show()
 
-# plt.savefig(f"./figure/{pin}_test.svg")
-
 # Training Data
 
 yhat = model.predict(model.container.train_X)
@@ -91,8 +96,16 @@ plt.plot(yhat, linewidth=0.6, alpha=0.6, label="yhat")
 plt.plot(model.container.ground_truth_y,
          linewidth=0.6, alpha=0.6, label="actual")
 plt.legend()
-plt.show()
-# plt.savefig(f"./figure/{pin}_train.svg")
+
+time_stamp = str(datetime.datetime.now())
+
+if not on_server:
+    if bool(int(input("Show plot result? [0/1] >>> "))):
+        plt.show()
+    else:
+        plt.savefig(f"./figure/{time_stamp}_train.svg")
+else:
+    plt.savefig(f"./figure/{time_stamp}_train.svg")
 
 
 def visualize_raw(data: pd.DataFrame, action: Union["save", "show"]) -> None:
