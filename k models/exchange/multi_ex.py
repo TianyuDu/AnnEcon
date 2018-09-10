@@ -85,7 +85,7 @@ hist = model.fit(
 
 ## Testing Data
 
-yhat = model.predict(c.test_X)
+yhat = model.predict(c.test_X, verbose=1)
 yhat = c.scaler_y.inverse_transform(yhat)
 acty = c.scaler_y.inverse_transform(c.test_y)
 
@@ -97,7 +97,7 @@ plt.savefig(f"./figure/{pin}_test.svg")
 
 ## Training Data
 
-yhat = model.predict(c.train_X)
+yhat = model.predict(c.train_X, verbose=1)
 yhat = c.scaler_y.inverse_transform(yhat)
 acty = c.scaler_y.inverse_transform(c.train_y)
 
