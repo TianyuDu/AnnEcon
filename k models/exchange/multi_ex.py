@@ -54,7 +54,6 @@ container = MultivariateContainer(
     load_multi_ex,
     CON_config)
 
-
 model = MultivariateLSTM(container, NN_config)
 model.fit_model(epochs=5)
 
@@ -63,23 +62,28 @@ time_stamp = str(datetime.datetime.now())
 ## Testing Data
 
 yhat = model.predict(model.container.test_X)
-acty = model.container.scaler_y.inverse_transform(container.test_y)
+yhat = model.container.invert_difference(yhat, range(4617, 5130), fillnone=True)
+
+# FIXME: fix the prediction problem: output are nearly zeros
 
 plt.close()
 plt.plot(yhat, linewidth=0.6, alpha=0.6, label="yhat")
-plt.plot(acty, linewidth=0.6, alpha=0.6, label="actual")
+plt.plot(model.container.ground_truth_y, linewidth=0.6, alpha=0.6, label="actual")
 plt.legend()
 plt.show()
 # plt.savefig(f"./figure/{pin}_test.svg")
 
+
 ## Training Data
 
-yhat = m.predict(m.container.train_X)
-acty = c.scaler_y.inverse_transform(m.container.train_y)
+yhat = model.predict(model.container.train_X)
+acty = model.container.scaler_y.inverse_transform(model.container.train_y)
+yhat = model.container.invert_difference(yhat, range(4617), fillnone=False)
 
 plt.close()
 plt.plot(yhat, linewidth=0.6, alpha=0.6, label="yhat")
-plt.plot(acty, linewidth=0.6, alpha=0.6, label="actual")
+# plt.plot(acty, linewidth=0.6, alpha=0.6, label="actual")
+plt.plot(model.container.ground_truth_y, linewidth=0.6, alpha=0.6, label="actual")
 plt.legend()
 plt.show()
 # plt.savefig(f"./figure/{pin}_train.svg")

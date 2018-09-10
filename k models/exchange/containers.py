@@ -328,7 +328,8 @@ class MultivariateContainer(BaseContainer):
     def generate_supervised_learning(
             self,
             data: pd.DataFrame,
-            time_steps: int) -> (np.array, np.array):
+            time_steps: int,
+            drop_target: bool=True) -> (np.array, np.array):
         """
         Convert data to a supervised learning problem, reframed the data points into 
         [sample, time_step, feature] format.  # TODO: write doc.
@@ -340,11 +341,14 @@ class MultivariateContainer(BaseContainer):
             f"Creating supervise learning problem with {num_fea} variables and total {time_steps} lagged variables.")
 
         y = data[self.target_col]
+        if drop_target:
+            data.drop(columns=[self.target_col], inplace=True)
 
         scaler_X = sklearn.preprocessing.StandardScaler()  
         # FIXME: Change scaler so that is only scale the training set.
         scaler_y = sklearn.preprocessing.StandardScaler()
 
+        # TODO: Try removing the lagged value for target.
         data = pd.DataFrame(scaler_X.fit_transform(data.values))
         y = pd.DataFrame(scaler_y.fit_transform(y.values.reshape(-1, 1)))
 
@@ -359,10 +363,17 @@ class MultivariateContainer(BaseContainer):
                 # Retrive past observations on all concurrent series (including the target).
                 X[t] = value[t - time_steps: t, :]
 
-        X = [sub for sub in X if sub is not None]  # Drop training data without enough look back values.
+        empty = np.zeros_like(X[-1])
+        # X = [sub for sub in X if sub is not None]  # Drop training data without enough look back values.
+        X = [empty if sub is None else sub for sub in X]
         X = np.array(X)
 
-        assert X.shape == (num_obs - time_steps, time_steps, num_fea)
+        if drop_target:
+            assert X.shape == (num_obs, time_steps, num_fea - 1), \
+            f"Expected shape = {(num_obs, time_steps, num_fea - 1)} \
+            Shape received = {X.shape}"
+        else:
+            assert X.shape == (num_obs, time_steps, num_fea)
         
         y = y[-(X.shape[0]):]  # Drop first few target data. 
         y = np.array(y)
