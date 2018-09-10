@@ -286,30 +286,34 @@ class MultivariateContainer(BaseContainer):
         # Load configuration.  # TODO: Add check config method.
         self.config = config
 
+        # Preprocessing
         self.dataset = load_data(file_dir)
         assert type(
             self.dataset) is pd.DataFrame, f"Illegal object returned by data retrieving method, expected: pd.DataFrame, got: {type(self.dataset)}"
 
         assert target_col in self.dataset.columns, f"Target column {target_col} cannot be found in DataFrame loaded."
         self.target_col = target_col
+        # Not necessary but makes life easier.
         self.ground_truth_y = self.dataset[target_col].values
+
         print("Dataset loaded in multi-variate container.")
 
-        self.diff_dataset = self.dataset.diff()
-        self.diff_dataset.fillna(0.0, inplace=True)
-        self.values = self.diff_dataset.values # TODO: Add inverting methods.
+        # Actual Dataset
+        self.values = self.dataset.values
         self.num_obs, self.num_fea = self.values.shape
         print(
             f"\tDataset with {self.num_obs} observations and {self.num_fea} variables. Dataset shape={self.dataset.shape}")
         print(f"\tTarget variable: {self.target_col}")
 
-        # self.scaler = sklearn.preprocessing.StandardScaler()  # TODO: change scaler, so that it's only scale over training data.
-        # self.scaled = self.scaler.fit_transform(self.values)
+        # Differencing to remove non-stationarity. 
+        # TODO: Add inverting methods.
+        self.diff_dataset = self.dataset.diff()
+        self.diff_dataset.fillna(0.0, inplace=True)
 
         print(f"Generating supervised learning problem...")
         self.X, self.y, self.scaler_X, self.scaler_y = self.generate_supervised_learning(
             data=self.diff_dataset,
-            time_steps=self.config["time_steps"]
+            time_steps=self.config["time_steps"]  # Time step of look back.
         )
 
         self.train_size = int(
@@ -320,8 +324,6 @@ class MultivariateContainer(BaseContainer):
             self.y,
             train_size=self.train_size
             )
-
-        # self.reshape_data(time_steps=self.config["time_steps"])  # TODO: remove.
 
     def generate_supervised_learning(
             self,
@@ -339,7 +341,8 @@ class MultivariateContainer(BaseContainer):
 
         y = data[self.target_col]
 
-        scaler_X = sklearn.preprocessing.StandardScaler()
+        scaler_X = sklearn.preprocessing.StandardScaler()  
+        # FIXME: Change scaler so that is only scale the training set.
         scaler_y = sklearn.preprocessing.StandardScaler()
 
         data = pd.DataFrame(scaler_X.fit_transform(data.values))
@@ -390,3 +393,26 @@ class MultivariateContainer(BaseContainer):
         \n\t test_y = {test_y.shape}")
 
         return (train_X, train_y, test_X, test_y)
+
+    def invert_difference(
+        self, 
+        delta: np.ndarray, 
+        stamps: np.ndarray, 
+        fillnone: bool=False  
+        # If passed as True, a full length time series will be returned and 
+        # time stamps that are not in STAMPS will be filled with Nan.
+        # t in stamps starts with 0.
+        ) -> np.ndarray:
+        assert len(delta) == len(stamps), "Delta series and time stamp series must have the same length."
+        assert all([t in range(self.num_obs) for t in stamps])
+
+        if fillnone:
+            recon = [None] * self.num_obs
+            for d, t in zip(delta, stamps):
+                recon[t] = self.ground_truth_y[t - 1] + d
+        else:
+            recon = list()
+            for d, t in zip(delta, stamps):
+                recon.append(self.ground_truth_y[t - 1] + d)
+        return recon
+            

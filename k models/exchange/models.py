@@ -10,13 +10,21 @@ import containers
 class BaseModel():
     def __init__(self):
         self.core = None
+        self.container = None
+        self.config = None
 
     def __str__(self):
         keras.utils.print_summary(self.core)
-        return f"""UnivariateLSTM model at {hex(id(self))}
+        return f"""{str(type(self))} model at {hex(id(self))}
+        """
+    
+    def __repr__(self):
+        keras.utils.print_summary(self.core)
+        return f"""{str(type(self))} model with data container {self.container}
         """
 
-class UnivariateLSTM():
+
+class UnivariateLSTM(BaseModel):
     """
     Univariate LSTM model with customized num of layers.
     """
@@ -59,19 +67,17 @@ class UnivariateLSTM():
             units=1,
             name="dense_output"
         ))
-
         core.compile(
             loss="mean_squared_error",
             optimizer="adam"
         )
-
         return core
 
     def fit_model(self):
         pass
 
 
-class MultivariateLSTM():
+class MultivariateLSTM(BaseModel):
     def __init__(self, container, config=None) -> None:
 
         _, self.time_steps, self.num_fea = container.train_X.shape
@@ -82,17 +88,17 @@ class MultivariateLSTM():
         self.config = config
 
         self.container = container
-        self.core = self._construct_lstm()
+        self.core = self._construct_lstm(self.config)
         
-    def _construct_lstm(self) -> keras.Sequential:
+    def _construct_lstm(self, config: dict) -> keras.Sequential:
         model = keras.Sequential()
         model.add(keras.layers.LSTM(
-            units=32,
+            units=config["nn.lstm1"],
             input_shape=(self.time_steps, self.num_fea),
-            return_sequences=False
+            return_sequences=True
         ))
-        # model.add(keras.layers.LSTM(units=16))
-        model.add(keras.layers.Dense(32))
+        model.add(keras.layers.LSTM(units=config["nn.lstm2"]))
+        model.add(keras.layers.Dense(units=config["nn.dense1"]))
         model.add(keras.layers.Dense(1))
         model.compile(loss="mse", optimizer="adam")
 
@@ -102,7 +108,7 @@ class MultivariateLSTM():
 
         self.prev_config = self.config
         self.config = new_config
-        self.core = self._construct_lstm()
+        self.core = self._construct_lstm(self.config)
 
     def fit_model(self, epochs: int=10) -> None:
 
