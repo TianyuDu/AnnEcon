@@ -12,7 +12,6 @@ import sklearn
 
 from typing import Union, List
 
-sys.path.append("/Users/tianyudu/Documents/Github/AnnEcon/k models/exchange")
 import config
 import containers
 import methods
