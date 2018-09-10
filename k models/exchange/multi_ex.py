@@ -3,14 +3,13 @@ Multivariate Version of prediciton.
 """
 import sys
 import datetime
-from datetime import datetime
 
 import keras
 import pandas as pd
 import numpy as np
 import matplotlib
-on_server = bool(int(input("Training on server wihtout graphic output? [0/1]")))
-if on_server:
+on_server = bool(int(input("Training on server wihtout graphic output? [0/1] >>> ")))
+if on_server:   
     matplotlib.use(
         "agg",
         warn=False,

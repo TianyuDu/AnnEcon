@@ -2,7 +2,6 @@
 Models.
 """
 import datetime
-from datetime import datetime
 import numpy as np
 import pandas as pd
 import keras
@@ -112,7 +111,8 @@ class MultivariateLSTM(BaseModel):
         self.core = self._construct_lstm(self.config)
 
     def fit_model(self, epochs: int=10) -> None:
-
+        start_time = datetime.datetime.now()
+        print("Start fitting.")
         self.hist = self.core.fit(
             self.container.train_X,
             self.container.train_y,
@@ -120,6 +120,9 @@ class MultivariateLSTM(BaseModel):
             batch_size=32 if self.config is None else self.config["batch_size"],
             validation_split=0.1 if self.config is None else self.config["validation_split"]
         )
+        finish_time = datetime.datetime.now()
+        time_taken = finish_time - start_time
+        print(f"Fitting finished, {epochs} epochs for {str(time_taken)}")
     
     def predict(
         self, X_feed: np.ndarray) -> np.ndarray:
@@ -130,7 +133,7 @@ class MultivariateLSTM(BaseModel):
 
     def save_model(self, file_dir: str=None) -> None:
         if file_dir is None:
-            file_dir = f"./saved_models/{str(datetime.now())}"
+            file_dir = f"./saved_models/{str(datetime.datetime.now())}"
         # Save model structure to JSON
         model_json = self.core.to_json()
         with open(f"{file_dir}.json", "w") as json_file:
