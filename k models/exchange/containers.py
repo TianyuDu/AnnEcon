@@ -280,7 +280,7 @@ class MultivariateContainer(BaseContainer):
             config: dict = {
                 "max_lag": 3,
                 "train_ratio": 0.9,
-                "time_steps": 1
+                "time_steps": 14
             }):
         # Load configuration.  # TODO: Add check config method.
         self.config = config
@@ -309,68 +309,84 @@ class MultivariateContainer(BaseContainer):
         # self.scaled = self.scaler.fit_transform(self.values)
 
         print(f"Generating supervised learning problem...")
-        self.reframed = self.generate_supervised_learning(
+        self.X, self.y = self.generate_supervised_learning(
             data=self.dataset,
-            max_lag=self.config["max_lag"]
+            timestep=self.config["time_steps"]
         )
 
         self.train_size = int(
             self.config["train_ratio"] * self.num_obs)  # Get training set size
 
-        (self.train_X, self.train_y, self.test_X, self.test_y) = self.split_data(train_size=self.train_size)
+        # (self.train_X, self.train_y, self.test_X, self.test_y) = self.split_data(train_size=self.train_size)
 
-        self.reshape_data(time_steps=self.config["time_steps"])  # TODO: remove.
+        # self.reshape_data(time_steps=self.config["time_steps"])  # TODO: remove.
 
     def generate_supervised_learning(
             self,
             data: pd.DataFrame,
-            max_lag: int = 1,
-            dropnan=False) -> pd.DataFrame:
+            timestep: int) -> (np.array, np.array):
         """
         Convert data to a supervised learning problem, reframed the data points into 
         [sample, time_step, feature] format.
-        Return data frame for RNN training with target value on the last column.
+        Return X @[sample, timestep=max_lag, num_fea] and y.
         """
-        n_vars = data.shape[1]
+
+        num_obs, num_fea = data.shape
         print(
-            f"Creating supervise learning problem with {n_vars} variables and total {max_lag} lagged variables.")
+            f"Creating supervise learning problem with {num_fea} variables and total {timestep} lagged variables.")
 
         # Split Data into Input and Output
         # Input: max_lag lagged values of exchange rate series other than target.
         # Output: target column
-        y = pd.DataFrame(data[self.target_col])  # target values (y)
-        X = pd.DataFrame(data.drop(columns=[self.target_col]))  # input X
+        # y = pd.DataFrame(data[self.target_col])  # target values (y)
+        # X = pd.DataFrame(data.drop(columns=[self.target_col]))  # input X
 
-        lag_df = list()  # List to store lagged variables.
+        # lag_df = list()  # List to store lagged variables.
 
-        var_names = list(data.columns)  # Get original names for each column.
+        # var_names = list(data.columns)  # Get original names for each column.
         # FIXME: should I use y(t-1) as well; currently using.
 
-        for i in range(1, max_lag + 1):
-            # Note: *.shift(i) gives: new[t] = original[t-i]
-            lag = data.shift(i)  # Apply lagging.
-            cols = var_names[:]  # Copy column names.
-            # Create column names for lagged vars.
-            cols = [f"{col}(t-{i})" for col in cols]
-            lag.columns = cols  # Rename columns.
-            lag_df.append(lag)  # Add to collection.
+        y = data[self.target_col]
+        value = data.values
 
-        lag_df.append(y)  # Add target y column.
-        agg_df = pd.concat(lag_df, axis=1)
+        X = [None] * num_obs
+
+        for t in range(num_obs):
+            if t-timestep < 0:
+                X[t] = None
+            else:
+                X[t] = value[t-timestep: t, :]
+
+        X = [sub for sub in X if sub is not None]
+        X = np.array(X)
+
+        # for i in range(1, max_lag + 1):
+        #     # Note: *.shift(i) gives: new[t] = original[t-i]
+        #     lag = data.shift(i)  # Apply lagging.
+        #     cols = var_names[:]  # Copy column names.
+        #     # Create column names for lagged vars.
+        #     cols = [f"{col}(t-{i})" for col in cols]
+        #     lag.columns = cols  # Rename columns.
+        #     lag_df.append(lag)  # Add to collection.
+
+        # lag_df.append(y)  # Add target y column.
+        # agg_df = pd.concat(lag_df, axis=1)
 
         # Rename the last column.
-        agg_cols = list(agg_df.columns)
-        agg_cols[-1] = f"(*Target*){self.target_col}(t)"
-        agg_df.columns = agg_cols
+        # agg_cols = list(agg_df.columns)
+        # agg_cols[-1] = f"(*Target*){self.target_col}(t)"
+        # agg_df.columns = agg_cols
 
-        assert len(agg_df.columns) == max_lag * n_vars + 1
+        assert X.shape == (num_obs - timestep, timestep, num_fea)
+        
+        y = y[-(X.shape[0]):]
 
-        if dropnan:
-            agg_df.dropna(inplace=True)
-        else:
-            agg_df.fillna(0, inplace=True)
+        # if dropnan:
+        #     agg_df.dropna(inplace=True)
+        # else:
+        #     agg_df.fillna(0, inplace=True)
 
-        return agg_df
+        return X, y
 
     def split_data(self, train_size: int, target_idx: int=-1) -> Tuple[np.array]:
         """

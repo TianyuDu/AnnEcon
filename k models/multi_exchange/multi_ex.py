@@ -40,7 +40,7 @@ c = MultivariateContainer(
     {
         "max_lag": 3, 
         "train_ratio": 0.9,
-        "time_steps": 1
+        "time_steps": 14
     })
 
 dataset = load_multi_ex(file_dir)
