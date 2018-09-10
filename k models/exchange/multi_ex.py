@@ -63,10 +63,11 @@ def visualize_raw(data: pd.DataFrame, action: Union["save", "show"]) -> None:
 
 model = keras.Sequential()
 model.add(keras.layers.LSTM(
-    units=64,
+    units=128,
     input_shape=(c.train_X.shape[1], c.train_X.shape[2]),
-    return_sequences=False
+    return_sequences=True
 ))
+model.add(keras.layers.LSTM(units=64))
 model.add(keras.layers.Dense(1))
 
 # TODO: change loss metric func.
