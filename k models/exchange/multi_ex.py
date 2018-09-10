@@ -40,7 +40,7 @@ c = MultivariateContainer(
     {
         "max_lag": 3, 
         "train_ratio": 0.9,
-        "time_steps": 14
+        "time_steps": 72
     })
 
 # Visualize raw data
@@ -81,7 +81,8 @@ hist = model.fit(
     c.train_X, 
     c.train_y, 
     epochs=epochs, 
-    batch_size=32)
+    batch_size=32,
+    validation_split=0.1)
 
 ## Testing Data
 

@@ -72,3 +72,7 @@ class UnivariateLSTM():
 
     def fit_model(self):
         pass
+
+
+class Multivariatemodel():
+    pass
