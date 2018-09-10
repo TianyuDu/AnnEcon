@@ -43,7 +43,7 @@ CON_config = {
 NN_config = {
     "batch_size": 32,
     "validation_split": 0.1,
-    "nn.lstm1": 64,
+    "nn.lstm1": 128,
     "nn.lstm2": 32,
     "nn.dense1": 16
 }
@@ -55,9 +55,9 @@ container = MultivariateContainer(
     CON_config)
 
 model = MultivariateLSTM(container, NN_config)
-model.fit_model(epochs=5)
+model.fit_model(epochs=10)
 
-time_stamp = str(datetime.datetime.now())
+# time_stamp = str(datetime.datetime.now())
 
 ## Testing Data
 

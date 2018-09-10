@@ -1,7 +1,8 @@
 """
 Models.
 """
-
+import datetime
+from datetime import datetime
 import numpy as np
 import pandas as pd
 import keras
@@ -95,9 +96,9 @@ class MultivariateLSTM(BaseModel):
         model.add(keras.layers.LSTM(
             units=config["nn.lstm1"],
             input_shape=(self.time_steps, self.num_fea),
-            return_sequences=True
+            return_sequences=False
         ))
-        model.add(keras.layers.LSTM(units=config["nn.lstm2"]))
+        # model.add(keras.layers.LSTM(units=config["nn.lstm2"]))
         model.add(keras.layers.Dense(units=config["nn.dense1"]))
         model.add(keras.layers.Dense(1))
         model.compile(loss="mse", optimizer="adam")
@@ -126,3 +127,27 @@ class MultivariateLSTM(BaseModel):
         y_hat = self.core.predict(X_feed, verbose=1)
         y_hat = self.container.scaler_y.inverse_transform(y_hat)
         return y_hat  # y_hat returned used to compare with self.container.*_X directly.
+
+    def save_model(self, file_dir: str=None) -> None:
+        if file_dir is None:
+            file_dir = f"./saved_models/{str(datetime.now())}"
+        # Save model structure to JSON
+        model_json = self.core.to_json()
+        with open(f"{file_dir}.json", "w") as json_file:
+            json_file.write(model_json)
+        
+        # Save weight to h5
+        self.core.save_weights(f"{file_dir}.h5")
+        print(f"Save model weights to {file_dir}.h5/json")
+    
+    def load_model(self, file_dir: str) -> None:
+        print(f"Load model from {file_dir}")
+        # construct model from json
+        json_file = open("{file_dir}.json", "r")
+        model_file = json_file.read()
+        json_file.close()
+        self.core = keras.models.model_from_json(model_file)
+        # load weights from h5
+        self.core.load_weights(f"{file_dir}.h5", by_name=True)
+        self.core.compile(loss="mse", optimizer="adam")
+        

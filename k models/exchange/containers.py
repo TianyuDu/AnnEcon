@@ -369,10 +369,12 @@ class MultivariateContainer(BaseContainer):
         X = np.array(X)
 
         if drop_target:
+            print("Previous values of target(y) IS NOT included in input(X) set.")
             assert X.shape == (num_obs, time_steps, num_fea - 1), \
             f"Expected shape = {(num_obs, time_steps, num_fea - 1)} \
             Shape received = {X.shape}"
         else:
+            print("Previous values of target(y) IS included in input(X) set.")
             assert X.shape == (num_obs, time_steps, num_fea)
         
         y = y[-(X.shape[0]):]  # Drop first few target data. 
@@ -409,13 +411,23 @@ class MultivariateContainer(BaseContainer):
         self, 
         delta: np.ndarray, 
         stamps: np.ndarray, 
-        fillnone: bool=False  
+        fillnone: bool=False 
         # If passed as True, a full length time series will be returned and 
         # time stamps that are not in STAMPS will be filled with Nan.
         # t in stamps starts with 0.
         ) -> np.ndarray:
+        """
+        This function reconstruct the predicted series from differenced series and (past) ground truth values.
+        Args:
+            delta: array containing the predicted differencing value (y[t] - y[t-1]).
+
+            stamps: array containing time index to locate the delta array.
+
+            fillnone: bool to indicate if fill the time step t not in stamps with none/nan value. 
+        """
+        
         assert len(delta) == len(stamps), "Delta series and time stamp series must have the same length."
-        assert all([t in range(self.num_obs) for t in stamps])
+        assert all([t in range(self.num_obs) for t in stamps]), f"Some time stamps passed in exceed the limit. Received: {stamps}"
 
         if fillnone:
             recon = [None] * self.num_obs
