@@ -324,67 +324,37 @@ class MultivariateContainer(BaseContainer):
     def generate_supervised_learning(
             self,
             data: pd.DataFrame,
-            timestep: int) -> (np.array, np.array):
+            time_steps: int) -> (np.array, np.array):
         """
         Convert data to a supervised learning problem, reframed the data points into 
         [sample, time_step, feature] format.
-        Return X @[sample, timestep=max_lag, num_fea] and y.
+        Return X @[sample, time_steps=max_lag, num_fea] and y.
         """
 
         num_obs, num_fea = data.shape
         print(
-            f"Creating supervise learning problem with {num_fea} variables and total {timestep} lagged variables.")
-
-        # Split Data into Input and Output
-        # Input: max_lag lagged values of exchange rate series other than target.
-        # Output: target column
-        # y = pd.DataFrame(data[self.target_col])  # target values (y)
-        # X = pd.DataFrame(data.drop(columns=[self.target_col]))  # input X
-
-        # lag_df = list()  # List to store lagged variables.
-
-        # var_names = list(data.columns)  # Get original names for each column.
-        # FIXME: should I use y(t-1) as well; currently using.
+            f"Creating supervise learning problem with {num_fea} variables and total {time_steps} lagged variables.")
 
         y = data[self.target_col]
         value = data.values
 
-        X = [None] * num_obs
+        X = [None] * num_obs  # Create placeholder for input feed.
 
         for t in range(num_obs):
-            if t-timestep < 0:
+            if t - time_steps < 0:  # If there are not enough look back values.
                 X[t] = None
             else:
-                X[t] = value[t-timestep: t, :]
+                # Retrive past observations on all concurrent series (including the target).
+                X[t] = value[t - time_steps: t, :]
 
-        X = [sub for sub in X if sub is not None]
+        X = [sub for sub in X if sub is not None]  # Drop training data without enough look back values.
         X = np.array(X)
 
-        # for i in range(1, max_lag + 1):
-        #     # Note: *.shift(i) gives: new[t] = original[t-i]
-        #     lag = data.shift(i)  # Apply lagging.
-        #     cols = var_names[:]  # Copy column names.
-        #     # Create column names for lagged vars.
-        #     cols = [f"{col}(t-{i})" for col in cols]
-        #     lag.columns = cols  # Rename columns.
-        #     lag_df.append(lag)  # Add to collection.
-
-        # lag_df.append(y)  # Add target y column.
-        # agg_df = pd.concat(lag_df, axis=1)
-
-        # Rename the last column.
-        # agg_cols = list(agg_df.columns)
-        # agg_cols[-1] = f"(*Target*){self.target_col}(t)"
-        # agg_df.columns = agg_cols
-
-        assert X.shape == (num_obs - timestep, timestep, num_fea)
+        print(f"Supervised Learning Set Generated: X = {X.shape} in format [sample, time_steps, features]")
+        assert X.shape == (num_obs - time_steps, time_steps, num_fea)
         
-        y = y[-(X.shape[0]):]
-
-        # if dropnan:
-        #     agg_df.dropna(inplace=True)
-        # else:
-        #     agg_df.fillna(0, inplace=True)
+        y = y[-(X.shape[0]):]  # Drop first few target data. 
+        y = np.array(y)
 
         return X, y
 
