@@ -73,10 +73,12 @@ model.add(keras.layers.Dense(1))
 # TODO: change loss metric func.
 model.compile(loss="mse", optimizer="adam")
 
+epochs = int(input("Training epochs >>> "))
+
 hist = model.fit(
     c.train_X, 
     c.train_y, 
-    epochs=10, 
+    epochs=epochs, 
     batch_size=32)
 
 yhat = model.predict(c.test_X)
