@@ -79,8 +79,9 @@ class MultivariateLSTM():
         \n\t Time Step: {self.time_steps}\
         \n\t Feature: {self.num_fea}")
 
-        self.container = container
+        self.config = config
 
+        self.container = container
         self.core = self._construct_lstm()
         
     def _construct_lstm(self) -> keras.Sequential:
@@ -97,8 +98,25 @@ class MultivariateLSTM():
 
         return model
     
+    def update_config(self, new_config: dict) -> None:
+
+        self.prev_config = self.config
+        self.config = new_config
+        self.core = self._construct_lstm()
+
+    def fit_model(self, epochs: int=10) -> None:
+
+        self.hist = self.core.fit(
+            self.container.train_X,
+            self.container.train_y,
+            epochs=epochs,
+            batch_size=32 if self.config is None else self.config["batch_size"],
+            validation_split=0.1 if self.config is None else self.config["validation_split"]
+        )
+    
     def predict(
         self, X_feed: np.ndarray) -> np.ndarray:
+
         y_hat = self.core.predict(X_feed, verbose=1)
         y_hat = self.container.scaler_y.inverse_transform(y_hat)
         return y_hat  # y_hat returned used to compare with self.container.*_X directly.

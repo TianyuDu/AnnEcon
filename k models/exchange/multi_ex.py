@@ -33,50 +33,36 @@ def load_multi_ex(file_dir: str) -> pd.DataFrame:
     dataset.drop(columns=["DEXVZUS"], inplace=True)
     return dataset
 
-c = MultivariateContainer(
+# Setting up parameters.
+CON_config = {
+    "max_lag": 3,
+    "train_ratio": 0.9,
+    "time_steps": 14
+}
+
+NN_config = {
+    "batch_size": 32,
+    "validation_split": 0.1
+}
+
+container = MultivariateContainer(
     file_dir, 
     "DEXCAUS", 
-    load_multi_ex, 
-    {
-        "max_lag": 3, 
-        "train_ratio": 0.9,
-        "time_steps": 14
-    })
-
-# Visualize raw data
-def visualize_raw(data: pd.DataFrame, action: Union["save", "show"]) -> None:
-    plt.close()
-    plt.figure()
-    values = data.values
-    num_series = values.shape[1]
-    wid = int(np.ceil(np.sqrt(num_series)))
-    for i in range(num_series):
-        plt.subplot(wid, wid, i+1)
-        name = data.columns[i]
-        plt.plot(values[:, i], alpha=0.6, linewidth=0.6)
-        plt.title(name, y=0.5, loc="right")
-    if action == "show":
-        plt.show()
-    elif action == "save":
-        plt.savefig("raw.svg")
+    load_multi_ex,
+    CON_config)
 
 
-epochs = int(input("Training epochs >>> "))
+model = MultivariateLSTM(container, NN_config)
+model.fit_model(epochs=30)
 
 pin = str(datetime.datetime.now())
 
-m = MultivariateLSTM(c, None)
-hist = m.core.fit(
-    c.train_X, 
-    c.train_y, 
-    epochs=10, 
-    batch_size=32,
-    validation_split=0.1)
+
 
 ## Testing Data
 
-yhat = m.predict(m.container.test_X)
-acty = c.scaler_y.inverse_transform(c.test_y)
+yhat = model.predict(model.container.test_X)
+acty = model.container.scaler_y.inverse_transform(container.test_y)
 
 plt.close()
 plt.plot(yhat, linewidth=0.6, alpha=0.6, label="yhat")
@@ -97,9 +83,18 @@ plt.legend()
 plt.show()
 # plt.savefig(f"./figure/{pin}_train.svg")
 
-# yhat = model.predict(c.train_X)
-# plt.close()
-# plt.plot(yhat, linewidth=0.6, alpha=0.6, label="yhat")
-# plt.plot(c.train_y, linewidth=0.6, alpha=0.6, label="actual")
-# plt.legend()
-# plt.show()
+def visualize_raw(data: pd.DataFrame, action: Union["save", "show"]) -> None:
+    plt.close()
+    plt.figure()
+    values = data.values
+    num_series = values.shape[1]
+    wid = int(np.ceil(np.sqrt(num_series)))
+    for i in range(num_series):
+        plt.subplot(wid, wid, i+1)
+        name = data.columns[i]
+        plt.plot(values[:, i], alpha=0.6, linewidth=0.6)
+        plt.title(name, y=0.5, loc="right")
+    if action == "show":
+        plt.show()
+    elif action == "save":
+        plt.savefig("raw.svg")
