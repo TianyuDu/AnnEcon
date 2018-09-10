@@ -2,6 +2,7 @@
 Multivariate Version of prediciton.
 """
 import sys
+import datetime
 from datetime import datetime
 
 import keras
@@ -85,7 +86,7 @@ plt.close()
 plt.plot(yhat, linewidth=0.6, alpha=0.6, label="yhat")
 plt.plot(acty, linewidth=0.6, alpha=0.6, label="actual")
 plt.legend()
-plt.savefig(f"./figure/{str(datetime.now())}.svg")
+plt.savefig(f"./figure/{str(datetime.datetime.now())}.svg")
 
 # yhat = model.predict(c.train_X)
 # plt.close()
