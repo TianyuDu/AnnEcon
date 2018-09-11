@@ -186,8 +186,17 @@ class MultivariateLSTM(BaseModel):
 
         # Save model weight to h5
         print("Saving model weights...")
-        self.core.save_weights(f"{file_dir}model_weights.h5")
+        self.core.save_weights(f"{folder}model_weights.h5")
         print("Done")
+
+        # Save model illustration to png file.
+        print("Saving model visualization...")
+        keras.utils.plot_model(
+            self.core, 
+            to_file=f"{folder}model.png",
+            show_shapes=True, 
+            show_layer_names=True)
+        print("Done.")
     
     def load_model(self, file_dir: str) -> None:
         """
