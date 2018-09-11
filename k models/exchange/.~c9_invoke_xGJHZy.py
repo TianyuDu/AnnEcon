@@ -54,7 +54,7 @@ NN_config = {
     "validation_split": 0.1,
     "nn.lstm1": 128,
     "nn.lstm2": 64,
-    "nn.dense1": 32
+    "nn.dense1": 16
 }
 
 container = MultivariateContainer(

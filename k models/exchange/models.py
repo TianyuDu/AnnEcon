@@ -95,9 +95,9 @@ class MultivariateLSTM(BaseModel):
         model.add(keras.layers.LSTM(
             units=config["nn.lstm1"],
             input_shape=(self.time_steps, self.num_fea),
-            return_sequences=False
+            return_sequences=True
         ))
-        # model.add(keras.layers.LSTM(units=config["nn.lstm2"]))
+        model.add(keras.layers.LSTM(units=config["nn.lstm2"]))
         model.add(keras.layers.Dense(units=config["nn.dense1"]))
         model.add(keras.layers.Dense(1))
         model.compile(loss="mse", optimizer="adam")
