@@ -198,22 +198,22 @@ class MultivariateLSTM(BaseModel):
             show_layer_names=True)
         print("Done.")
     
-    def load_model(self, file_dir: str) -> None:
+    def load_model(self, folder_dir: str) -> None:
         """
         """
-        if not file_dir.endwith("/"):  
-            # Assert the correct format, file_dir should be 
-            file_dir += "/"
+        if not folder_dir.endswith("/"):
+            # Assert the correct format, folder_dir should be
+            folder_dir += "/"
 
-        print(f"Load model from folder {file_dir}")
+        print(f"Load model from folder {folder_dir}")
 
         # construct model from json
         print("Reconstruct model from Json file...")
         try:
-            json_file = open(f"{file_dir}model_structure.json", "r")
+            json_file = open(f"{folder_dir}model_structure.json", "r")
         except FileNotFoundError:
             raise Warning(
-                f"Json file not found. Expected: {file_dir}model_structure.json"
+                f"Json file not found. Expected: {folder_dir}model_structure.json"
             )
 
         model_file = json_file.read()
@@ -224,10 +224,11 @@ class MultivariateLSTM(BaseModel):
         # load weights from h5
         print("Loading model weights...")
         try:
-            self.core.load_weights(f"{file_dir}model_weights.h5", by_name=True)
+            self.core.load_weights(
+                f"{folder_dir}model_weights.h5", by_name=True)
         except FileNotFoundError:
             raise Warning(
-                f"h5 file not found. Expected: {file_dir}model_weights.h5"
+                f"h5 file not found. Expected: {folder_dir}model_weights.h5"
             )
         print("Done.")
         self.core.compile(loss="mse", optimizer="adam")
