@@ -70,7 +70,7 @@ model.fit_model(epochs=int(input("Training epochs >>> ")))
 model.save_model()
 
 model.load_model(
-    folder_dir="./aved_models/2018Sep11_13_38_1536687538/")
+    folder_dir="./saved_models/2018Sep11_13_38_1536687538/")
 
 # Testing Data
 
