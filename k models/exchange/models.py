@@ -89,7 +89,11 @@ class UnivariateLSTM(BaseModel):
 
 
 class MultivariateLSTM(BaseModel):
-    def __init__(self, container, config=None) -> None:
+    def __init__(
+        self, 
+        container, 
+        config: bool=None, 
+        create_empty: bool=False) -> None:
         """
         Initialization method.
         """
@@ -99,9 +103,11 @@ class MultivariateLSTM(BaseModel):
         \n\tFeature: {self.num_fea}")
 
         self.config = config
-
         self.container = container
-        self.core = self._construct_lstm(self.config)
+        if create_empty:
+            self.core = None
+        else:
+            self.core = self._construct_lstm(self.config)
         self._gen_file_name()
         print(
             f"\tMultivariateLSTM: Current model will be save to ./saved_models/f{MultivariateLSTM}/")

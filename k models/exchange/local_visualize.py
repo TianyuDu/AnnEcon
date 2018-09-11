@@ -29,10 +29,24 @@ import methods
 from containers import *
 from methods import *
 from models import *
+from config import *
 
+file_dir = "./data/exchange_rates/exchange_rates_Daily.csv"
+
+container = MultivariateContainer(
+    file_dir,
+    "DEXCAUS",
+    load_multi_ex,
+    CON_config)
+
+# Create empty model
+model = MultivariateLSTM(container, NN_config, create_empty=True)
+
+load_target = "./saved_models/2018Sep11_14_01_1536688913/"
 
 model.load_model(
-    folder_dir="./saved_models/2018Sep11_14_01_1536688913/")
+    folder_dir=load_target
+)
 
 # Testing Data
 
