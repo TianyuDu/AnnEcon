@@ -71,7 +71,7 @@ model.save_model()
 
 yhat = model.predict(model.container.test_X)
 yhat = model.container.invert_difference(
-    yhat, range(4617, 5130), fillnone=True
+    yhat, range(5130-len(yhat), 5130), fillnone=True
 )
 
 train_yhat = model.predict(model.container.train_X)
