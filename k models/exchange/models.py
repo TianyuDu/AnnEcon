@@ -240,6 +240,6 @@ class MultivariateLSTM(BaseModel):
         raise NotImplementedError
 
 
-class MultivariateCnnLSTM(BaseModel, MultivariateLSTM):
+class MultivariateCnnLSTM(BaseModel):
     def __init__(self):
         pass
