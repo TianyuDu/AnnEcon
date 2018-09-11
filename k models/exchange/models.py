@@ -6,12 +6,23 @@ import numpy as np
 import pandas as pd
 import keras
 import containers
+import os
 
 class BaseModel():
     def __init__(self):
         self.core = None
         self.container = None
         self.config = None
+        self._gen_file_name()
+    
+    def _gen_file_name(self):
+        """
+        Generate the directory name to save all relevant files about
+        Graphic representation of model,
+        Model structure()
+        """
+        now = datetime.datetime.now()
+        self.file_name = now.strftime("%Y%h%d_%H_%M_%s")
 
     def __str__(self):
         keras.utils.print_summary(self.core)
@@ -23,7 +34,7 @@ class BaseModel():
         return f"""{str(type(self))} model with data container {self.container}
         """
 
-
+# TODO: Fix the univariate LSTM
 class UnivariateLSTM(BaseModel):
     """
     Univariate LSTM model with customized num of layers.
@@ -79,18 +90,29 @@ class UnivariateLSTM(BaseModel):
 
 class MultivariateLSTM(BaseModel):
     def __init__(self, container, config=None) -> None:
-
+        """
+        Initialization method.
+        """
         _, self.time_steps, self.num_fea = container.train_X.shape
         print(f"MultivariateLSTM Initialized: \
-        \n\t Time Step: {self.time_steps}\
-        \n\t Feature: {self.num_fea}")
+        \n\tTime Step: {self.time_steps}\
+        \n\tFeature: {self.num_fea}")
 
         self.config = config
 
         self.container = container
         self.core = self._construct_lstm(self.config)
+        self._gen_file_name()
+        print(
+            f"\tMultivariateLSTM: Current model will be save to ./saved_models/f{MultivariateLSTM}/")
         
-    def _construct_lstm(self, config: dict) -> keras.Sequential:
+    def _construct_lstm(self, config: dict, verbose: bool=True) -> keras.Sequential:
+        """
+        Construct the Stacked lstm model, 
+        Note: Modify this method to change model configurations.
+        # TODO: Add arbitray layer support. 
+        """
+        print("MultivariateLSTM: Generating LSTM model")
         model = keras.Sequential()
         model.add(keras.layers.LSTM(
             units=config["nn.lstm1"],
@@ -102,17 +124,25 @@ class MultivariateLSTM(BaseModel):
         model.add(keras.layers.Dense(1))
         model.compile(loss="mse", optimizer="adam")
 
+        if verbose:
+            print("\tMultivariateLSTM: LSTM model constructed with configuration: ")
+            keras.utils.print_summary(model)
         return model
     
     def update_config(self, new_config: dict) -> None:
-
+        """
+        Update the neural network configuration, and re-construct, re-compile the core.
+        """
+        # TODO: add check configuration method here.
+        print("MultivariateLSTM: Updating neural network configuration...")
         self.prev_config = self.config
         self.config = new_config
-        self.core = self._construct_lstm(self.config)
+        self.core = self._construct_lstm(self.config, verbose=False)
+        print("\tDone.")
 
     def fit_model(self, epochs: int=10) -> None:
         start_time = datetime.datetime.now()
-        print("Start fitting.")
+        print("MultivariateLSTM: Start fitting.")
         self.hist = self.core.fit(
             self.container.train_X,
             self.container.train_y,
@@ -122,7 +152,7 @@ class MultivariateLSTM(BaseModel):
         )
         finish_time = datetime.datetime.now()
         time_taken = finish_time - start_time
-        print(f"Fitting finished, {epochs} epochs for {str(time_taken)}")
+        print(f"\tFitting finished, {epochs} epochs for {str(time_taken)}")
     
     def predict(
         self, X_feed: np.ndarray) -> np.ndarray:
@@ -133,23 +163,83 @@ class MultivariateLSTM(BaseModel):
 
     def save_model(self, file_dir: str=None) -> None:
         if file_dir is None:
-            file_dir = f"./saved_models/{str(datetime.datetime.now())}"
-        # Save model structure to JSON
-        model_json = self.core.to_json()
-        with open(f"{file_dir}.json", "w") as json_file:
-            json_file.write(model_json)
+            # If no file directory specified, use the default one.
+            file_dir = self.file_name
+
+        # Try to create record folder.
+        try:
+            folder = f"./saved_models/{file_dir}/"
+            os.system(f"mkdir {folder}")
+            print(f"Experiment record directory created: {folder}")
+        except:
+            print("Current directory: ")
+            _ = os.system("pwd")
+            raise FileNotFoundError(
+                "Failed to create directory, please create directory ./saved_models/")
         
-        # Save weight to h5
-        self.core.save_weights(f"{file_dir}.h5")
-        print(f"Save model weights to {file_dir}.h5/json")
+        # Save model structure to JSON
+        print("Saving model structure...")
+        model_json = self.core.to_json()
+        with open(f"{folder}model_structure.json", "w") as json_file:
+            json_file.write(model_json)
+        print("Done.")
+
+        # Save model weight to h5
+        print("Saving model weights...")
+        self.core.save_weights(f"{file_dir}model_weights.h5")
+        print("Done")
     
     def load_model(self, file_dir: str) -> None:
-        print(f"Load model from {file_dir}")
+        """
+        """
+        if not file_dir.endwith("/"):  
+            # Assert the correct format, file_dir should be 
+            file_dir += "/"
+
+        print(f"Load model from folder {file_dir}")
+
         # construct model from json
-        json_file = open(f"{file_dir}.json", "r")
+        print("Reconstruct model from Json file...")
+        try:
+            json_file = open(f"{file_dir}model_structure.json", "r")
+        except FileNotFoundError:
+            raise Warning(
+                f"Json file not found. Expected: {file_dir}model_structure.json"
+            )
+
         model_file = json_file.read()
         json_file.close()
         self.core = keras.models.model_from_json(model_file)
+        print("Done.")
+
         # load weights from h5
-        self.core.load_weights(f"{file_dir}.h5", by_name=True)
+        print("Loading model weights...")
+        try:
+            self.core.load_weights(f"{file_dir}model_weights.h5", by_name=True)
+        except FileNotFoundError:
+            raise Warning(
+                f"h5 file not found. Expected: {file_dir}model_weights.h5"
+            )
+        print("Done.")
         self.core.compile(loss="mse", optimizer="adam")
+
+    def summarize_training(self):
+        """
+        Summarize training result to string file.
+        - Loss
+        - Epochs
+        - Time taken
+        """
+        raise NotImplementedError
+    
+    def visualize_training(self):
+        """
+        Visualize the training result:
+        - Plot training set loss and validation set loss.
+        """
+        raise NotImplementedError
+
+
+class MultivariateCnnLSTM(BaseModel, MultivariateLSTM):
+    def __init__(self):
+        pass

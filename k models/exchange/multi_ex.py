@@ -8,6 +8,8 @@ import keras
 import pandas as pd
 import numpy as np
 import matplotlib
+# TODO: for mac OS: os.name == "posix" and sys.platform == "darwin"
+# Use this identifier to automatically decide the following.
 on_server = bool(int(input("Training on server wihtout graphic output? [0/1] >>> ")))
 if on_server:   
     matplotlib.use(
