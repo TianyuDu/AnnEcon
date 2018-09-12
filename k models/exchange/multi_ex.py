@@ -105,10 +105,13 @@ def visualize_training_result():
     plt.legend()
     action = input("Plot result? \n\t[P] plot result. \n\t[S] save result. \n\t>>>")
     assert action.lower() in [p, s], "Invalid command."
+
     if action.lower() == "p":
         plt.show()
     elif action.lower() == "s":
-        fig_name = input("")
+        fig_name = str(datetime.datetime.now())
+        plt.savefig(f"./figure/{fig_name}.svg")
+        print(f"Control: figure saved to ./figure/{fig_name}.svg")
 
 if __name__ == "__main__":
     print("""
