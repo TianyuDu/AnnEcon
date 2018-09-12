@@ -32,9 +32,19 @@ In this project,  `keras` based recurrent neural networks are built to make pred
 
 The baseline model takes historical time series data of exchange rate and make single or multiple step forecasting.
 
-#### Multi-Variate Version (in progress)
+#### Multi-Variate Version (version 0.0.1 functional but full of bugs)
 
 In additional to the baseline model, we extra time series are fed to the neural networks. The multi-variate version takes longer to be trained but can achieve higher accuracy.
+
+##### How to use:
+
+Open your terminal
+
+Change directory to `cd ./k\ models/exchange/`
+
+And execute the script `python3 ./multi_ex.py`
+
+Then follow the prompt shown in terminal
 
 #### Data Citation
 

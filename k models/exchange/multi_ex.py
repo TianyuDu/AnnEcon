@@ -30,6 +30,7 @@ from methods import *
 from models import *
 from multi_config import *
 
+
 def train_new_model():
     """
     Train a new model.
@@ -57,7 +58,8 @@ def train_new_model():
     else:
         model.save_model(file_dir=save_destination)
     print(chr(9608))
-    
+
+
 def visualize_training_result():
     print(f"Contro;: Building up container from {file_dir}...")
     container = MultivariateContainer(
@@ -104,7 +106,7 @@ def visualize_training_result():
             linewidth=1.2, alpha=0.3, label="actual")
     plt.legend()
     action = input("Plot result? \n\t[P] plot result. \n\t[S] save result. \n\t>>>")
-    assert action.lower() in [p, s], "Invalid command."
+    assert action.lower() in ["p", "s"], "Invalid command."
 
     if action.lower() == "p":
         plt.show()
@@ -115,9 +117,15 @@ def visualize_training_result():
 
 if __name__ == "__main__":
     print("""
-    Hey, you are using the Multivariate Forecasting model based on Keras.
-    CUI version: 0.01, Sep 11 2018.
-    Modify configuration and models files to change the model.
+    =====================================================================
+    Hey, you are using the Multivariate Exchange Rate Forecasting Model
+        This is a neural network developed to forecast economic indicators
+        The model is based on Keras
+    @Spikey
+        Version. 0.0.1, Sep. 11 2018
+    Important files
+        Configuration file: ./multi_config.py
+        Model definition file: ./models.py
     """)
 
     task = input("""
