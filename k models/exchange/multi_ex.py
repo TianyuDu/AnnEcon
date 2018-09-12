@@ -130,10 +130,10 @@ if __name__ == "__main__":
 
     task = input("""
     What to do?
-        [N] train new model.
-        [R] restore saved model and continue training.
-        [V] visualize training result.
-        [Q] quit.
+        [N] Train new model.
+        [R] Restore saved model and continue training.
+        [V] Visualize training result.
+        [Q] Quit.
     >>> """)
     assert task.lower() in ["n", "r", "v", "q"], "Invalid task."
     if task.lower() == "n":
