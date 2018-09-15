@@ -161,15 +161,19 @@ def advanced_visualize():
     )
     train_yhat = np.squeeze(train_yhat).astype(np.float32)
 
-    output_file("test2.html")
+    output_file(f"{load_target}visualized.html")
+    print(f"Saving plotting html file to {load_target}visualized.html...")
     pred_plot = figure(
         x_axis_label="Date", 
         y_axis_label="Value",
-        x_axis_type="datetime")
+        x_axis_type="datetime",
+        tools="lasso_select, box_select, pan")
+
+    timeline = pd.DatetimeIndex(container.dataset.index)
 
     pred_plot.line(
-        # model.container.dataset.index,
-        range(len(model.container.ground_truth_y)),
+        timeline,
+        # range(len(model.container.ground_truth_y)),
         model.container.ground_truth_y,
         color="blue",
         alpha=0.7,
@@ -177,7 +181,7 @@ def advanced_visualize():
     )
     
     pred_plot.line(
-        range(len(model.container.ground_truth_y)),
+        timeline,
         train_yhat,
         color="red",
         alpha=0.7,
@@ -185,7 +189,7 @@ def advanced_visualize():
     )
 
     pred_plot.line(
-        range(len(model.container.ground_truth_y)),
+        timeline,
         test_yhat,
         color="green",
         alpha=0.7,
