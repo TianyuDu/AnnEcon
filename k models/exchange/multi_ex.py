@@ -166,8 +166,9 @@ def advanced_visualize():
     pred_plot = figure(
         x_axis_label="Date", 
         y_axis_label="Value",
-        x_axis_type="datetime",
-        tools="lasso_select, box_select, pan")
+        x_axis_type="datetime"
+        # tools="lasso_select, box_select, pan"
+    )
 
     timeline = pd.DatetimeIndex(container.dataset.index)
 
@@ -175,8 +176,8 @@ def advanced_visualize():
         timeline,
         # range(len(model.container.ground_truth_y)),
         model.container.ground_truth_y,
-        color="blue",
-        alpha=0.7,
+        color="navy",
+        alpha=0.3,
         legend="Actual values"
     )
     
