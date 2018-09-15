@@ -20,6 +20,11 @@ if on_server:
 from matplotlib import pyplot as plt
 import sklearn
 
+from bokeh.plotting import figure
+from bokeh.layouts import row, column
+from bokeh.models import HoverTool
+from bokeh.io import show, output_file
+
 from typing import Union, List
 
 import config
@@ -89,8 +94,8 @@ def visualize_training_result():
         range(
             model.container.num_obs-len(yhat), 
             model.container.num_obs
-            ), 
-            fillnone=True
+        ), 
+        fillnone=True
     )
     # Forecast trainign set.
     train_yhat = model.predict(model.container.train_X)
@@ -115,6 +120,81 @@ def visualize_training_result():
         plt.savefig(f"./figure/{fig_name}.svg")
         print(f"Control: figure saved to ./figure/{fig_name}.svg")
 
+
+def advanced_visualize():
+    print(f"Control: Building up from container from {file_dir}")
+    container = MultivariateContainer(
+        file_dir,
+        target,
+        load_multi_ex,
+        CON_config)
+    print(chr(9608))
+
+    print("Control: Building empty model...")
+    model = MultivariateLSTM(container, NN_config, create_empty=True)
+    print(chr(9608))
+
+    load_target = input("Model folder name >>> ")
+    load_target = f"./saved_models/{load_target}/"
+    print(f"Control: Loading model from {load_target}...")
+
+    model.load_model(
+        folder_dir=load_target
+    )
+    print(chr(9608))
+
+    print("Control: Building up forecasting...")
+    test_yhat = model.predict(model.container.test_X)
+    test_yhat = model.container.invert_difference(
+        test_yhat,
+        range(
+            model.container.num_obs - len(test_yhat),
+            model.container.num_obs
+        ),
+        fillnone=True
+    )
+    test_yhat = np.squeeze(test_yhat).astype(np.float32)
+
+    train_yhat = model.predict(model.container.train_X)
+    train_yhat = model.container.invert_difference(
+        train_yhat, range(len(train_yhat)), fillnone=True
+    )
+    train_yhat = np.squeeze(train_yhat).astype(np.float32)
+
+    output_file("test2.html")
+    pred_plot = figure(
+        x_axis_label="Date", 
+        y_axis_label="Value",
+        x_axis_type="datetime")
+
+    pred_plot.line(
+        # model.container.dataset.index,
+        range(len(model.container.ground_truth_y)),
+        model.container.ground_truth_y,
+        color="blue",
+        alpha=0.7,
+        legend="Actual values"
+    )
+    
+    pred_plot.line(
+        range(len(model.container.ground_truth_y)),
+        train_yhat,
+        color="red",
+        alpha=0.7,
+        legend="Training set predictions"
+    )
+
+    pred_plot.line(
+        range(len(model.container.ground_truth_y)),
+        test_yhat,
+        color="green",
+        alpha=0.7,
+        legend="Testing set predictions"
+    )
+
+    show(pred_plot)
+
+
 if __name__ == "__main__":
     print("""
     =====================================================================
@@ -132,16 +212,19 @@ if __name__ == "__main__":
     What to do?
         [N] Train new model.
         [R] Restore saved model and continue training.
-        [V] Visualize training result.
+        [V] Visualize training result using matplotlib.
+        [B] Visualize training result using bokeh.
         [Q] Quit.
     >>> """)
-    assert task.lower() in ["n", "r", "v", "q"], "Invalid task."
+    assert task.lower() in ["n", "r", "v", "q", "b"], "Invalid task."
     if task.lower() == "n":
         train_new_model()
     elif task.lower() == "r":
         raise NotImplementedError
     elif task.lower() == "v":
         visualize_training_result()
+    elif task.lower() == "b":
+        advanced_visualize()
     elif task.lower() == "q":
         quit()
 
