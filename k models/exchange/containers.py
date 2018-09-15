@@ -131,8 +131,8 @@ class UnivariateContainer(BaseContainer):
         self.test_y_scaled = self.scaler_out.transform(self.test_y)
 
     def __str__(self) -> str:
-        # TODO: Add shapes of train/test Xy sets to report string.
-        repr_str = f"""\t{str(type(self))} object at {hex(id(self))}
+        repr_str = f"""
+            {str(type(self))} object at memory address{hex(id(self))}
             =========================================
             Raw Data:
                 Dataset size: {self.num_obs} obs.
@@ -284,6 +284,7 @@ class MultivariateContainer(BaseContainer):
             }):
         ## ======== Pre-requiste ========
         # Load configuration.  # TODO: Add check config method.
+        self.__check_config(config)
         self.config = config
 
         # Preprocessing
@@ -324,6 +325,25 @@ class MultivariateContainer(BaseContainer):
             self.y,
             train_size=self.train_size
             )
+
+    def __check_config(self, config: dict) -> None:
+        assert type(config["max_lag"]) is int, \
+            "(Illegal Config) Max lag of supervised learning should be an integer."
+
+        assert config["max_lag"] >= 1, \
+            "(Illegal Config) Max lag of supervised learning should be greater than or equal to 1."
+
+        assert type(config["train_traio"]) is float, \
+            "(Illegal Config) Train ratio should be a float."
+
+        assert 0.0 < config["train_ratio"] < 1.0, \
+            "(Illegal Config) Traio ratio should be on range (0, 1)"
+
+        assert type(config["time_steps"]) is int, \
+            "(Illegal Config) Time steps of supervised learning should be an integer."
+        
+        assert config["time_steps"] >= 1.0, \
+            "(Illegal Config) Time steps of supervised learning should be greater than or equal to 1."
 
     def generate_supervised_learning(
             self,
