@@ -1,6 +1,6 @@
 """
 This file contains all container object used in model training.
-Container objects are designed to store all necessary data 
+Container objects are designed to store all necessary data
 in model training.
 """
 import datetime
@@ -31,19 +31,24 @@ class BaseContainer():
         """
             Check if the configuration dictionary fed is legal.
         """
-        assert cf["method"] in self.proc_method, "Data Processing method fed not avaiable."
+        assert cf["method"] in self.proc_method, \
+            "Data Processing method fed not avaiable."
 
         if cf["method"] == "diff":
             assert type(
-                cf["diff.lag"]) is int and cf["diff.lag"] > 0, "diff.lag should be a positive integer."
+                cf["diff.lag"]) is int and cf["diff.lag"] > 0, \
+                    "diff.lag should be a positive integer."
             assert type(
-                cf["diff.order"]) is int and cf["diff.order"] >= 0, "diff.order should be a non-negative integer."
+                cf["diff.order"]) is int and cf["diff.order"] >= 0, \
+                    "diff.order should be a non-negative integer."
 
         assert type(
-            cf["test_ratio"]) is float and 0 <= cf["test_ratio"] < 1, "test ratio should be a float between 0 and 1."
+            cf["test_ratio"]) is float and 0 <= cf["test_ratio"] < 1, \
+                "test ratio should be a float between 0 and 1."
 
         assert type(
-            cf["lag_for_sup"]) is int and cf["lag_for_sup"] >= 1, "lag_for_sup should be an integer greater or equal to 1."
+            cf["lag_for_sup"]) is int and cf["lag_for_sup"] >= 1, \
+                "lag_for_sup should be an integer greater or equal to 1."
 
         print("Configuration check passed.")
         return True
@@ -282,15 +287,15 @@ class MultivariateContainer(BaseContainer):
                 "train_ratio": 0.9,
                 "time_steps": 14
             }):
-        ## ======== Pre-requiste ========
-        # Load configuration.  # TODO: Add check config method.
+        # ======== Pre-requiste ========
         self.__check_config(config)
-        self.config = config
+        self.config = config  # Load configuration.
 
-        # Preprocessing
+        # ======== Preprocessing Data ========
         self.dataset = load_data(file_dir)
         assert type(
-            self.dataset) is pd.DataFrame, f"Illegal object returned by data retrieving method, expected: pd.DataFrame, got: {type(self.dataset)}"
+            self.dataset) is pd.DataFrame, \
+            f"Illegal object returned by data retrieving method, expected: pd.DataFrame, got: {type(self.dataset)}"
 
         assert target_col in self.dataset.columns, f"Target column {target_col} cannot be found in DataFrame loaded."
         self.target_col = target_col
@@ -306,7 +311,7 @@ class MultivariateContainer(BaseContainer):
             f"\tDataset with {self.num_obs} observations and {self.num_fea} variables. Dataset shape={self.dataset.shape}")
         print(f"\tTarget variable: {self.target_col}")
 
-        # Differencing to remove non-stationarity. 
+        # Differencing to remove non-stationarity.
         # TODO: Add inverting methods.
         self.diff_dataset = self.dataset.diff()
         self.diff_dataset.fillna(0.0, inplace=True)
@@ -324,9 +329,10 @@ class MultivariateContainer(BaseContainer):
             self.X,
             self.y,
             train_size=self.train_size
-            )
+        )
 
     def __check_config(self, config: dict) -> None:
+        print("(Multivariate Container) Checking configurations...")
         assert type(config["max_lag"]) is int, \
             "(Illegal Config) Max lag of supervised learning should be an integer."
 
@@ -341,15 +347,16 @@ class MultivariateContainer(BaseContainer):
 
         assert type(config["time_steps"]) is int, \
             "(Illegal Config) Time steps of supervised learning should be an integer."
-        
+
         assert config["time_steps"] >= 1.0, \
             "(Illegal Config) Time steps of supervised learning should be greater than or equal to 1."
+        print("\tPassed.")
 
     def generate_supervised_learning(
             self,
             data: pd.DataFrame,
             time_steps: int,
-            drop_target: bool=True) -> (np.array, np.array):
+            drop_target: bool = True) -> (np.array, np.array):
         """
         Convert data to a supervised learning problem, reframed the data points into 
         [sample, time_step, feature] format.  # TODO: write doc.
@@ -364,7 +371,7 @@ class MultivariateContainer(BaseContainer):
         if drop_target:
             data.drop(columns=[self.target_col], inplace=True)
 
-        scaler_X = sklearn.preprocessing.StandardScaler()  
+        scaler_X = sklearn.preprocessing.StandardScaler()
         # FIXME: Change scaler so that is only scale the training set.
         scaler_y = sklearn.preprocessing.StandardScaler()
 
@@ -391,13 +398,13 @@ class MultivariateContainer(BaseContainer):
         if drop_target:
             print("Previous values of target(y) IS NOT included in input(X) set.")
             assert X.shape == (num_obs, time_steps, num_fea - 1), \
-            f"Expected shape = {(num_obs, time_steps, num_fea - 1)} \
+                f"Expected shape = {(num_obs, time_steps, num_fea - 1)} \
             Shape received = {X.shape}"
         else:
             print("Previous values of target(y) IS included in input(X) set.")
             assert X.shape == (num_obs, time_steps, num_fea)
-        
-        y = y[-(X.shape[0]):]  # Drop first few target data. 
+
+        y = y[-(X.shape[0]):]  # Drop first few target data.
         y = np.array(y)
         y = y.reshape(-1, 1)
 
@@ -428,14 +435,14 @@ class MultivariateContainer(BaseContainer):
         return (train_X, train_y, test_X, test_y)
 
     def invert_difference(
-        self, 
-        delta: np.ndarray, 
-        stamps: np.ndarray, 
-        fillnone: bool=False 
-        # If passed as True, a full length time series will be returned and 
+        self,
+        delta: np.ndarray,
+        stamps: np.ndarray,
+        fillnone: bool = False
+        # If passed as True, a full length time series will be returned and
         # time stamps that are not in STAMPS will be filled with Nan.
         # t in stamps starts with 0.
-        ) -> np.ndarray:
+    ) -> np.ndarray:
         """
         This function reconstruct the predicted series from differenced series and (past) ground truth values.
         Args:
@@ -445,9 +452,11 @@ class MultivariateContainer(BaseContainer):
 
             fillnone: bool to indicate if fill the time step t not in stamps with none/nan value. 
         """
-        
-        assert len(delta) == len(stamps), "Delta series and time stamp series must have the same length."
-        assert all([t in range(self.num_obs) for t in stamps]), f"Some time stamps passed in exceed the limit. Received: {stamps}"
+
+        assert len(delta) == len(
+            stamps), "Delta series and time stamp series must have the same length."
+        assert all([t in range(self.num_obs) for t in stamps]
+                   ), f"Some time stamps passed in exceed the limit. Received: {stamps}"
 
         if fillnone:
             recon = [None] * self.num_obs
@@ -458,4 +467,3 @@ class MultivariateContainer(BaseContainer):
             for d, t in zip(delta, stamps):
                 recon.append(self.ground_truth_y[t - 1] + d)
         return recon
-            
