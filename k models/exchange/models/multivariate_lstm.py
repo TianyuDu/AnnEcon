@@ -1,99 +1,22 @@
-"""
-Models.
-"""
 import datetime
-import numpy as np
-import pandas as pd
-import keras
-import containers
 import os
 
-class BaseModel():
-    def __init__(self):
-        self.core = None
-        self.container = None
-        self.config = None
-        self._gen_file_name()
-    
-    def _gen_file_name(self):
-        """
-        Generate the directory name to save all relevant files about
-        Graphic representation of model,
-        Model structure()
-        """
-        now = datetime.datetime.now()
-        self.file_name = now.strftime("%Y%h%d_%H_%M_%s")
+import keras
+import numpy as np
+import pandas as pd
 
-    def __str__(self):
-        keras.utils.print_summary(self.core)
-        return f"""{str(type(self))} model at {hex(id(self))}
-        """
-    
-    def __repr__(self):
-        keras.utils.print_summary(self.core)
-        return f"""{str(type(self))} model with data container {self.container}
-        """
-
-# TODO: Fix the univariate LSTM
-class UnivariateLSTM(BaseModel):
-    """
-    Univariate LSTM model with customized num of layers.
-    """
-    def __init__(
-        self, 
-        container: containers.UnivariateContainer,
-        config: dict={
-            "batch_size": 1,
-            "epoch": 10,
-            "neuron": [128]}):
-        self.config = config
-        self.container = container
-        self.core = self._construct_lstm()
-
-    def _construct_lstm(self):
-        core = keras.Sequential()
-        num_lstm_lys = len(self.config["neuron"])
-
-        batch_size = self.config["batch_size"]
-        neuron_units = self.config["neuron"]
-
-        core.add(
-            keras.layers.LSTM(
-                units=neuron_units[0],
-                batch_input_shape=(batch_size, 1, self.container.num_fea),
-                stateful=True,
-                name="lstm_layer_0_input"
-        ))
-
-        # TODO: deal with multiple LSTM layer issue
-        for i in range(1, num_lstm_lys):
-            core.add(
-                keras.layers.LSTM(
-                    units=neuron_units[i],
-                    stateful=True,
-                    name=f"lstm_layer_{i}"
-            ))
-        
-        core.add(keras.layers.Dense(
-            units=1,
-            name="dense_output"
-        ))
-        core.compile(
-            loss="mean_squared_error",
-            optimizer="adam"
-        )
-        return core
-
-    def fit_model(self):
-        pass
+from base_model import BaseModel
+from multivariate_container import MultivariateContainer
+from typing import Union
 
 
 class MultivariateLSTM(BaseModel):
     def __init__(
-        self, 
-        container, 
-        config: bool=None, 
-        create_empty: bool=False) -> None:
+            self,
+            container: MultivariateContainer,
+            api: str="model",
+            config: bool=None,
+            create_empty: bool=False) -> None:
         """
         Initialization method.
         """
@@ -106,49 +29,102 @@ class MultivariateLSTM(BaseModel):
         self.container = container
         if create_empty:
             self.core = None
-        else:
-            self.core = self._construct_lstm(self.config)
+        elif api == "model":
+            self.core = self._construct_lstm_model(self.config)
+        elif api == "sequential":
+            self.core = self._construct_lstm_sequential(self.config)
+
         self._gen_file_name()
         print(
-            f"\tMultivariateLSTM: Current model will be save to ./saved_models/f{MultivariateLSTM}/")
-        
-    def _construct_lstm(self, config: dict, verbose: bool=True) -> keras.Sequential:
+            f"\tMultivariateLSTM: Current model will be save to ./saved_models/f{self.file_name}/")
+
+    def _construct_lstm_model(
+            self,
+            config: dict,
+            verbose: bool=True
+    ) -> keras.Model:
         """
         Construct the Stacked lstm model, 
         Note: Modify this method to change model configurations.
         # TODO: Add arbitray layer support. 
         """
-        print("MultivariateLSTM: Generating LSTM model")
-        model = keras.Sequential()
-        model.add(keras.layers.LSTM(
+        print("MultivariateLSTM: Generating LSTM model using Model API.")
+
+        input_sequence = keras.layers.Input(
+            shape=(self.time_steps, self.num_fea),
+            dtype="float32",
+            name="input_sequence")
+
+        normalization = keras.layers.BatchNormalization()(input_sequence)
+
+        lstm = keras.layers.LSTM(
             units=config["nn.lstm1"],
-            input_shape=(self.time_steps, self.num_fea),
-            return_sequences=True,
-            name="LSTM1"
-        ))
-        model.add(
-            keras.layers.LSTM(
-            units=config["nn.lstm2"],
-            name="LSTM2"
-        ))
-        model.add(
-            keras.layers.Dense(
+            return_sequences=True
+        )(normalization)
+
+        dense = keras.layers.Dense(
             units=config["nn.dense1"],
             name="Dense1"
-        ))
-        model.add(
-            keras.layers.Dense(
-            units=1,
+        )(lstm)
+
+        predictions = keras.layers.Dense(
+            1,
             name="Dense_output"
-        ))
+        )(dense)
+
+        model = keras.Model(inputs=input_sequence, outputs=predictions)
+
         model.compile(loss="mse", optimizer="adam")
 
         if verbose:
             print("\tMultivariateLSTM: LSTM model constructed with configuration: ")
             keras.utils.print_summary(model)
         return model
-    
-    def update_config(self, new_config: dict) -> None:
+
+    # def _construct_lstm_sequential(
+    #         self,
+    #         config: dict,
+    #         verbose: bool=True
+    # ) -> keras.Sequential:
+    #     """
+    #     Construct the Stacked lstm model, 
+    #     Note: Modify this method to change model configurations.
+    #     # TODO: Add arbitray layer support. 
+    #     """
+    #     print("MultivariateLSTM: Generating LSTM model with Keras Sequential API")
+    #     model = keras.Sequential()
+    #     model.add(keras.layers.LSTM(
+    #         units=config["nn.lstm1"],
+    #         input_shape=(self.time_steps, self.num_fea),
+    #         return_sequences=True,
+    #         name="LSTM1"
+    #     ))
+    #     model.add(
+    #         keras.layers.LSTM(
+    #             units=config["nn.lstm2"],
+    #             name="LSTM2"
+    #         ))
+    #     model.add(
+    #         keras.layers.Dense(
+    #             units=config["nn.dense1"],
+    #             name="Dense1"
+    #         ))
+    #     model.add(
+    #         keras.layers.Dense(
+    #             units=1,
+    #             name="Dense_output"
+    #         ))
+    #     model.compile(loss="mse", optimizer="adam")
+
+    #     if verbose:
+    #         print("\tMultivariateLSTM: LSTM model constructed with configuration: ")
+    #         keras.utils.print_summary(model)
+    #     return model
+
+    def update_config(
+            self,
+            new_config: dict
+    ) -> None:
         """
         Update the neural network configuration, and re-construct, re-compile the core.
         """
@@ -156,10 +132,13 @@ class MultivariateLSTM(BaseModel):
         print("MultivariateLSTM: Updating neural network configuration...")
         self.prev_config = self.config
         self.config = new_config
-        self.core = self._construct_lstm(self.config, verbose=False)
+        self.core = self._construct_lstm_model(self.config, verbose=False)
         print("\tDone.")
 
-    def fit_model(self, epochs: int=10) -> None:
+    def fit_model(
+            self,
+            epochs: int=10
+    ) -> None:
         start_time = datetime.datetime.now()
         print("MultivariateLSTM: Start fitting.")
         self.hist = self.core.fit(
@@ -172,15 +151,21 @@ class MultivariateLSTM(BaseModel):
         finish_time = datetime.datetime.now()
         time_taken = finish_time - start_time
         print(f"\tFitting finished, {epochs} epochs for {str(time_taken)}")
-    
+
     def predict(
-        self, X_feed: np.ndarray) -> np.ndarray:
+            self,
+            X_feed: np.ndarray
+    ) -> np.ndarray:
 
         y_hat = self.core.predict(X_feed, verbose=1)
         y_hat = self.container.scaler_y.inverse_transform(y_hat)
-        return y_hat  # y_hat returned used to compare with self.container.*_X directly.
+        # y_hat returned used to compare with self.container.*_X directly.
+        return y_hat
 
-    def save_model(self, file_dir: str=None) -> None:
+    def save_model(
+            self, 
+            file_dir: str=None
+    ) -> None:
         if file_dir is None:
             # If no file directory specified, use the default one.
             file_dir = self.file_name
@@ -195,7 +180,7 @@ class MultivariateLSTM(BaseModel):
             _ = os.system("pwd")
             raise FileNotFoundError(
                 "Failed to create directory, please create directory ./saved_models/")
-        
+
         # Save model structure to JSON
         print("Saving model structure...")
         model_json = self.core.to_json()
@@ -211,14 +196,18 @@ class MultivariateLSTM(BaseModel):
         # Save model illustration to png file.
         print("Saving model visualization...")
         keras.utils.plot_model(
-            self.core, 
+            self.core,
             to_file=f"{folder}model.png",
-            show_shapes=True, 
+            show_shapes=True,
             show_layer_names=True)
         print("Done.")
-    
-    def load_model(self, folder_dir: str) -> None:
+
+    def load_model(
+            self, 
+            folder_dir: str
+        ) -> None:
         """
+        #TODO: doc
         """
         if not folder_dir.endswith("/"):
             # Assert the correct format, folder_dir should be
@@ -260,16 +249,11 @@ class MultivariateLSTM(BaseModel):
         - Time taken
         """
         raise NotImplementedError
-    
+
     def visualize_training(self):
         """
         Visualize the training result:
         - Plot training set loss and validation set loss.
         """
+        # TODO: move visualize training to general methods.
         raise NotImplementedError
-
-
-
-class MultivariateCnnLSTM(BaseModel):
-    def __init__(self):
-        pass

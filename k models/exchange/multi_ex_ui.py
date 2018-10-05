@@ -1,14 +1,17 @@
 """
-Multivariate Version of prediciton.
+Multivariate Version of exchange prediciton.
 """
 import sys
+sys.path.append("./containers/")
+sys.path.append("./models/")
 import datetime
 
 import keras
 import pandas as pd
 import numpy as np
 import matplotlib
-# TODO: for mac OS: os.name == "posix" and sys.platform == "darwin"
+# TODO: add auto-detect
+# for mac OS: os.name == "posix" and sys.platform == "darwin"
 # Use this identifier to automatically decide the following.
 on_server = bool(int(input("Are you on a server wihtout graphic output? [0/1] >>> ")))
 if on_server:   
@@ -28,13 +31,13 @@ from bokeh.io import show, output_file
 from typing import Union, List
 
 import config
-import containers
 import methods
-from containers import *
 from methods import *
 from models import *
 from multi_config import *
 
+from multivariate_container import MultivariateContainer
+from multivariate_lstm import MultivariateLSTM
 
 def train_new_model():
     """
@@ -51,7 +54,7 @@ def train_new_model():
     print(chr(9608))
 
     print("Control: Building up models...")
-    model = MultivariateLSTM(container, NN_config)
+    model = MultivariateLSTM(container, NN_config, api="model")
     print(chr(9608))
 
     model.fit_model(epochs=int(input("Training epochs >>> ")))
@@ -107,8 +110,7 @@ def visualize_training_result():
     plt.close()
     plt.plot(yhat, linewidth=0.6, alpha=0.6, label="Test set yhat")
     plt.plot(train_yhat, linewidth=0.6, alpha=0.6, label="Train set yhat")
-    plt.plot(model.container.ground_truth_y,
-        linewidth=1.2, alpha=0.3, label="actual")
+    plt.plot(model.container.ground_truth_y, linewidth=1.2, alpha=0.3, label="actual")
     plt.legend()
     action = input("Plot result? \n\t[P] plot result. \n\t[S] save result. \n\t>>>")
     assert action.lower() in ["p", "s"], "Invalid command."
