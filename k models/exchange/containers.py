@@ -305,14 +305,14 @@ class MultivariateContainer(BaseContainer):
         self.target_col = target_col
         print(f"\tTarget variable received: {self.target_col}")
 
-        print("Dataset loaded succesfully.")
+        print("[Done]Dataset loaded succesfully.")
 
         # Actual Dataset
         self.values = self.dataset.values
         self.num_obs, self.num_fea = self.values.shape
         print(
             f"\tDataset with {self.num_obs} observations and {self.num_fea} variables. \
-            \nDataset shape={self.dataset.shape}"
+            \n\tDataset shape={self.dataset.shape}"
         )
 
         # Differencing to remove non-stationarity.
@@ -320,7 +320,6 @@ class MultivariateContainer(BaseContainer):
         self.diff_dataset = self.dataset.diff()
         self.diff_dataset.fillna(0.0, inplace=True)
 
-        print(f"Generating supervised learning problem...")
         self.X, self.y = self.generate_supervised_learning(
             data=self.diff_dataset,
             time_steps=self.config["time_steps"],  # Time step of look back.
@@ -374,7 +373,7 @@ class MultivariateContainer(BaseContainer):
         Assert the configuration dictionary passed into 
         the model has all its attributes leagel.
         """
-        print("(Multivariate Container) Checking configurations...")
+        print("[IPR]Checking configurations...")
         assert type(config["max_lag"]) is int, \
             "(Illegal Config) \
             Max lag of supervised learning should be an integer."
@@ -396,7 +395,7 @@ class MultivariateContainer(BaseContainer):
         assert config["time_steps"] >= 1.0, \
             "(Illegal Config) Time steps of supervised \
             learning should be greater than or equal to 1."
-        print("\tPassed.")
+        print("[Done]Passed.")
 
     # def scale_data(
     #     self, X, y
@@ -450,7 +449,7 @@ class MultivariateContainer(BaseContainer):
         """
 
         num_obs, num_fea = data.shape
-        
+
         print(
             f"[IPR]Generating supervise learning problem with {num_fea} variables and total {time_steps} lagged variables.")
 
@@ -487,12 +486,12 @@ class MultivariateContainer(BaseContainer):
 
         # Check return shape.
         if drop_target:
-            print("Previous values of target(y) is NOT included in input(X) set.")
+            print("\tPrevious values of target(y) is NOT included in input(X) set.")
             assert X.shape == (num_obs, time_steps, num_fea - 1), \
                 f"Expected shape = {(num_obs, time_steps, num_fea - 1)} \
             Shape received = {X.shape}"
         else:
-            print("Previous values of target(y) is included in input(X) set.")
+            print("\tPrevious values of target(y) is included in input(X) set.")
             assert X.shape == (num_obs, time_steps, num_fea)
 
         # Drop first few target data.
@@ -513,6 +512,7 @@ class MultivariateContainer(BaseContainer):
         """
         # scaler = sklearn.preprocessing.StandardScaler()
         # X = scaler.fit_transform(X)
+        print(f"[IPR]Spliting data: train_size {train_size}")
 
         train_X = X[:train_size, :, :]
         train_y = y[:train_size, :]
@@ -520,7 +520,7 @@ class MultivariateContainer(BaseContainer):
         test_X = X[train_size:, :, :]
         test_y = y[train_size:, :]
 
-        print(f"Split data into training and testing sets \
+        print(f"[Done]Split data into training and testing sets \
         \n\ttrain_X = {train_X.shape} \
         \n\ttrain_y = {train_y.shape} \
         \n\ttest_X = {test_X.shape} \
