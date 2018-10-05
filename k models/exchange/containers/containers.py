@@ -363,7 +363,7 @@ class MultivariateContainer(BaseContainer):
         Testing set predictor(test_X) shape: {self.test_X.shape}
         Testing set response(test_y) shape: {self.test_y.shape}
         """
-    
+
     def __repr__(self) -> str:
         return self.__str__()
 
@@ -547,17 +547,21 @@ class MultivariateContainer(BaseContainer):
             fillnone: bool to indicate if fill the time step t not in stamps with none/nan value. 
         """
 
-        assert len(delta) == len(
-            stamps), "Delta series and time stamp series must have the same length."
-        assert all([t in range(self.num_obs) for t in stamps]
-                   ), f"Some time stamps passed in exceed the limit. Received: {stamps}"
+        assert len(delta) == len(stamps), \
+            "Delta series and time stamp series must have the same length."
+
+        assert all([t in range(self.num_obs) for t in stamps]), \
+            f"Some time stamps passed in exceed the limit. Received: {stamps}"
+
+        # The ground truth value for y sequence.
+        hist_y = self.dataset[self.target_col].values
 
         if fillnone:
             recon = [None] * self.num_obs
             for d, t in zip(delta, stamps):
-                recon[t] = self.ground_truth_y[t - 1] + d
+                recon[t] = hist_y[t - 1] + d
         else:
             recon = list()
             for d, t in zip(delta, stamps):
-                recon.append(self.ground_truth_y[t - 1] + d)
+                recon.append(hist_y[t - 1] + d)
         return recon
