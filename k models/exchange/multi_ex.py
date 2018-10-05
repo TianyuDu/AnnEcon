@@ -94,7 +94,7 @@ def visualize_training_result():
         range(
             model.container.num_obs-len(yhat), 
             model.container.num_obs
-        ), 
+        ),
         fillnone=True
     )
     # Forecast trainign set.
@@ -108,7 +108,7 @@ def visualize_training_result():
     plt.plot(yhat, linewidth=0.6, alpha=0.6, label="Test set yhat")
     plt.plot(train_yhat, linewidth=0.6, alpha=0.6, label="Train set yhat")
     plt.plot(model.container.ground_truth_y,
-            linewidth=1.2, alpha=0.3, label="actual")
+        linewidth=1.2, alpha=0.3, label="actual")
     plt.legend()
     action = input("Plot result? \n\t[P] plot result. \n\t[S] save result. \n\t>>>")
     assert action.lower() in ["p", "s"], "Invalid command."

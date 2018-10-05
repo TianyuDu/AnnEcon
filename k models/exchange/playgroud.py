@@ -1,13 +1,14 @@
 quit()
-python3.6 
+python3.6
+import sys
+sys.path.append("./containers/") 
 import config
-import containers.containers
 import methods
-from containers.containers import *
 from methods import *
 from models import *
 from multi_config import *
 
+from multivariate_container import MultivariateContainer
 
 c = MultivariateContainer(
     file_dir,
