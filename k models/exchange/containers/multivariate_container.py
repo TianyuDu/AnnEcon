@@ -1,16 +1,10 @@
-import datetime
-import warnings
-from typing import Tuple, Union
-
-
-import matplotlib
+"""
+This file contains data container instance for multivariate time series (panels)
+"""
 import numpy as np
 import pandas as pd
-import sklearn
-import sklearn.preprocessing
-from matplotlib import pyplot as plt
-from sklearn.metrics import mean_squared_error
-from sklearn.preprocessing import MinMaxScaler
+from typing import Tuple, Union
+
 
 from base_container import BaseContainer
 
@@ -59,7 +53,6 @@ class MultivariateContainer(BaseContainer):
         )
 
         # Differencing to remove non-stationarity.
-        # TODO: Add inverting methods.
         self.diff_dataset = self.dataset.diff()
         self.diff_dataset.fillna(0.0, inplace=True)
 
@@ -110,7 +103,7 @@ class MultivariateContainer(BaseContainer):
     def __repr__(self) -> str:
         return self.__str__()
 
-# TODO: Improve check config method
+    # TODO: Improve check config method
     def __check_config(self, config: dict) -> None:
         """
         Assert the configuration dictionary passed into 
@@ -315,5 +308,5 @@ class MultivariateContainer(BaseContainer):
             recon = list()
             for d, t in zip(delta, stamps):
                 recon.append(hist_y[t - 1] + d)
-                
+
         return recon

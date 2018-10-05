@@ -118,7 +118,7 @@ class UnivariateContainer(BaseContainer):
     def __repr__(self):
         return self.__str__()
 
-    def _split_data(self, data: np.ndarray, tar_idx: Union[int, list] = 0) -> Tuple[np.ndarray]:
+    def _split_data(self, data: np.ndarray, tar_idx: Union[int, list]=0) -> Tuple[np.ndarray]:
         """
         Split data into X,y,train,test sets.
         Return: (train_X, train_y, test_X, test_y), univariate.

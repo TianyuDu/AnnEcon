@@ -1,7 +1,5 @@
 """
-This file contains all container object used in model training.
-Container objects are designed to store all necessary data
-in model training.
+This file contains the base container instance.
 """
 import datetime
 import warnings
@@ -14,8 +12,6 @@ import pandas as pd
 import sklearn
 import sklearn.preprocessing
 from matplotlib import pyplot as plt
-from sklearn.metrics import mean_squared_error
-from sklearn.preprocessing import MinMaxScaler
 
 
 class BaseContainer():
@@ -26,6 +22,15 @@ class BaseContainer():
     def __init__(self):
         self.proc_method = ["diff"]
         print("Base Container Initialized.")
+
+    def __check_config(self):
+        raise NotImplementedError
+
+    def split_data(self):
+        raise NotImplementedError
+
+    def invert_difference(self):
+        raise NotImplementedError
 
     def check_config(self, cf: dict) -> bool:
         """
