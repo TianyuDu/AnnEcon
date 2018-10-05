@@ -37,18 +37,18 @@ class BaseContainer():
         if cf["method"] == "diff":
             assert type(
                 cf["diff.lag"]) is int and cf["diff.lag"] > 0, \
-                    "diff.lag should be a positive integer."
+                "diff.lag should be a positive integer."
             assert type(
                 cf["diff.order"]) is int and cf["diff.order"] >= 0, \
-                    "diff.order should be a non-negative integer."
+                "diff.order should be a non-negative integer."
 
         assert type(
             cf["test_ratio"]) is float and 0 <= cf["test_ratio"] < 1, \
-                "test ratio should be a float between 0 and 1."
+            "test ratio should be a float between 0 and 1."
 
         assert type(
             cf["lag_for_sup"]) is int and cf["lag_for_sup"] >= 1, \
-                "lag_for_sup should be an integer greater or equal to 1."
+            "lag_for_sup should be an integer greater or equal to 1."
 
         print("Configuration check passed.")
         return True
@@ -274,7 +274,7 @@ class UnivariateContainer(BaseContainer):
 
 class MultivariateContainer(BaseContainer):
     """
-        Multivariate data container for RNN prediction.
+        Multivariate container for RNN prediction problem.
     """
 
     def __init__(
@@ -282,10 +282,11 @@ class MultivariateContainer(BaseContainer):
             file_dir: str,
             target_col: str,
             load_data: callable,
-            config: dict = {
+            config: dict={
                 "max_lag": 3,
                 "train_ratio": 0.9,
-                "time_steps": 14
+                "time_steps": 14,
+                "drop_target": False
             }):
         # ======== Pre-requiste ========
         self.__check_config(config)
@@ -295,21 +296,24 @@ class MultivariateContainer(BaseContainer):
         self.dataset = load_data(file_dir)
         assert type(
             self.dataset) is pd.DataFrame, \
-            f"Illegal object returned by data retrieving method, expected: pd.DataFrame, got: {type(self.dataset)}"
+            f"Illegal object returned by data retrieving method, expected: \
+            pd.DataFrame, got: {type(self.dataset)} instead."
 
-        assert target_col in self.dataset.columns, f"Target column {target_col} cannot be found in DataFrame loaded."
+        assert target_col in self.dataset.columns, f"Target column received: {target_col} \
+        cannot be found in DataFrame loaded."
+
         self.target_col = target_col
-        # Not necessary but makes life easier.
-        self.ground_truth_y = self.dataset[target_col].values
+        print(f"\tTarget variable received: {self.target_col}")
 
-        print("Dataset loaded in multi-variate container.")
+        print("Dataset loaded succesfully.")
 
         # Actual Dataset
         self.values = self.dataset.values
         self.num_obs, self.num_fea = self.values.shape
         print(
-            f"\tDataset with {self.num_obs} observations and {self.num_fea} variables. Dataset shape={self.dataset.shape}")
-        print(f"\tTarget variable: {self.target_col}")
+            f"\tDataset with {self.num_obs} observations and {self.num_fea} variables. \
+            \nDataset shape={self.dataset.shape}"
+        )
 
         # Differencing to remove non-stationarity.
         # TODO: Add inverting methods.
@@ -317,106 +321,196 @@ class MultivariateContainer(BaseContainer):
         self.diff_dataset.fillna(0.0, inplace=True)
 
         print(f"Generating supervised learning problem...")
-        self.X, self.y, self.scaler_X, self.scaler_y = self.generate_supervised_learning(
+        self.X, self.y = self.generate_supervised_learning(
             data=self.diff_dataset,
-            time_steps=self.config["time_steps"]  # Time step of look back.
+            time_steps=self.config["time_steps"],  # Time step of look back.
+            drop_target=self.config["drop_target"]
         )
 
         self.train_size = int(
             self.config["train_ratio"] * self.num_obs)  # Get training set size
 
-        (self.train_X, self.train_y, self.test_X, self.test_y) = self.split_data(
-            self.X,
-            self.y,
-            train_size=self.train_size
-        )
+        (self.train_X, self.train_y, self.test_X, self.test_y) \
+            = self.split_data(self.X, self.y, train_size=self.train_size)
 
+        # Scaler run over training the training set.
+        # (self.scaled_train_X, self.scaled_train_y, self.scaler_X, 
+        #  self.scaler_y) = self.scale_data(self.train_X, self.train_y)
+
+        # self.scaled_test_X = self.scaler_X.transform(self.test_X)
+        # self.scaled_test_y = self.scaler_y.transform(self.test_y)
+
+    def __str__(self) -> str:
+        return f"""Multivariate Container:
+        ============Pre-processing Method============
+        Pre-processing method: Differencing
+        ============Raw Data============
+        Aggregate dataset shape: {self.dataset.shape}
+        # Observations: {self.num_obs}
+        # Features: {self.num_fea}
+        ** Differenced dataset shape: {self.diff_dataset.shape}
+        ============Supervised Learning Summary============
+        ++shape format X: (sample * length_series * num_fature)
+        ++shape format y: (sample * 1)
+        Time steps of lagged variables: {self.config["time_steps"]}
+        Total predictor(X) shape: {self.X.shape}
+        Total response(y) shape: {self.y.shape}
+        ============Training & Testing Set Splits============
+        ++shape format X: (sample * length_series * num_fature)
+        ++shape format y: (sample * 1)
+        Training ratio: {self.config["train_ratio"]}
+        Training set predictor(train_X) shape: {self.train_X.shape}
+        Training set response(train_y) shape: {self.train_y.shape}
+        Testing set predictor(test_X) shape: {self.test_X.shape}
+        Testing set response(test_y) shape: {self.test_y.shape}
+        """
+    
+    def __repr__(self) -> str:
+        return self.__str__()
+
+# TODO: Improve check config method
     def __check_config(self, config: dict) -> None:
+        """
+        Assert the configuration dictionary passed into 
+        the model has all its attributes leagel.
+        """
         print("(Multivariate Container) Checking configurations...")
         assert type(config["max_lag"]) is int, \
-            "(Illegal Config) Max lag of supervised learning should be an integer."
+            "(Illegal Config) \
+            Max lag of supervised learning should be an integer."
 
         assert config["max_lag"] >= 1, \
-            "(Illegal Config) Max lag of supervised learning should be greater than or equal to 1."
+            "(Illegal Config) Max lag of supervised learning should \
+            be greater than or equal to 1."
 
-        assert type(config["train_traio"]) is float, \
+        assert type(config["train_ratio"]) is float, \
             "(Illegal Config) Train ratio should be a float."
 
         assert 0.0 < config["train_ratio"] < 1.0, \
             "(Illegal Config) Traio ratio should be on range (0, 1)"
 
         assert type(config["time_steps"]) is int, \
-            "(Illegal Config) Time steps of supervised learning should be an integer."
+            "(Illegal Config) Time steps of supervised \
+            learning should be an integer."
 
         assert config["time_steps"] >= 1.0, \
-            "(Illegal Config) Time steps of supervised learning should be greater than or equal to 1."
+            "(Illegal Config) Time steps of supervised \
+            learning should be greater than or equal to 1."
         print("\tPassed.")
+
+    # def scale_data(
+    #     self, X, y
+    #     ) -> (
+    #         np.ndarray,
+    #         np.ndarray,
+    #         sklearn.preprocessing.StandardScaler,
+    #         sklearn.preprocessing.StandardScaler):
+    #     """
+    #     """
+    #     scaler_X = sklearn.preprocessing.StandardScaler().fit(X)
+    #     scaler_y = sklearn.preprocessing.StandardScaler().fit(y)
+
+    #     X_set = scaler_X.transform(X)
+    #     y_set = scaler_y.transform(y)
+
+    #     return (X_set, y_set, scaler_X, scaler_y)
 
     def generate_supervised_learning(
             self,
             data: pd.DataFrame,
             time_steps: int,
-            drop_target: bool = True) -> (np.array, np.array):
+            drop_target: bool=False) -> (
+                np.array,
+                np.array):
         """
-        Convert data to a supervised learning problem, reframed the data points into 
-        [sample, time_step, feature] format.  # TODO: write doc.
-        Return X @[sample, time_steps=max_lag, num_fea] and y.
+        This method converts data fram with shape
+        (n_sample, n_feature)
+        into a supervised time series learning problem.
+        
+        The generated input X array should have shape
+        (n_sample, time_step, n_feature)
+        The generated output y array should have shape
+        (n_sample, 1)
+
+        which is the next period value of target variable.
+        ============================================================
+        Args:
+            data: the raw data in format of data frame.
+
+            time_steps: the number of lagged values to be used as
+                input X in supervised learning problem.
+
+            drop_target: whether to include the lagged values of value
+                to be predicted (y[t-1]) in the input X for SLP.
+        Returns:
+            X: the array containing all training data X
+                (as bulk of series of past/lagged variables)
+            y: the corresponding target[t] value for each
+                sample generated in the SLP.
         """
 
         num_obs, num_fea = data.shape
+        
         print(
-            f"Creating supervise learning problem with {num_fea} variables and total {time_steps} lagged variables.")
+            f"[IPR]Generating supervise learning problem with {num_fea} variables and total {time_steps} lagged variables.")
 
         y = data[self.target_col]
+
         if drop_target:
             data.drop(columns=[self.target_col], inplace=True)
-
-        scaler_X = sklearn.preprocessing.StandardScaler()
-        # FIXME: Change scaler so that is only scale the training set.
-        scaler_y = sklearn.preprocessing.StandardScaler()
-
-        # TODO: Try removing the lagged value for target.
-        data = pd.DataFrame(scaler_X.fit_transform(data.values))
-        y = pd.DataFrame(scaler_y.fit_transform(y.values.reshape(-1, 1)))
+        y = pd.DataFrame(y.values.reshape(-1, 1))
 
         value = data.values
 
-        X = [None] * num_obs  # Create placeholder for input feed.
+        # X = [None] * num_obs  
+        # If numpy array does not work, use the python built-in list
 
-        for t in range(num_obs):
-            if t - time_steps < 0:  # If there are not enough look back values.
+        X = np.array([None] * num_obs)
+        # Create placeholder for predictors.
+
+        for t in range(num_obs):  # Iterating over all raw sample
+            if t - time_steps < 0:
+                # If there are not enough look back values.
                 X[t] = None
+                # X[t] = np.zeros([time_steps, value.shape[1]])
             else:
-                # Retrive past observations on all concurrent series (including the target).
+                # Retrive past observations on all concurrent series
+                # (including the target).
                 X[t] = value[t - time_steps: t, :]
 
+        # X = [sub for sub in X if sub is not None]  # Drop training
+        # data without enough look back values.
+
         empty = np.zeros_like(X[-1])
-        # X = [sub for sub in X if sub is not None]  # Drop training data without enough look back values.
         X = [empty if sub is None else sub for sub in X]
         X = np.array(X)
 
+        # Check return shape.
         if drop_target:
-            print("Previous values of target(y) IS NOT included in input(X) set.")
+            print("Previous values of target(y) is NOT included in input(X) set.")
             assert X.shape == (num_obs, time_steps, num_fea - 1), \
                 f"Expected shape = {(num_obs, time_steps, num_fea - 1)} \
             Shape received = {X.shape}"
         else:
-            print("Previous values of target(y) IS included in input(X) set.")
+            print("Previous values of target(y) is included in input(X) set.")
             assert X.shape == (num_obs, time_steps, num_fea)
 
-        y = y[-(X.shape[0]):]  # Drop first few target data.
-        y = np.array(y)
-        y = y.reshape(-1, 1)
+        # Drop first few target data.
+        # So that shape y is the in the same length of X.
+        # y = y[-(X.shape[0]):]
+        # Above lines seems to be redundant.
+        # If no further issues present, delete above comments.
+
+        y = np.array(y).reshape(-1, 1)
 
         print(
-            f"Supervised Learning Set Generated: X = {X.shape} in format [sample, time_steps, features], y = {y.shape}")
-        return X, y, scaler_X, scaler_y
+            f"[Done]Supervised Learning Set Generated: X = {X.shape}, y = {y.shape}")
+        return X, y
 
     def split_data(self, X, y, train_size: int) -> Tuple[np.array]:
         """
         Generate training and testing data, both input X and target y.
         """
-
         # scaler = sklearn.preprocessing.StandardScaler()
         # X = scaler.fit_transform(X)
 
@@ -427,14 +521,14 @@ class MultivariateContainer(BaseContainer):
         test_y = y[train_size:, :]
 
         print(f"Split data into training and testing sets \
-        \n\t train_X = {train_X.shape} \
-        \n\t train_y = {train_y.shape} \
-        \n\t test_X = {test_X.shape} \
-        \n\t test_y = {test_y.shape}")
+        \n\ttrain_X = {train_X.shape} \
+        \n\ttrain_y = {train_y.shape} \
+        \n\ttest_X = {test_X.shape} \
+        \n\ttest_y = {test_y.shape}")
 
         return (train_X, train_y, test_X, test_y)
 
-    def invert_difference(
+    def invert_difference(#TODO: improve this method.
         self,
         delta: np.ndarray,
         stamps: np.ndarray,

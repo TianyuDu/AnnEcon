@@ -6,7 +6,8 @@ file_dir = "./data/exchange_rates/exchange_rates_Daily.csv"
 target = "DEXCAUS"
 
 # Function to load data from spread sheet.
-# 
+
+
 def load_multi_ex(file_dir: str) -> pd.DataFrame:
     dataset = pd.read_csv(file_dir, delimiter="\t", index_col=0)
     # Cleaning Data
@@ -22,7 +23,8 @@ def load_multi_ex(file_dir: str) -> pd.DataFrame:
 CON_config = {
     "max_lag": 3,
     "train_ratio": 0.9,
-    "time_steps": 14
+    "time_steps": 14,
+    "drop_target": False
 }
 
 NN_config = {

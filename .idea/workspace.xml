@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c24a2edc-df0a-4e6e-a476-c1a2985d0d24" name="Default Changelist" comment="Default Changelist">
-      <change afterPath="$PROJECT_DIR$/alpha/wiki_price_pred.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/alpha/lstm_stack_alpha2.py" beforeDir="false" afterPath="$PROJECT_DIR$/alpha/lstm_stack_alpha2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/alpha/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/k models/exchange/containers.py" beforeDir="false" afterPath="$PROJECT_DIR$/k models/exchange/containers.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -71,11 +70,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="wiki_price_cnnrnn.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/alpha/models/wiki_price_cnnrnn.py">
+      <file leaf-file-name="containers.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/k models/exchange/containers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="491">
-              <caret line="165" column="16" lean-forward="true" selection-start-line="165" selection-start-column="16" selection-end-line="165" selection-end-column="16" />
+            <state relative-caret-position="682">
+              <caret line="41" column="69" lean-forward="true" selection-start-line="41" selection-start-column="69" selection-end-line="41" selection-end-column="69" />
             </state>
           </provider>
         </entry>
@@ -141,9 +140,10 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectFrameBounds" fullScreen="true">
-    <option name="width" value="2560" />
-    <option name="height" value="1440" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="y" value="23" />
+    <option name="width" value="2555" />
+    <option name="height" value="1177" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -153,6 +153,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -163,13 +164,13 @@
             <path>
               <item name="AnnEcon" type="b2602c69:ProjectViewProjectNode" />
               <item name="AnnEcon" type="462c0819:PsiDirectoryNode" />
-              <item name="alpha" type="462c0819:PsiDirectoryNode" />
+              <item name="k models" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="AnnEcon" type="b2602c69:ProjectViewProjectNode" />
               <item name="AnnEcon" type="462c0819:PsiDirectoryNode" />
-              <item name="alpha" type="462c0819:PsiDirectoryNode" />
-              <item name="models" type="462c0819:PsiDirectoryNode" />
+              <item name="k models" type="462c0819:PsiDirectoryNode" />
+              <item name="exchange" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="AnnEcon" type="b2602c69:ProjectViewProjectNode" />
@@ -179,7 +180,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -371,8 +371,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="2560" height="1440" extended-state="0" />
-    <editor active="true" />
+    <frame x="0" y="23" width="1920" height="1177" extended-state="6" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="13" sideWeight="0.5005549" side_tool="true" weight="0.4" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5004554" side_tool="true" weight="0.32985073" />
@@ -381,15 +380,15 @@
       <window_info anchor="bottom" id="Python Console" order="12" sideWeight="0.7940639" weight="0.36727273" />
       <window_info anchor="bottom" id="Run" order="3" weight="0.32910448" />
       <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49500555" weight="0.30149254" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13195549" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.10074627" />
       <window_info anchor="bottom" id="Statistic" order="0" sideWeight="0.49954462" weight="0.32818183" />
-      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" sideWeight="0.49909583" weight="0.32869634" />
-      <window_info anchor="right" id="SciView" order="5" sideWeight="0.20574817" visible="true" weight="0.16931638" />
+      <window_info anchor="right" id="SciView" order="5" sideWeight="0.20574817" visible="true" weight="0.12579957" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="4" sideWeight="0.49944505" weight="0.43912175" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -439,7 +438,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/model_util.py" />
     <entry file="file://$PROJECT_DIR$/Time_series_python/playground/pandas_panel.py" />
     <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/lstm_stack_alpha2.py" />
     <entry file="file://$PROJECT_DIR$/Time_series_python/alpha/predfine.py" />
@@ -503,90 +501,23 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/alpha/test_file.py" />
-    <entry file="file://$PROJECT_DIR$/alpha/predefine.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/alpha/test_lstm_stack.py">
+    <entry file="file://$PROJECT_DIR$/alpha/predefine.py" />
+    <entry file="file://$PROJECT_DIR$/alpha/test_lstm_stack.py" />
+    <entry file="file://$PROJECT_DIR$/alpha/parameter_util.py" />
+    <entry file="file://$PROJECT_DIR$/alpha/cnnrnn_alpha.py" />
+    <entry file="file://$PROJECT_DIR$/alpha/model_util.py" />
+    <entry file="file://$PROJECT_DIR$/alpha/data_util.py" />
+    <entry file="file://$PROJECT_DIR$/alpha/test_cnnrnn.py" />
+    <entry file="file://$PROJECT_DIR$/alpha/models.py" />
+    <entry file="file://$PROJECT_DIR$/alpha/wiki_price_cnnrnn.py" />
+    <entry file="file://$PROJECT_DIR$/alpha/lstm_stack_alpha2.py" />
+    <entry file="file://$PROJECT_DIR$/alpha/models/models.py" />
+    <entry file="file://$PROJECT_DIR$/alpha/wiki_price_pred.py" />
+    <entry file="file://$PROJECT_DIR$/alpha/models/wiki_price_cnnrnn.py" />
+    <entry file="file://$PROJECT_DIR$/k models/exchange/containers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
-          <caret line="129" column="64" selection-start-line="129" selection-start-column="55" selection-end-line="129" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/alpha/parameter_util.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="398">
-          <caret line="98" column="32" selection-start-line="98" selection-start-column="32" selection-end-line="98" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/alpha/cnnrnn_alpha.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1736">
-          <caret line="62" column="37" selection-start-line="62" selection-start-column="37" selection-end-line="62" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/alpha/model_util.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="560">
-          <caret line="20" column="46" selection-start-line="20" selection-start-column="46" selection-end-line="20" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/alpha/data_util.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="8" column="14" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
-          <folding>
-            <element signature="e#352#1211#0" />
-            <element signature="e#1298#4574#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/alpha/test_cnnrnn.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3312">
-          <caret line="14" column="24" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/alpha/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4452">
-          <caret line="159" column="41" lean-forward="true" selection-start-line="159" selection-start-column="41" selection-end-line="159" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/alpha/wiki_price_cnnrnn.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/alpha/lstm_stack_alpha2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="448">
-          <caret line="16" column="14" lean-forward="true" selection-start-line="16" selection-start-column="14" selection-end-line="16" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/alpha/models/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="13" column="17" lean-forward="true" selection-start-line="13" selection-start-column="17" selection-end-line="13" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/alpha/wiki_price_pred.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1089">
-          <caret line="106" lean-forward="true" selection-start-line="106" selection-end-line="106" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/alpha/models/wiki_price_cnnrnn.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="491">
-          <caret line="165" column="16" lean-forward="true" selection-start-line="165" selection-start-column="16" selection-end-line="165" selection-end-column="16" />
+        <state relative-caret-position="682">
+          <caret line="41" column="69" lean-forward="true" selection-start-line="41" selection-start-column="69" selection-end-line="41" selection-end-column="69" />
         </state>
       </provider>
     </entry>
