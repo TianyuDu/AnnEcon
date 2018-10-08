@@ -14,7 +14,7 @@ import matplotlib
 # for mac OS: os.name == "posix" and sys.platform == "darwin"
 # Use this identifier to automatically decide the following.
 on_server = bool(int(input("Are you on a server wihtout graphic output? [0/1] >>> ")))
-if on_server:   
+if on_server:
     matplotlib.use(
         "agg",
         warn=False,
@@ -38,6 +38,7 @@ from multi_config import *
 
 from multivariate_container import MultivariateContainer
 from multivariate_lstm import MultivariateLSTM
+
 
 def train_new_model():
     """
