@@ -1,8 +1,8 @@
 quit()
 python3.6
 import sys
-sys.path.append("./containers/")
-sys.path.append("./models/")
+sys.path.append("./core/containers/")
+sys.path.append("./core/models/")
 import config
 import methods
 from methods import *

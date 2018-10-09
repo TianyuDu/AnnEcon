@@ -14,7 +14,6 @@ class MultivariateLSTM(BaseModel):
     def __init__(
             self,
             container: MultivariateContainer,
-            api: str="model",
             config: bool=None,
             create_empty: bool=False) -> None:
         """
@@ -27,12 +26,12 @@ class MultivariateLSTM(BaseModel):
 
         self.config = config
         self.container = container
+        self.hist = None
+
         if create_empty:
             self.core = None
-        elif api == "model":
+        else:
             self.core = self._construct_lstm_model(self.config)
-        elif api == "sequential":
-            self.core = self._construct_lstm_sequential(self.config)
 
         self._gen_file_name()
         print(
@@ -59,18 +58,18 @@ class MultivariateLSTM(BaseModel):
 
         lstm = keras.layers.LSTM(
             units=config["nn.lstm1"],
-            return_sequences=True
+            return_sequences=False
         )(normalization)
 
-        dense = keras.layers.Dense(
+        dense1 = keras.layers.Dense(
             units=config["nn.dense1"],
             name="Dense1"
         )(lstm)
 
         predictions = keras.layers.Dense(
             1,
-            name="Dense_output"
-        )(dense)
+            name="Prediction"
+        )(dense1)
 
         model = keras.Model(inputs=input_sequence, outputs=predictions)
 
@@ -81,45 +80,45 @@ class MultivariateLSTM(BaseModel):
             keras.utils.print_summary(model)
         return model
 
-    # def _construct_lstm_sequential(
-    #         self,
-    #         config: dict,
-    #         verbose: bool=True
-    # ) -> keras.Sequential:
-    #     """
-    #     Construct the Stacked lstm model, 
-    #     Note: Modify this method to change model configurations.
-    #     # TODO: Add arbitray layer support. 
-    #     """
-    #     print("MultivariateLSTM: Generating LSTM model with Keras Sequential API")
-    #     model = keras.Sequential()
-    #     model.add(keras.layers.LSTM(
-    #         units=config["nn.lstm1"],
-    #         input_shape=(self.time_steps, self.num_fea),
-    #         return_sequences=True,
-    #         name="LSTM1"
-    #     ))
-    #     model.add(
-    #         keras.layers.LSTM(
-    #             units=config["nn.lstm2"],
-    #             name="LSTM2"
-    #         ))
-    #     model.add(
-    #         keras.layers.Dense(
-    #             units=config["nn.dense1"],
-    #             name="Dense1"
-    #         ))
-    #     model.add(
-    #         keras.layers.Dense(
-    #             units=1,
-    #             name="Dense_output"
-    #         ))
-    #     model.compile(loss="mse", optimizer="adam")
+    def _construct_lstm_sequential(
+            self,
+            config: dict,
+            verbose: bool=True
+    ) -> keras.Sequential:
+        """
+        Construct the Stacked lstm model, 
+        Note: Modify this method to change model configurations.
+        # TODO: Add arbitray layer support. 
+        """
+        print("MultivariateLSTM: Generating LSTM model with Keras Sequential API")
+        model = keras.Sequential()
+        model.add(keras.layers.LSTM(
+            units=config["nn.lstm1"],
+            input_shape=(self.time_steps, self.num_fea),
+            return_sequences=True,
+            name="LSTM1"
+        ))
+        model.add(
+            keras.layers.LSTM(
+                units=config["nn.lstm2"],
+                name="LSTM2"
+            ))
+        model.add(
+            keras.layers.Dense(
+                units=config["nn.dense1"],
+                name="Dense1"
+            ))
+        model.add(
+            keras.layers.Dense(
+                units=1,
+                name="Dense_output"
+            ))
+        model.compile(loss="mse", optimizer="adam")
 
-    #     if verbose:
-    #         print("\tMultivariateLSTM: LSTM model constructed with configuration: ")
-    #         keras.utils.print_summary(model)
-    #     return model
+        if verbose:
+            print("\tMultivariateLSTM: LSTM model constructed with configuration: ")
+            keras.utils.print_summary(model)
+        return model
 
     def update_config(
             self,
@@ -156,9 +155,8 @@ class MultivariateLSTM(BaseModel):
             self,
             X_feed: np.ndarray
     ) -> np.ndarray:
-
         y_hat = self.core.predict(X_feed, verbose=1)
-        y_hat = self.container.scaler_y.inverse_transform(y_hat)
+        # y_hat = self.container.scaler_y.inverse_transform(y_hat)
         # y_hat returned used to compare with self.container.*_X directly.
         return y_hat
 
@@ -200,12 +198,27 @@ class MultivariateLSTM(BaseModel):
             to_file=f"{folder}model.png",
             show_shapes=True,
             show_layer_names=True)
+        
+        # Save training history (if any)
+        if self.hist is not None:
+            hist_loss = np.squeeze(np.array(self.hist.history["loss"]))
+            hist_val_loss = np.squeeze(np.array(self.hist.history["val_loss"]))
+            combined = np.stack([hist_loss, hist_val_loss])
+            combined = np.transpose(combined)
+            df = pd.DataFrame(combined, dtype=np.float32)
+            df.columns = ["loss", "val_loss"]
+            df.to_csv(f"{folder}hist.csv", sep=",")
+            print(f"Training history is saved to {folder}hist.csv...")
+            
+        else:
+            print("No training history found.")
+
         print("Done.")
 
     def load_model(
             self, 
             folder_dir: str
-        ) -> None:
+    ) -> None:
         """
         #TODO: doc
         """

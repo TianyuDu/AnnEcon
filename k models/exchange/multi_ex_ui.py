@@ -1,9 +1,12 @@
 """
 Multivariate Version of exchange prediciton.
 """
+import os
+os.system("clear")
 import sys
-sys.path.append("./containers/")
-sys.path.append("./models/")
+sys.path.append("./core/containers/")
+sys.path.append("./core/models/")
+sys.path.append("./core/tools/")
 import datetime
 
 import keras
@@ -30,14 +33,15 @@ from bokeh.io import show, output_file
 
 from typing import Union, List
 
-import config
-import methods
-from methods import *
-from models import *
+# import config
+# import methods
+# from methods import *
+# from models import *
 from multi_config import *
 
 from multivariate_container import MultivariateContainer
 from multivariate_lstm import MultivariateLSTM
+from bokeh_visualize import advanced_visualize as bvis
 
 
 def train_new_model():
@@ -55,7 +59,7 @@ def train_new_model():
     print(chr(9608))
 
     print("Control: Building up models...")
-    model = MultivariateLSTM(container, NN_config, api="model")
+    model = MultivariateLSTM(container, NN_config)
     print(chr(9608))
 
     model.fit_model(epochs=int(input("Training epochs >>> ")))
@@ -123,86 +127,6 @@ def visualize_training_result():
         plt.savefig(f"./figure/{fig_name}.svg")
         print(f"Control: figure saved to ./figure/{fig_name}.svg")
 
-
-def advanced_visualize():
-    print(f"Control: Building up from container from {file_dir}")
-    container = MultivariateContainer(
-        file_dir,
-        target,
-        load_multi_ex,
-        CON_config)
-    print(chr(9608))
-
-    print("Control: Building empty model...")
-    model = MultivariateLSTM(container, NN_config, create_empty=True)
-    print(chr(9608))
-
-    load_target = input("Model folder name >>> ")
-    load_target = f"./saved_models/{load_target}/"
-    print(f"Control: Loading model from {load_target}...")
-
-    model.load_model(
-        folder_dir=load_target
-    )
-    print(chr(9608))
-
-    print("Control: Building up forecasting...")
-    test_yhat = model.predict(model.container.test_X)
-    test_yhat = model.container.invert_difference(
-        test_yhat,
-        range(
-            model.container.num_obs - len(test_yhat),
-            model.container.num_obs
-        ),
-        fillnone=True
-    )
-    test_yhat = np.squeeze(test_yhat).astype(np.float32)
-
-    train_yhat = model.predict(model.container.train_X)
-    train_yhat = model.container.invert_difference(
-        train_yhat, range(len(train_yhat)), fillnone=True
-    )
-    train_yhat = np.squeeze(train_yhat).astype(np.float32)
-
-    output_file(f"{load_target}visualized.html")
-    print(f"Saving plotting html file to {load_target}visualized.html...")
-    pred_plot = figure(
-        x_axis_label="Date", 
-        y_axis_label="Value",
-        x_axis_type="datetime"
-        # tools="lasso_select, box_select, pan"
-    )
-
-    timeline = pd.DatetimeIndex(container.dataset.index)
-
-    pred_plot.line(
-        timeline,
-        # range(len(model.container.ground_truth_y)),
-        model.container.ground_truth_y,
-        color="navy",
-        alpha=0.3,
-        legend="Actual values"
-    )
-    
-    pred_plot.line(
-        timeline,
-        train_yhat,
-        color="red",
-        alpha=0.7,
-        legend="Training set predictions"
-    )
-
-    pred_plot.line(
-        timeline,
-        test_yhat,
-        color="green",
-        alpha=0.7,
-        legend="Testing set predictions"
-    )
-
-    show(pred_plot)
-
-
 if __name__ == "__main__":
     print("""
     =====================================================================
@@ -232,9 +156,12 @@ if __name__ == "__main__":
     elif task.lower() == "v":
         visualize_training_result()
     elif task.lower() == "b":
-        advanced_visualize()
+        bvis(
+            file_dir=file_dir,
+            target=target,
+            load_multi_ex=load_multi_ex,
+            CON_config=CON_config,
+            NN_config=NN_config
+        )
     elif task.lower() == "q":
         quit()
-
-
-

@@ -133,23 +133,6 @@ class MultivariateContainer(BaseContainer):
             learning should be greater than or equal to 1."
         print("[Done]Passed.")
 
-    # def scale_data(
-    #     self, X, y
-    #     ) -> (
-    #         np.ndarray,
-    #         np.ndarray,
-    #         sklearn.preprocessing.StandardScaler,
-    #         sklearn.preprocessing.StandardScaler):
-    #     """
-    #     """
-    #     scaler_X = sklearn.preprocessing.StandardScaler().fit(X)
-    #     scaler_y = sklearn.preprocessing.StandardScaler().fit(y)
-
-    #     X_set = scaler_X.transform(X)
-    #     y_set = scaler_y.transform(y)
-
-    #     return (X_set, y_set, scaler_X, scaler_y)
-
     def generate_supervised_learning(
             self,
             data: pd.DataFrame,
@@ -310,3 +293,6 @@ class MultivariateContainer(BaseContainer):
                 recon.append(hist_y[t - 1] + d)
 
         return recon
+
+    def get_true_y(self) -> np.ndarray:
+        return self.dataset[self.target_col].values
