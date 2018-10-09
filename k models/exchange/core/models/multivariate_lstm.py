@@ -193,11 +193,14 @@ class MultivariateLSTM(BaseModel):
 
         # Save model illustration to png file.
         print("Saving model visualization...")
-        keras.utils.plot_model(
-            self.core,
-            to_file=f"{folder}model.png",
-            show_shapes=True,
-            show_layer_names=True)
+        try:
+            keras.utils.plot_model(
+                self.core,
+                to_file=f"{folder}model.png",
+                show_shapes=True,
+                show_layer_names=True)
+        except:
+            print("Model illustration cannot be saved.")
         
         # Save training history (if any)
         if self.hist is not None:
